@@ -1,5 +1,6 @@
 import React from "react";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
+import { Link } from "react-router-dom";
 
 export default function RecentApplications() {
   const applications = [
@@ -120,7 +121,7 @@ export default function RecentApplications() {
                 {/* Action */}
                 <td className="px-6 py-4 whitespace-nowrap text-right text-sm">
                   <button className="text-brand-primary font-bold hover:underline">
-                    View Details
+                    <Link to="/jobdetails">View Details</Link>
                   </button>
                 </td>
               </tr>

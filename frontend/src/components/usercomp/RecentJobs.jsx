@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 export default function RecentJobs() {
   const jobs = [
@@ -40,7 +41,7 @@ export default function RecentJobs() {
         </h3>
 
         <button className="text-xs font-semibold text-brand-primary hover:underline">
-          View All
+          <Link to="/jobs">View All</Link>
         </button>
       </div>
 
@@ -82,7 +83,7 @@ export default function RecentJobs() {
 
             {/* Apply Button */}
             <button className="bg-brand-primary text-white px-4 py-2 rounded-full text-xs font-bold hover:shadow-lg transition-all">
-              Apply
+              <Link to="/application">Apply</Link>
             </button>
           </div>
         ))}

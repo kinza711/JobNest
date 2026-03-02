@@ -8,6 +8,7 @@ import {
   FiLock,
   FiArrowRight,
 } from "react-icons/fi";
+import { Link } from "react-router-dom";
 
 const jobs = [
   {
@@ -162,7 +163,9 @@ const AllJobs = () => {
                       : "bg-brand-primary text-white hover:bg-brand-secondary"
                   }`}
                 >
-                  <FiArrowRight />
+                  <Link to="/jobdetails">
+                    <FiArrowRight />
+                  </Link>
                 </button>
               </div>
             </div>

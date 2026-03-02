@@ -8,7 +8,8 @@ import { FaBriefcase } from "react-icons/fa";
 import { BsFillBuildingsFill } from "react-icons/bs";
 import { FaHome } from "react-icons/fa";
 import { FaUsers } from "react-icons/fa";
-import FeaturedJobs from "../components/publicJob/FeaturedJobs";
+import RecentApplications from "../components/usercomp/RecentApplications";
+
 
 const AdminDashboard = () => {
   return (
@@ -63,6 +64,7 @@ const AdminDashboard = () => {
             {/* Left Side - Main Jobs */}
             <div className="lg:col-span-2">
               {/* <FeaturedJobs /> */}
+              <RecentApplications />
             </div>
 
             {/* Right Side - Sidebar Jobs */}

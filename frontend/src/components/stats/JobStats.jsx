@@ -3,6 +3,7 @@ import { FaRegCheckCircle } from "react-icons/fa";
 import { IoHome } from "react-icons/io5";
 import { BsFillBuildingsFill } from "react-icons/bs";
 import { FaPlus } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 export default function JobStats() {
   return (
@@ -21,7 +22,9 @@ export default function JobStats() {
             <span className="material-symbols-outlined">
               <FaPlus />
             </span>
-            <span className="">Post New Job</span>
+            <span className="">
+              <Link to="/postjob"> Post New Job</Link>
+            </span>
           </button>
         </div>
         {/* stats */}

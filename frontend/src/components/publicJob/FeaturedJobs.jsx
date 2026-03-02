@@ -43,11 +43,11 @@ const FeaturedJobs = () => {
       </div>
 
       {/* CTA Button */}
-      <div className="mt-14 text-center">
+      {/* <div className="mt-14 text-center">
         <button className="px-10 py-3 bg-brand-primary hover:bg-brand-secondary text-white font-semibold rounded-2xl transition-all duration-300 shadow-lg hover:shadow-xl">
           Browse All 2,400+ Jobs
         </button>
-      </div>
+      </div> */}
     </section>
   );
 };

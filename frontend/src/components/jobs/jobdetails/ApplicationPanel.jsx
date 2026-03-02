@@ -1,4 +1,5 @@
 import { IoIosRocket } from "react-icons/io";
+import { Link } from "react-router-dom";
 
 const ApplicationPanel = () => (
   <div className=" top-24 space-y-6">
@@ -14,7 +15,7 @@ const ApplicationPanel = () => (
       </div>
       <div className="space-y-4">
         <button className="w-full py-4 bg-brand-primary hover:bg-brand-primary/90 text-white font-bold rounded-xl transition-all transform hover:-translate-y-0.5 active:translate-y-0 shadow-lg shadow-brand-primary/20 flex items-center justify-center gap-2">
-          Apply Now
+          <Link to="/application"> Apply Now</Link>
           <IoIosRocket className="text-xl" />
         </button>
       </div>
