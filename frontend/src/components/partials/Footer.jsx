@@ -14,7 +14,7 @@ const Footer = () => {
                 </svg>
               </div>
               <h2 class="text-2xl font-bold tracking-tight">
-                Job<span class="text-brand-primary">Portal</span>
+                Job<span class="text-brand-primary">Nest</span>
               </h2>
             </div>
             <p class="text-brand-gray-500 dark:text-brand-gray-400 font-medium max-w-xs leading-relaxed">

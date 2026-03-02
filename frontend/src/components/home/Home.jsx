@@ -1,12 +1,11 @@
-import FeaturedJobs from "../components/home/FeaturedJobs";
-import Hero from "../components/home/Hero";
-import Header from "../components/partials/Header";
-import Footer from "../components/partials/Footer";
-import WhyChooseUs from "../components/home/WhyChooseUs";
-import Timeline from "../components/home/Timeline";
-import Mission from "../components/home/Mission";
-import CTA from "../components/home/CTA";
-import Steps from "../components/home/Steps";
+import FeaturedJobs from "../Commonhome/FeaturedJobs";
+import Hero from "../Commonhome/Hero";
+
+import WhyChooseUs from "../Commonhome/WhyChooseUs";
+import Timeline from "../Commonhome/Timeline";
+import Mission from "../Commonhome/Mission";
+import CTA from "../Commonhome/CTA";
+import Steps from "../Commonhome/Steps";
 
 export default function Home() {
   return (
@@ -14,8 +13,6 @@ export default function Home() {
       <div className="relative flex min-h-screen w-full flex-col overflow-x-hidden">
         <div className="flex flex-1 justify-center py-5">
           <div className="layout-content-container  flex flex-col w-full max-w-7xl px-4">
-            <Header />
-
             {/* HERO SECTION */}
             <main className="flex-grow">
               <Hero />
@@ -28,7 +25,6 @@ export default function Home() {
             </main>
           </div>
         </div>
-        <Footer />
       </div>
     </div>
   );

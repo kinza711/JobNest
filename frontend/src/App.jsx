@@ -1,21 +1,37 @@
-import Home from "./pages/Home";
+import React from "react";
+import HomePage from "./pages/HomePage";
+import LoginPage from "./pages/LoginPage";
+import RegisterPage from "./pages/RegisterPage";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import F404Page from "./pages/F404Page";
+import UnAuthPage from "./pages/UnAuthPage";
+import UserDashboard from "./pages/UserDashboard";
+import MyApplicationsPage from "./pages/MyApplicationsPage";
+import ProfilePage from "./pages/ProfilePage";
+import PrivacyPolicyPage from "./pages/PrivacyPage";
+import AdminDashboard from "./pages/AdminDashboard";
+import JObManag from "./pages/JobManag";
 
-export default function App() {
+const App = () => {
   return (
-    <div className="bg-[#F9FAFB] dark:bg-brand-gray-900 font-display text-brand-gray-800 dark:text-brand-gray-100">
-      <div className="relative flex min-h-screen w-full flex-col overflow-x-hidden">
-        <div className="flex flex-1 justify-center py-5">
-          <div className="layout-content-container  flex flex-col w-full max-w-7xl px-4">
-            {/* <Header /> */}
-
-            {/* HERO SECTION */}
-            <main className="flex-grow">
-              <Home />
-            </main>
-          </div>
-        </div>
-        {/* <Footer /> */}
-      </div>
-    </div>
+    <>
+      <Router>
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/register" element={<RegisterPage />} />
+          <Route path="*" element={<F404Page />} />
+          <Route path="/unauth" element={<UnAuthPage />} />
+          <Route path="/userdashboard" element={<UserDashboard />} />
+          <Route path="/admindashboard" element={<AdminDashboard />} />
+          <Route path="/myapplications" element={<MyApplicationsPage />} />
+          <Route path="/profile" element={<ProfilePage />} />
+          <Route path="/policy" element={<PrivacyPolicyPage />} />
+          <Route path="/jobmanagement" element={<JObManag />} />
+        </Routes>
+      </Router>
+    </>
   );
-}
+};
+
+export default App;
