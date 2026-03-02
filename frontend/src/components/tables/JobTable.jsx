@@ -1,190 +1,133 @@
 import React from "react";
+import { MdOutlineRemoveRedEye, MdDelete, MdEdit } from "react-icons/md";
 
 export default function JobTable() {
+  const jobs = [
+    {
+      id: 1,
+      title: "Senior Cloud Engineer",
+      department: "Infrastructure Dept • Remote",
+      date: "May 12, 2024",
+
+      newCandidates: 12,
+      status: "Live",
+    },
+    {
+      id: 2,
+      title: "Product Marketing Manager",
+      department: "Growth Team • London, UK",
+      date: "May 10, 2024",
+
+      newCandidates: null,
+      status: "Live",
+    },
+    {
+      id: 3,
+      title: "Junior Web Developer",
+      department: "Studio • Hybrid",
+      date: "May 08, 2024",
+
+      newCandidates: null,
+      status: "Pending",
+    },
+  ];
+
   return (
-    <div className="bg-white dark:bg-gray-900 rounded-xl shadow-soft border border-border-light dark:border-border-dark overflow-hidden">
+    <div className="bg-white dark:bg-gray-900 rounded-xl shadow-xl border border-gray-200 overflow-hidden">
       <div className="overflow-x-auto">
         <table className="w-full text-left border-collapse">
           <thead className="bg-gray-50 dark:bg-gray-800/50">
             <tr>
-              <th className="px-6 py-4 text-xs font-bold text-neutral-gray uppercase tracking-wider border-b border-border-light dark:border-border-dark">
+              <th className="px-6 py-4 text-xs font-bold text-brand-gray-500 uppercase tracking-wider border-b border-border-light dark:border-border-dark">
                 Job Details
               </th>
-              <th className="px-6 py-4 text-xs font-bold text-neutral-gray uppercase tracking-wider border-b border-border-light dark:border-border-dark">
+              <th className="px-6 py-4 text-xs font-bold text-brand-gray-500 uppercase tracking-wider border-b border-border-light dark:border-border-dark">
                 Date Posted
               </th>
-              <th className="px-6 py-4 text-xs font-bold text-neutral-gray uppercase tracking-wider border-b border-border-light dark:border-border-dark">
-                Candidates
-              </th>
-              <th className="px-6 py-4 text-xs font-bold text-neutral-gray uppercase tracking-wider border-b border-border-light dark:border-border-dark">
+
+              <th className="px-6 py-4 text-xs font-bold text-brand-gray-500 uppercase tracking-wider border-b border-border-light dark:border-border-dark">
                 Status
               </th>
-              <th className="px-6 py-4 text-xs font-bold text-neutral-gray uppercase tracking-wider border-b border-border-light dark:border-border-dark text-right">
+              <th className="px-6 py-4 text-xs font-bold text-brand-gray-500 uppercase tracking-wider border-b border-border-light dark:border-border-dark text-right">
                 Management
               </th>
             </tr>
           </thead>
 
-          <tbody className="divide-y divide-border-light dark:divide-border-dark">
-            {/* Row 1 */}
-            <tr className="hover:bg-gray-50/80 dark:hover:bg-gray-800/30 transition-colors">
-              <td className="px-6 py-5">
-                <div className="flex flex-col">
-                  <span className="font-bold text-navy dark:text-white">
-                    Senior Cloud Engineer
-                  </span>
-                  <span className="text-xs text-neutral-gray font-medium">
-                    Infrastructure Dept • Remote
-                  </span>
-                </div>
-              </td>
-              <td className="px-6 py-5 text-sm text-neutral-gray font-medium">
-                May 12, 2024
-              </td>
-              <td className="px-6 py-5">
-                <div className="flex items-center gap-2">
-                  <span className="text-sm font-bold text-navy dark:text-white">
-                    128
-                  </span>
-                  <span className="text-[10px] bg-primary/10 text-primary px-1.5 py-0.5 rounded font-bold">
-                    New: 12
-                  </span>
-                </div>
-              </td>
-              <td className="px-6 py-5">
-                <span className="inline-flex items-center gap-1.5 rounded-full bg-success/10 px-3 py-1 text-xs font-bold text-success border border-success/20">
-                  <span className="size-1.5 rounded-full bg-success"></span>
-                  Live
-                </span>
-              </td>
-              <td className="px-6 py-5">
-                <div className="flex justify-end gap-1">
-                  <button className="p-2 rounded-lg text-neutral-gray hover:bg-gray-100 hover:text-navy transition-all">
-                    <span className="material-symbols-outlined text-lg">
-                      visibility
+          <tbody className="divide-y divide-gray-200 dark:divide-border-dark">
+            {jobs.map((job) => (
+              <tr
+                key={job.id}
+                className="hover:bg-gray-50/80 dark:hover:bg-gray-800/30 transition-colors"
+              >
+                {/* Job Details */}
+                <td className="px-6 py-5">
+                  <div className="flex flex-col">
+                    <span className="font-bold text-navy dark:text-white">
+                      {job.title}
                     </span>
-                  </button>
-                  <button className="p-2 rounded-lg text-neutral-gray hover:bg-gray-100 hover:text-navy transition-all">
-                    <span className="material-symbols-outlined text-lg">
-                      edit
+                    <span className="text-xs text-brand-gray-500 font-medium">
+                      {job.department}
                     </span>
-                  </button>
-                  <button className="p-2 rounded-lg text-neutral-gray hover:bg-red-50 hover:text-red-600 transition-all">
-                    <span className="material-symbols-outlined text-lg">
-                      delete
-                    </span>
-                  </button>
-                </div>
-              </td>
-            </tr>
+                  </div>
+                </td>
 
-            {/* Row 2 */}
-            <tr className="hover:bg-gray-50/80 dark:hover:bg-gray-800/30 transition-colors">
-              <td className="px-6 py-5">
-                <div className="flex flex-col">
-                  <span className="font-bold text-navy dark:text-white">
-                    Product Marketing Manager
-                  </span>
-                  <span className="text-xs text-neutral-gray font-medium">
-                    Growth Team • London, UK
-                  </span>
-                </div>
-              </td>
-              <td className="px-6 py-5 text-sm text-neutral-gray font-medium">
-                May 10, 2024
-              </td>
-              <td className="px-6 py-5">
-                <span className="text-sm font-bold text-navy dark:text-white">
-                  84
-                </span>
-              </td>
-              <td className="px-6 py-5">
-                <span className="inline-flex items-center gap-1.5 rounded-full bg-success/10 px-3 py-1 text-xs font-bold text-success border border-success/20">
-                  <span className="size-1.5 rounded-full bg-success"></span>
-                  Live
-                </span>
-              </td>
-              <td className="px-6 py-5">
-                <div className="flex justify-end gap-1">
-                  <button className="p-2 rounded-lg text-neutral-gray hover:bg-gray-100 hover:text-navy transition-all">
-                    <span className="material-symbols-outlined text-lg">
-                      visibility
-                    </span>
-                  </button>
-                  <button className="p-2 rounded-lg text-neutral-gray hover:bg-gray-100 hover:text-navy transition-all">
-                    <span className="material-symbols-outlined text-lg">
-                      edit
-                    </span>
-                  </button>
-                  <button className="p-2 rounded-lg text-neutral-gray hover:bg-red-50 hover:text-red-600 transition-all">
-                    <span className="material-symbols-outlined text-lg">
-                      delete
-                    </span>
-                  </button>
-                </div>
-              </td>
-            </tr>
+                {/* Date */}
+                <td className="px-6 py-5 text-sm text-brand-gray-500 font-medium">
+                  {job.date}
+                </td>
 
-            {/* Row 3 */}
-            <tr className="hover:bg-gray-50/80 dark:hover:bg-gray-800/30 transition-colors">
-              <td className="px-6 py-5">
-                <div className="flex flex-col">
-                  <span className="font-bold text-navy dark:text-white">
-                    Junior Web Developer
-                  </span>
-                  <span className="text-xs text-neutral-gray font-medium">
-                    Studio • Hybrid
-                  </span>
-                </div>
-              </td>
-              <td className="px-6 py-5 text-sm text-neutral-gray font-medium">
-                May 08, 2024
-              </td>
-              <td className="px-6 py-5">
-                <span className="text-sm font-bold text-navy dark:text-white">
-                  216
-                </span>
-              </td>
-              <td className="px-6 py-5">
-                <span className="inline-flex items-center gap-1.5 rounded-full bg-orange-100 px-3 py-1 text-xs font-bold text-orange-600 border border-orange-200">
-                  <span className="size-1.5 rounded-full bg-orange-600"></span>
-                  Pending
-                </span>
-              </td>
-              <td className="px-6 py-5">
-                <div className="flex justify-end gap-1">
-                  <button className="p-2 rounded-lg text-neutral-gray hover:bg-gray-100 hover:text-navy transition-all">
-                    <span className="material-symbols-outlined text-lg">
-                      visibility
+                {/* Status */}
+                <td className="px-6 py-5">
+                  {job.status === "Live" ? (
+                    <span className="inline-flex items-center gap-1.5 rounded-full bg-brand-secondary/10 px-3 py-1 text-xs font-bold text-brand-secondary border border-brand-secondary/20">
+                      <span className="size-1.5 rounded-full bg-brand-secondary animate-ping"></span>
+                      Live
                     </span>
-                  </button>
-                  <button className="p-2 rounded-lg text-neutral-gray hover:bg-gray-100 hover:text-navy transition-all">
-                    <span className="material-symbols-outlined text-lg">
-                      edit
+                  ) : (
+                    <span className="inline-flex items-center gap-1.5 rounded-full bg-brand-primary/10 px-3 py-1 text-xs font-bold text-brand-primary border border-brand-primary/10">
+                      <span className="size-1.5 rounded-full bg-brand-primary"></span>
+                      Pending
                     </span>
-                  </button>
-                  <button className="p-2 rounded-lg text-neutral-gray hover:bg-red-50 hover:text-red-600 transition-all">
-                    <span className="material-symbols-outlined text-lg">
-                      delete
-                    </span>
-                  </button>
-                </div>
-              </td>
-            </tr>
+                  )}
+                </td>
+
+                {/* Management */}
+                <td className="px-6 py-5">
+                  <div className="flex justify-end gap-1">
+                    <button className="p-2 rounded-lg text-gary-500 bg-gray-200  hover:bg-gray-100 hover:text-navy transition-all">
+                      <span className="material-symbols-outlined text-lg">
+                        <MdOutlineRemoveRedEye />
+                      </span>
+                    </button>
+                    <button className="p-2 rounded-lg text-gray-500 hover:bg-gray-100 bg-brand-secondary/10 hover:text-navy transition-all">
+                      <span className="material-symbols-outlined text-lg">
+                        <MdEdit />
+                      </span>
+                    </button>
+                    <button className="p-2 rounded-lg text-neutral-gray bg-brand-primary/10 hover:bg-brand-primary/30 hover:text-brand-primary transition-all">
+                      <span className="material-symbols-outlined text-lg">
+                        <MdDelete />
+                      </span>
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            ))}
           </tbody>
         </table>
       </div>
 
-      {/* Pagination */}
-      <div className="px-6 py-4 flex items-center justify-between border-t border-border-light dark:border-border-dark bg-gray-50 dark:bg-gray-800/50">
-        <p className="text-xs font-semibold text-neutral-gray uppercase tracking-wider">
+      {/* Pagination (unchanged) */}
+      <div className="px-6 py-4 flex items-center justify-between border-t border-gray-200 dark:border-border-dark bg-gray-50 dark:bg-gray-800/50">
+        <p className="text-xs font-semibold text-gray-500 uppercase tracking-wider">
           Page 1 of 42
         </p>
         <div className="flex gap-2">
-          <button className="px-4 py-2 text-xs font-bold text-neutral-gray bg-white dark:bg-gray-900 border border-border-light dark:border-border-dark rounded-lg hover:bg-gray-50">
+          <button className="px-4 py-2 text-xs font-bold text-gray-500 bg-white dark:bg-gray-900 border border-gray-200 dark:border-border-dark rounded-lg hover:bg-gray-50">
             Previous
           </button>
-          <button className="px-4 py-2 text-xs font-bold text-white bg-primary rounded-lg shadow-sm">
+          <button className="px-4 py-2 text-xs font-bold text-white bg-brand-primary rounded-lg shadow-sm">
             Next
           </button>
         </div>

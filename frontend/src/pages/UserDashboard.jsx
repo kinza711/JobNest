@@ -2,9 +2,8 @@ import React from "react";
 import UserSidebar from "../components/sidebars/UserSidebar";
 import UserHeader from "../components/headers/UserHeader";
 import UserDashboardStats from "../components/stats/UserDashboardStats";
-
-import RecentApplications from "../components/usercomp/RecentApplications";
 import RecentJobs from "../components/usercomp/RecentJobs";
+import RecentApplications from "../components/usercomp/RecentApplications";
 
 export default function Dashboard() {
   return (
@@ -18,7 +17,10 @@ export default function Dashboard() {
           <UserDashboardStats />
 
           <div className="grid grid-cols-3 gap-8">
-            <div className="col-span-2">{/* <RecentApplications /> */}</div>
+            <div className="col-span-2">
+              {/* <RecentApplications /> */}
+              <RecentApplications />
+            </div>
 
             <RecentJobs />
           </div>

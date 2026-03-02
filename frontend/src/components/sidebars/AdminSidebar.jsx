@@ -39,7 +39,7 @@ const AdminSidebar = () => {
           <span className="text-sm font-semibold">Dashboard Overview</span>
         </Link>
         <Link
-          to=""
+          to="/usermanagement"
           className="flex items-center gap-3 px-4 py-3 text-brand-primary bg-brand-primary/10 border border-brand-primary/10 rounded-xl transition-all"
         >
           <span className="material-symbols-outlined fill-1">
@@ -48,7 +48,7 @@ const AdminSidebar = () => {
           <span className="text-sm font-semibold">User Management</span>
         </Link>
         <Link
-          to=""
+          to="/empmanagement"
           className="flex items-center gap-3 px-4 py-3 text-slate-500 hover:bg-slate-50 rounded-xl transition-all group"
         >
           <span className="material-symbols-outlined fill-1">
@@ -75,7 +75,7 @@ const AdminSidebar = () => {
           <span className="text-sm font-semibold">Profile</span>
         </Link>
         <Link
-          to=""
+          to="/postjob"
           className="flex items-center gap-3 px-4 py-3 text-slate-500 hover:bg-slate-50 rounded-xl transition-all group"
         >
           <span className="material-symbols-outlined group-hover:text-brand-primary">
@@ -84,7 +84,7 @@ const AdminSidebar = () => {
           <span className="text-sm font-semibold">Job Postings</span>
         </Link>
         <Link
-          to=""
+          to="/download"
           className="flex items-center gap-3 px-4 py-3 text-slate-500 hover:bg-slate-50 rounded-xl transition-all group"
         >
           <span className="material-symbols-outlined group-hover:text-brand-primary">

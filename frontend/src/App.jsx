@@ -11,6 +11,15 @@ import ProfilePage from "./pages/ProfilePage";
 import PrivacyPolicyPage from "./pages/PrivacyPage";
 import AdminDashboard from "./pages/AdminDashboard";
 import JObManag from "./pages/JobManag";
+import UserManagPage from "./pages/UserManagPage";
+import EmpManagPage from "./pages/EmpManagPage";
+import JobPostPage from "./pages/JobPostPage";
+import EmpDashbaord from "./pages/EmpDashboard";
+import ApplicationPage from "./pages/ApplicationPage";
+import JobsPage from "./pages/JobsPage";
+import CandidateDetail from "./pages/CandidateDetailPage";
+import JobDetailsPage from "./pages/JobDetailsPage";
+import CvDownloads from "./pages/CVdownloadPage";
 
 const App = () => {
   return (
@@ -28,6 +37,15 @@ const App = () => {
           <Route path="/profile" element={<ProfilePage />} />
           <Route path="/policy" element={<PrivacyPolicyPage />} />
           <Route path="/jobmanagement" element={<JObManag />} />
+          <Route path="/usermanagement" element={<UserManagPage />} />
+          <Route path="/empmanagement" element={<EmpManagPage />} />
+          <Route path="/postjob" element={<JobPostPage />} />
+          <Route path="/empdashboard" element={<EmpDashbaord />} />
+          <Route path="/application" element={<ApplicationPage />} />
+          <Route path="/jobs" element={<JobsPage />} />
+          <Route path="/appdetails" element={<CandidateDetail />} />
+          <Route path="/jobdetails" element={<JobDetailsPage />} />
+          <Route path="/download" element={<CvDownloads />} />
         </Routes>
       </Router>
     </>

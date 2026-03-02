@@ -2,34 +2,15 @@ import React from "react";
 import Header from "../components/headers/UserHeader";
 import AdminSidebar from "../components/sidebars/AdminSidebar";
 import AdminStats from "../components/stats/AdminStats";
-import TrafficEngagement from "../components/unique/TrafficEngagement";
-import CategoryDistribution from "../components/unique/CategoryDistribution";
-import JobTable from "../components/tables/JobTable";
+
+import RecentJobs from "../components/usercomp/RecentJobs";
 import { FaBriefcase } from "react-icons/fa";
 import { BsFillBuildingsFill } from "react-icons/bs";
 import { FaHome } from "react-icons/fa";
 import { FaUsers } from "react-icons/fa";
+import FeaturedJobs from "../components/publicJob/FeaturedJobs";
 
 const AdminDashboard = () => {
-  // Dummy data for TrafficEngagement
-  const trafficData = [
-    {
-      path: "M0,160 Q80,140 160,170 T320,130 T500,100",
-      stroke: "#10B981",
-    },
-    {
-      path: "M0,120 Q100,60 200,100 T400,40 T500,80",
-      stroke: "#F97316",
-    },
-  ];
-
-  // Dummy data for CategoryDistribution
-  const categoryData = [
-    { name: "Technology", color: "#F97316", percentage: 65, offset: 0 },
-    { name: "Management", color: "#10B981", percentage: 25, offset: -65 },
-    { name: "Others", color: "#CBD5E1", percentage: 10, offset: -90 },
-  ];
-
   return (
     <div className="flex h-screen w-full overflow-hidden">
       <AdminSidebar />
@@ -77,19 +58,18 @@ const AdminDashboard = () => {
               },
             ]}
           />
-          <div className="charts lg:grid-cols-2 md:grid-cols-2 grid gap-5">
-            {/* Traffic & Engagement */}
-            <TrafficEngagement
-              title="Traffic & Engagement"
-              subtitle="Daily user visits and application trends"
-              data={trafficData}
-            />
 
-            {/* Category Distribution */}
-            <CategoryDistribution occupancy="92%" categories={categoryData} />
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            {/* Left Side - Main Jobs */}
+            <div className="lg:col-span-2">
+              {/* <FeaturedJobs /> */}
+            </div>
+
+            {/* Right Side - Sidebar Jobs */}
+            <div className="lg:col-span-1">
+              <RecentJobs />
+            </div>
           </div>
-
-          <JobTable />
         </div>
       </main>
     </div>

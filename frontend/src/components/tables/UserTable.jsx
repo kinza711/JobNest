@@ -7,35 +7,35 @@ const users = [
   {
     name: "Alex Johnson",
     email: "alex.j@example.com",
-    Titel: "Admin",
+    Titel: "AI/ML engenier",
     initials: "AJ",
     color: "orange",
   },
   {
     name: "Brenda Smith",
     email: "brenda.s@example.com",
-    Titel: "Employee",
+    Titel: "MERN developer",
     initials: "BS",
     color: "blue",
   },
   {
     name: "Charlie Brown",
     email: "charlie.b@example.com",
-    Titel: "User",
+    Titel: "Laraval Developer",
     initials: "CB",
     color: "green",
   },
   {
     name: "Diana Prince",
     email: "diana.p@example.com",
-    Titel: "User",
+    Titel: "React frontend developer",
     initials: "DP",
     color: "blue",
   },
   {
     name: "Ethan Hunt",
     email: "ethan.h@example.com",
-    Titel: "Employee",
+    Titel: "Wordpress Developer",
     initials: "EH",
     color: "orange",
   },
@@ -48,7 +48,7 @@ const UserTable = () => {
         <div className="flex items-center gap-4">
           <h4 className="font-bold text-slate-800">User List</h4>
           <div className="flex items-center gap-1 bg-slate-100 px-3 py-1 rounded-full">
-            <span className="size-2 rounded-full bg-brand-secondary"></span>
+            <span className="size-2 rounded-full bg-brand-secondary animate-pulse"></span>
             <span className="text-[11px] font-bold text-slate-600">
               42 Members Online
             </span>
