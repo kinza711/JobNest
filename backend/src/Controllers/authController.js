@@ -64,6 +64,36 @@ export const Login = async (req, res) => {
       });
     }
     // skip JWT for now only
+    const token = jwt.sign(
+      {
+        id: user._id,
+        name: user.name,
+        role: user.role,
+        email: user.email,
+      },
+      process.env.JWT_SECRET,
+      { expireIn: "1d" },
+    );
+    console.log(token);
+
+    // for cloudinary pics
+    // let picUrl = user.pic;
+    // if (user.pic && !picUrl.startsWith("https")) {
+    //   picUrl = `https.cloudinary.com/${process.env.CLOUDE_NAME}/images/upload/${picUrl}`;
+    // }
+
+    res.status(200).json({
+      message: "user is varified or loggedin ",
+      user: {
+        token: token,
+        name: user.name,
+        id: user._id,
+        email: user.email,
+        role: user.role,
+        //pic:user.pic
+      },
+    });
+    console.log(user);
 
     // set simple login
     if (role === "Admin") {
