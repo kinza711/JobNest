@@ -1,0 +1,21 @@
+# Node modules
+node_modules/
+
+# Env files
+.env
+.env.production
+# ALl Text Files 
+*.text
+# Logs
+logs/
+*.log
+npm-debug.log*
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE/editor files
+.vscode/
+.idea/
+
