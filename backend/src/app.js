@@ -1,12 +1,11 @@
-import express from "express"
+import express from "express";
 const app = express();
 //import cors from "cors"
-
+import authRoutes from "./Routes/authRoutes.js";
 
 // to fetch and store data
-app.use(express.urlencoded({extended: true}));
+app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-
 
 //cors setup for both production and local system
 // const allowedOrigin = process.env.NODE_ENV === "production"
@@ -16,16 +15,18 @@ app.use(express.json());
 //   credentials: true
 // }));
 
+app.use("/uploads", express.static("uploads"));
 
-app.use("/uploads", express.static("uploads"))
+//set Routes
+app.use("/", authRoutes);
 
-//default apge 
-app.get("/", (req, res)=>{
-    res.send("welcome to the backend kinza")
-})
+//default apge
+app.get("/", (req, res) => {
+  res.send("welcome to the backend kinza");
+});
 //404  page
-app.get((req, res)=>{
-    res.send("Sorry its bad request 404 page")
-})
+app.use((req, res) => {
+  res.send("Sorry its bad request 404 page");
+});
 
-export default app
+export default app;
