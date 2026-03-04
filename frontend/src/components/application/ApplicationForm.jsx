@@ -21,6 +21,7 @@ const JobApplicationForm = () => {
     resume: null,
     relocate: false,
     newsletter: true,
+    Experience: "fresher",
     availability: "Immediate",
   });
 
@@ -229,6 +230,30 @@ const JobApplicationForm = () => {
                     onChange={handleChange}
                     className="h-5 w-5 text-brand-primary"
                   />
+                </div>
+
+                <div className="pt-4 border-t border-slate-100 dark:border-slate-800">
+                  <label className="block text-sm font-semibold mb-2">
+                    Experience
+                  </label>
+                  {["fresher", "1-2 years", "2-3 years", "6-10 years"].map(
+                    (option) => (
+                      <label
+                        key={option}
+                        className="flex items-center gap-3 cursor-pointer mb-2"
+                      >
+                        <input
+                          type="radio"
+                          name="Experience"
+                          value={option}
+                          checked={form.Experience === option}
+                          onChange={handleChange}
+                          className="h-4 w-4 text-brand-primary"
+                        />
+                        <span className="text-sm">{option}</span>
+                      </label>
+                    ),
+                  )}
                 </div>
 
                 <div className="pt-4 border-t border-slate-100 dark:border-slate-800">

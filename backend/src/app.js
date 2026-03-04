@@ -3,6 +3,7 @@ const app = express();
 //import cors from "cors"
 import authRoutes from "./Routes/authRoutes.js";
 import jobRoutes from "./Routes/jobRoutes.js";
+import applicationRoutes from "./Routes/applicationRoutes.js";
 
 // to fetch and store data
 app.use(express.urlencoded({ extended: true }));
@@ -21,6 +22,7 @@ app.use("/uploads", express.static("uploads"));
 //set Routes
 app.use("/", authRoutes);
 app.use("/", jobRoutes);
+app.use("/", applicationRoutes);
 
 //default apge
 app.get("/", (req, res) => {
