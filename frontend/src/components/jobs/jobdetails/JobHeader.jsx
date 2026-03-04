@@ -18,17 +18,19 @@ const JobHeader = () => (
       </div>
       <div className="flex-1">
         <h1 className="text-3xl font-bold text-slate-900 dark:text-white mb-2">
-          Senior UI/UX Designer
+          Senior UI/UX Designer{" "}
+          <span className="text-brand-primary">AI/ML Engieneer</span>
         </h1>
         <div className="flex flex-wrap items-center gap-4 text-slate-600 dark:text-slate-400 mb-6">
           <div className="flex items-center gap-1.5 ">
-            <FiBriefcase className="text-brand-primary"/> TechFlow Systems
+            <FiBriefcase className="text-brand-primary" /> TechFlow Systems
           </div>
           <div className="flex items-center gap-1.5 ">
-            <FiMapPin className="text-brand-primary"/> San Francisco, CA (Hybrid)
+            <FiMapPin className="text-brand-primary" /> San Francisco, CA
+            (Hybrid)
           </div>
           <div className="flex items-center gap-1.5 ">
-            <FiClock className="text-brand-primary"/> 2 days ago
+            <FiClock className="text-brand-primary" /> 2 days ago
           </div>
         </div>
         <div className="flex flex-wrap gap-3">

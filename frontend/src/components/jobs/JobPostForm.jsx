@@ -7,6 +7,8 @@ import {
   MdPayments,
   MdInfo,
 } from "react-icons/md";
+import { FaUsersBetweenLines } from "react-icons/fa6";
+import { CiGlobe } from "react-icons/ci";
 
 const JobPostForm = () => {
   const [form, setForm] = useState({
@@ -37,7 +39,7 @@ const JobPostForm = () => {
     setForm({
       title: "",
       company: "",
-      category: "Design",
+      category: "Web Developer",
       location: "",
       salary: "",
       description: "",
@@ -45,6 +47,9 @@ const JobPostForm = () => {
       remote: true,
       urgent: false,
       jobType: "Full-time",
+      companySize: "",
+      industry: "",
+      keys: "",
     });
   };
 
@@ -123,10 +128,11 @@ const JobPostForm = () => {
                       onChange={handleChange}
                       className="w-full rounded-xl py-2 px-3 bg-slate-100 border-slate-200 dark:border-slate-700  dark:bg-slate-800 focus:border-brand-primary focus:ring-brand-primary text-slate-900 dark:text-white"
                     >
-                      <option>Design</option>
-                      <option>Engineering</option>
+                      <option>Web Developer</option>
+                      <option>AI/ML Engineer</option>
+                      <option>UI/UX Designer</option>
+                      <option>Software Engineering</option>
                       <option>Marketing</option>
-                      <option>Sales</option>
                       <option>Customer Support</option>
                     </select>
                   </div>
@@ -166,6 +172,42 @@ const JobPostForm = () => {
                     </div>
                   </div>
                 </div>
+
+                {/* company size nad indusrtry type */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                  <div>
+                    <label className="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">
+                      Company Size
+                    </label>
+                    <div className="relative">
+                      <FaUsersBetweenLines className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
+                      <input
+                        type="text"
+                        name="companySize"
+                        value={form.companySize}
+                        onChange={handleChange}
+                        placeholder="20 - 50 Empolyees"
+                        className="w-full pl-10 rounded-xl py-2 px-3 bg-slate-100 border-slate-200 dark:border-slate-700  dark:bg-slate-800 focus:border-brand-primary focus:ring-brand-primary text-slate-900 dark:text-white"
+                      />
+                    </div>
+                  </div>
+                  <div>
+                    <label className="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">
+                      Industry Type
+                    </label>
+                    <div className="relative">
+                      <CiGlobe className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
+                      <input
+                        type="text"
+                        name="industry"
+                        value={form.industry}
+                        onChange={handleChange}
+                        placeholder="Software company"
+                        className="w-full pl-10 py-2 px-3  rounded-xl border-slate-200 dark:border-slate-700 bg-slate-100 dark:bg-slate-800 focus:border-brand-primary focus:ring-brand-primary text-slate-900 dark:text-white"
+                      />
+                    </div>
+                  </div>
+                </div>
               </div>
             </section>
 
@@ -186,6 +228,20 @@ const JobPostForm = () => {
                     onChange={handleChange}
                     rows="6"
                     placeholder="Describe the role, responsibilities, and team culture..."
+                    className="w-full rounded-xl border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 p-4 text-slate-900 dark:text-white"
+                  />
+                </div>
+                {/* key responsibilites */}
+                <div>
+                  <label className="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">
+                    Key Responsibilities
+                  </label>
+                  <textarea
+                    name="keys"
+                    value={form.keys}
+                    onChange={handleChange}
+                    rows="3"
+                    placeholder="Lead end-to-end design process from research to high-fidelity prototypes...."
                     className="w-full rounded-xl border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 p-4 text-slate-900 dark:text-white"
                   />
                 </div>
