@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import api from "../../services/api";
 import {
   FiUser,
   FiMail,
@@ -11,14 +12,14 @@ import {
 } from "react-icons/fi";
 
 const JobApplicationForm = () => {
-  const [form, setForm] = useState({
+  const [formData, setFormData] = useState({
     fullName: "",
     email: "",
     phone: "",
     location: "",
     portfolio: "",
     coverLetter: "",
-    resume: null,
+    resume: "",
     relocate: false,
     newsletter: true,
     Experience: "fresher",
@@ -26,23 +27,45 @@ const JobApplicationForm = () => {
   });
 
   const handleChange = (e) => {
-    const { name, value, type, checked, files } = e.target;
-    setForm((prev) => ({
+    // const { name, value, type, checked, files } = e.target;
+    const { name, value, type, checked } = e.target;
+    setFormData((prev) => ({
       ...prev,
       [name]:
-        type === "checkbox" ? checked : type === "file" ? files[0] : value,
+        // type === "checkbox" ? checked : type === "file" ? files[0] : value, // for files
+        type === "checkbox" ? checked : value,
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Application Submitted:", form);
-    alert("Application Submitted Successfully!");
+    try {
+      const res = await api.post("/submit", formData);
+      setFormData({
+        fullName: "",
+        email: "",
+        phone: "",
+        location: "",
+        portfolio: "",
+        coverLetter: "",
+        resume: "",
+        relocate: false,
+        newsletter: true,
+        Experience: "fresher",
+        availability: "Immediate",
+      });
+
+      console.log("Application Submitted:", res);
+      alert("Application Submitted Successfully!");
+    } catch (err) {
+      console.log("Application not Submitted:", err);
+      alert("Application Submition failed !", err);
+    }
   };
 
   return (
     <main className="flex-1 flex flex-col items-center py-8 px-4 sm:px-6 lg:px-8">
-      <div className="w-full max-w-5xl">
+      <form onSubmit={handleSubmit} className="w-full max-w-5xl">
         {/* Header */}
         <div className="flex flex-wrap justify-between items-end gap-4 mb-8">
           <div>
@@ -55,7 +78,7 @@ const JobApplicationForm = () => {
           </div>
 
           <button
-            onClick={handleSubmit}
+            type="submit"
             className="flex items-center gap-2 rounded-xl h-11 px-8 bg-brand-primary text-white text-sm font-bold shadow-lg shadow-brand-primary/20 hover:scale-[1.02] active:scale-[0.98] transition-all"
           >
             <FiSend />
@@ -81,7 +104,7 @@ const JobApplicationForm = () => {
                   <input
                     type="text"
                     name="fullName"
-                    value={form.fullName}
+                    value={formData.fullName}
                     onChange={handleChange}
                     placeholder="John Doe"
                     className="w-full rounded-xl p-2 border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white"
@@ -98,7 +121,7 @@ const JobApplicationForm = () => {
                       <input
                         type="email"
                         name="email"
-                        value={form.email}
+                        value={formData.email}
                         onChange={handleChange}
                         placeholder="you@email.com"
                         className="w-full pl-10 rounded-xl p-2 border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white"
@@ -115,7 +138,7 @@ const JobApplicationForm = () => {
                       <input
                         type="text"
                         name="phone"
-                        value={form.phone}
+                        value={formData.phone}
                         onChange={handleChange}
                         placeholder="+123 456 7890"
                         className="w-full pl-10 rounded-xl p-2 border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white"
@@ -133,7 +156,7 @@ const JobApplicationForm = () => {
                     <input
                       type="text"
                       name="location"
-                      value={form.location}
+                      value={formData.location}
                       onChange={handleChange}
                       placeholder="New York, USA"
                       className="w-full pl-10 rounded-xl p-2 border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white"
@@ -158,7 +181,7 @@ const JobApplicationForm = () => {
                   <input
                     type="link"
                     name="portfolio"
-                    value={form.portfolio}
+                    value={formData.portfolio}
                     onChange={handleChange}
                     placeholder="https://yourportfolio.com"
                     className="w-full rounded-xl p-2 border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white"
@@ -171,7 +194,7 @@ const JobApplicationForm = () => {
                   </label>
                   <textarea
                     name="coverLetter"
-                    value={form.coverLetter}
+                    value={formData.coverLetter}
                     onChange={handleChange}
                     rows="5"
                     placeholder="Write your cover letter..."
@@ -188,6 +211,7 @@ const JobApplicationForm = () => {
                     <input
                       type="file"
                       name="resume"
+                      value={formData.resume}
                       onChange={handleChange}
                       className="text-sm p-5"
                     />
@@ -213,7 +237,7 @@ const JobApplicationForm = () => {
                   <input
                     type="checkbox"
                     name="relocate"
-                    checked={form.relocate}
+                    checked={formData.relocate}
                     onChange={handleChange}
                     className="h-5 w-5 text-brand-primary"
                   />
@@ -226,7 +250,7 @@ const JobApplicationForm = () => {
                   <input
                     type="checkbox"
                     name="newsletter"
-                    checked={form.newsletter}
+                    checked={formData.newsletter}
                     onChange={handleChange}
                     className="h-5 w-5 text-brand-primary"
                   />
@@ -246,7 +270,7 @@ const JobApplicationForm = () => {
                           type="radio"
                           name="Experience"
                           value={option}
-                          checked={form.Experience === option}
+                          checked={formData.Experience === option}
                           onChange={handleChange}
                           className="h-4 w-4 text-brand-primary"
                         />
@@ -269,7 +293,7 @@ const JobApplicationForm = () => {
                         type="radio"
                         name="availability"
                         value={option}
-                        checked={form.availability === option}
+                        checked={formData.availability === option}
                         onChange={handleChange}
                         className="h-4 w-4 text-brand-primary"
                       />
@@ -281,7 +305,7 @@ const JobApplicationForm = () => {
             </section>
           </div>
         </div>
-      </div>
+      </form>
     </main>
   );
 };

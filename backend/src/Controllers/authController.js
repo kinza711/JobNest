@@ -5,6 +5,13 @@ import bcrypt from "bcryptjs";
 export const Register = async (req, res) => {
   try {
     const { name, email, password, role } = req.body;
+    // if user already registered
+    const ExistingUser = await Users.findOne({ email });
+    if (ExistingUser) {
+      return res.status(400).json({
+        message: "Email already registered",
+      });
+    }
 
     const hashpassword = await bcrypt.hash(password, 10);
 
@@ -15,7 +22,8 @@ export const Register = async (req, res) => {
       role,
       //pic: req.file?.path || "",
     });
-    // console.log(users);
+
+    console.log(users);
     res.status(201).json({
       message: "user craeted successfully",
       data: users,

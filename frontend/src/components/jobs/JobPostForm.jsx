@@ -9,53 +9,64 @@ import {
 } from "react-icons/md";
 import { FaUsersBetweenLines } from "react-icons/fa6";
 import { CiGlobe } from "react-icons/ci";
+import api from "../../services/api";
+import Back from "../buttons/Back";
 
 const JobPostForm = () => {
-  const [form, setForm] = useState({
+  const [formData, setFormData] = useState({
     title: "",
+    disc: "",
+    keys: "",
     company: "",
+    requirements: "",
     category: "Design",
     location: "",
     salary: "",
-    description: "",
-    requirements: "",
+    jobType: "Full-time",
+    companySize: "",
+    industry: "",
     remote: true,
     urgent: false,
-    jobType: "Full-time",
   });
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
-    setForm((prev) => ({
+    setFormData((prev) => ({
       ...prev,
       [name]: type === "checkbox" ? checked : value,
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Job Posted:", form);
-    alert("Job Posted Successfully!");
-    setForm({
-      title: "",
-      company: "",
-      category: "Web Developer",
-      location: "",
-      salary: "",
-      description: "",
-      requirements: "",
-      remote: true,
-      urgent: false,
-      jobType: "Full-time",
-      companySize: "",
-      industry: "",
-      keys: "",
-    });
+    try {
+      const res = await api.post("/post", formData);
+
+      console.log("Job Posted:", res);
+      alert("Job Posted Successfully!");
+      setFormData({
+        title: "",
+        disc: "",
+        keys: "",
+        company: "",
+        requirements: "",
+        category: "Design",
+        location: "",
+        salary: "",
+        jobType: "Full-time",
+        companySize: "",
+        industry: "",
+        remote: true,
+        urgent: false,
+      });
+    } catch (err) {
+      alert("job not posted", err);
+    }
   };
 
   return (
     <main className="flex-1 flex flex-col items-center py-8 px-4 sm:px-6 lg:px-8">
-      <div className="w-full max-w-5xl">
+      <form onSubmit={handleSubmit} className="w-full max-w-5xl">
         {/* Header */}
         <div className="flex flex-wrap justify-between items-end gap-4 mb-8">
           <div className="flex flex-col gap-1">
@@ -67,11 +78,9 @@ const JobPostForm = () => {
             </p>
           </div>
           <div className="flex gap-3">
-            <button className="flex items-center justify-center rounded-xl h-11 px-6 bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-200 text-sm font-semibold hover:bg-slate-300 dark:hover:bg-slate-700 transition-all">
-              Save Draft
-            </button>
+            <Back />
             <button
-              onClick={handleSubmit}
+              type="submit"
               className="flex items-center justify-center rounded-xl h-11 px-8 bg-brand-primary text-white text-sm font-bold shadow-lg shadow-brand-primary/20 hover:scale-[1.02] active:scale-[0.98] transition-all"
             >
               Publish Job
@@ -97,7 +106,7 @@ const JobPostForm = () => {
                   <input
                     type="text"
                     name="title"
-                    value={form.title}
+                    value={formData.title}
                     onChange={handleChange}
                     placeholder="e.g. Senior Product Designer"
                     className="w-full rounded-xl border-slate-200 py-2 px-3 bg-slate-100 dark:border-slate-700  dark:bg-slate-800 focus:border-brand-primary focus:ring-brand-primary text-slate-900 dark:text-white"
@@ -112,7 +121,7 @@ const JobPostForm = () => {
                     <input
                       type="text"
                       name="company"
-                      value={form.company}
+                      value={formData.company}
                       onChange={handleChange}
                       placeholder="Brand Name Inc."
                       className="w-full rounded-xl py-2 px-3 bg-slate-100 border-slate-200 dark:border-slate-700 dark:bg-slate-800 focus:border-brand-primary focus:ring-brand-primary text-slate-900 dark:text-white"
@@ -124,7 +133,7 @@ const JobPostForm = () => {
                     </label>
                     <select
                       name="category"
-                      value={form.category}
+                      value={formData.category}
                       onChange={handleChange}
                       className="w-full rounded-xl py-2 px-3 bg-slate-100 border-slate-200 dark:border-slate-700  dark:bg-slate-800 focus:border-brand-primary focus:ring-brand-primary text-slate-900 dark:text-white"
                     >
@@ -148,7 +157,7 @@ const JobPostForm = () => {
                       <input
                         type="text"
                         name="location"
-                        value={form.location}
+                        value={formData.location}
                         onChange={handleChange}
                         placeholder="San Francisco, CA"
                         className="w-full pl-10 rounded-xl py-2 px-3 bg-slate-100 border-slate-200 dark:border-slate-700  dark:bg-slate-800 focus:border-brand-primary focus:ring-brand-primary text-slate-900 dark:text-white"
@@ -164,7 +173,7 @@ const JobPostForm = () => {
                       <input
                         type="text"
                         name="salary"
-                        value={form.salary}
+                        value={formData.salary}
                         onChange={handleChange}
                         placeholder="$120k - $160k"
                         className="w-full pl-10 py-2 px-3  rounded-xl border-slate-200 dark:border-slate-700 bg-slate-100 dark:bg-slate-800 focus:border-brand-primary focus:ring-brand-primary text-slate-900 dark:text-white"
@@ -184,7 +193,7 @@ const JobPostForm = () => {
                       <input
                         type="text"
                         name="companySize"
-                        value={form.companySize}
+                        value={formData.companySize}
                         onChange={handleChange}
                         placeholder="20 - 50 Empolyees"
                         className="w-full pl-10 rounded-xl py-2 px-3 bg-slate-100 border-slate-200 dark:border-slate-700  dark:bg-slate-800 focus:border-brand-primary focus:ring-brand-primary text-slate-900 dark:text-white"
@@ -200,7 +209,7 @@ const JobPostForm = () => {
                       <input
                         type="text"
                         name="industry"
-                        value={form.industry}
+                        value={formData.industry}
                         onChange={handleChange}
                         placeholder="Software company"
                         className="w-full pl-10 py-2 px-3  rounded-xl border-slate-200 dark:border-slate-700 bg-slate-100 dark:bg-slate-800 focus:border-brand-primary focus:ring-brand-primary text-slate-900 dark:text-white"
@@ -223,8 +232,8 @@ const JobPostForm = () => {
                     Job Description
                   </label>
                   <textarea
-                    name="description"
-                    value={form.description}
+                    name="disc"
+                    value={formData.disc}
                     onChange={handleChange}
                     rows="6"
                     placeholder="Describe the role, responsibilities, and team culture..."
@@ -238,7 +247,7 @@ const JobPostForm = () => {
                   </label>
                   <textarea
                     name="keys"
-                    value={form.keys}
+                    value={formData.keys}
                     onChange={handleChange}
                     rows="3"
                     placeholder="Lead end-to-end design process from research to high-fidelity prototypes...."
@@ -251,7 +260,7 @@ const JobPostForm = () => {
                   </label>
                   <textarea
                     name="requirements"
-                    value={form.requirements}
+                    value={formData.requirements}
                     onChange={handleChange}
                     rows="4"
                     placeholder="List technical skills, years of experience, and qualifications..."
@@ -283,7 +292,7 @@ const JobPostForm = () => {
                   <input
                     type="checkbox"
                     name="remote"
-                    checked={form.remote}
+                    checked={formData.remote}
                     onChange={handleChange}
                     className="h-5 w-5 text-brand-primary"
                   />
@@ -300,7 +309,7 @@ const JobPostForm = () => {
                   <input
                     type="checkbox"
                     name="urgent"
-                    checked={form.urgent}
+                    checked={formData.urgent}
                     onChange={handleChange}
                     className="h-5 w-5 text-brand-secondary"
                   />
@@ -320,7 +329,7 @@ const JobPostForm = () => {
                           type="radio"
                           name="jobType"
                           value={type}
-                          checked={form.jobType === type}
+                          checked={formData.jobType === type}
                           onChange={handleChange}
                           className="text-brand-primary focus:ring-brand-primary h-4 w-4 border-slate-300"
                         />
@@ -352,7 +361,7 @@ const JobPostForm = () => {
             </div>
           </div>
         </div>
-      </div>
+      </form>
     </main>
   );
 };

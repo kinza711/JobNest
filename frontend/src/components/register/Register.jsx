@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 import { BsRocketTakeoffFill } from "react-icons/bs";
 import { FaBriefcase } from "react-icons/fa";
@@ -8,8 +8,39 @@ import { FaLock } from "react-icons/fa6";
 import { FaLinkedin, FaGoogle } from "react-icons/fa";
 import { LuLogIn } from "react-icons/lu";
 import { Link } from "react-router-dom";
+import api from "../../services/api";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
+  const navigate = useNavigate();
+
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    password: "",
+    role: "HR",
+  });
+
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const res = await api.post("/register", formData);
+
+      alert(res.data.message); // show backend message
+
+      navigate("/login");
+    } catch (err) {
+      alert(err.response?.data?.message || "user not registed"); // show backend message
+    }
+  };
+
   return (
     <div className="flex w-full bg-background-light dark:bg-brand-gray-700">
       {/* Left Side */}
@@ -83,52 +114,57 @@ const Login = () => {
 
       {/* Right Side: Login Form */}
 
-      <div class="w-full lg:w-1/2 flex items-center justify-center p-8 md:p-16 lg:p-24 bg-white dark:bg-background-dark">
-        <div class="w-full max-w-md space-y-8">
-          <div class="space-y-2">
-            <h2 class="text-4xl font-black text-neutral-dark dark:text-slate-100 tracking-tight">
+      <form
+        onSubmit={handleSubmit}
+        className="w-full lg:w-1/2 flex items-center justify-center p-8 md:p-16 lg:p-24 bg-white dark:bg-background-dark"
+      >
+        <div className="w-full max-w-md space-y-8">
+          <div className="space-y-2">
+            <h2 className="text-4xl font-black text-neutral-dark dark:text-slate-100 tracking-tight">
               Create Account
             </h2>
-            <p class="text-slate-500 dark:text-slate-400 font-medium">
+            <p className="text-slate-500 dark:text-slate-400 font-medium">
               Step into your professional future today.
             </p>
           </div>
           {/* <!-- Role Selection --> */}
-          <div class="space-y-4">
-            <p class="text-sm font-bold text-neutral-dark dark:text-slate-300 uppercase tracking-wider">
+          <div className="space-y-4">
+            <p className="text-sm font-bold text-neutral-dark dark:text-slate-300 uppercase tracking-wider">
               Select your Role
             </p>
-            <div class="grid grid-cols-2 gap-3">
-              <label class="group cursor-pointer">
+            <div className="grid grid-cols-2 gap-3">
+              <label className="group cursor-pointer">
                 <input
-                  checked=""
-                  class="peer hidden"
+                  checked={formData.role === "JobSeeker"}
+                  className="peer hidden"
                   name="role"
                   type="radio"
-                  value="seeker"
+                  value="JobSeeker"
+                  onChange={handleChange}
                 />
-                <div class="flex flex-col items-center justify-center p-2 rounded-xl border-2 border-slate-100 bg-slate-50 transition-all peer-checked:border-primary peer-checked:bg-brand-primary dark:bg-slate-800/50 dark:border-slate-700 dark:peer-checked:bg-brand-primary">
-                  <span class="material-symbols-outlined text-slate-400 group-hover:text-brand-secondary peer-checked:text-brand-secondary transition-colors">
+                <div className="flex flex-col items-center justify-center p-2 rounded-xl border-2 border-slate-100 bg-slate-50 transition-all peer-checked:border-primary peer-checked:bg-brand-primary dark:bg-slate-800/50 dark:border-slate-700 dark:peer-checked:bg-brand-primary">
+                  <span className="material-symbols-outlined text-slate-400 group-hover:text-brand-secondary peer-checked:text-brand-secondary transition-colors">
                     <SlUser />
                   </span>
-                  <span class="text-xs font-bold mt-2 text-slate-600 dark:text-slate-300">
+                  <span className="text-xs font-bold mt-2 text-slate-600 dark:text-slate-300">
                     Seeker
                   </span>
                 </div>
               </label>
-              <label class="group cursor-pointer">
+              <label className="group cursor-pointer">
                 <input
-                  class="peer hidden"
+                  className="peer hidden"
                   name="role"
                   type="radio"
-                  value="employer"
+                  value="HR"
+                  onChange={handleChange}
                 />
 
-                <div class="flex flex-col items-center justify-center p-2 rounded-xl border-2 border-slate-100 bg-slate-50 transition-all peer-checked:border-primary peer-checked:bg-brand-primary dark:bg-slate-800/50 dark:border-slate-700 dark:peer-checked:bg-brand-primary">
-                  <span class="material-symbols-outlined text-slate-400 group-hover:text-brand-secondary peer-checked:text-brand-secondary transition-colors">
+                <div className="flex flex-col items-center justify-center p-2 rounded-xl border-2 border-slate-100 bg-slate-50 transition-all peer-checked:border-primary peer-checked:bg-brand-primary dark:bg-slate-800/50 dark:border-slate-700 dark:peer-checked:bg-brand-primary">
+                  <span className="material-symbols-outlined text-slate-400 group-hover:text-brand-secondary peer-checked:text-brand-secondary transition-colors">
                     <FaBriefcase />
                   </span>
-                  <span class="text-xs font-bold mt-2 text-slate-600 dark:text-slate-300">
+                  <span className="text-xs font-bold mt-2 text-slate-600 dark:text-slate-300">
                     Employer
                   </span>
                 </div>
@@ -136,49 +172,58 @@ const Login = () => {
             </div>
           </div>
           {/* <!-- Signup Form --> */}
-          <form class="space-y-5">
-            <div class="space-y-1">
-              <label class="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase ml-1">
+          <div className="space-y-5">
+            <div className="space-y-1">
+              <label className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase ml-1">
                 Full Name
               </label>
-              <div class="relative group">
-                <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-primary transition-colors">
+              <div className="relative group">
+                <span className="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-primary transition-colors">
                   <SlUser />
                 </span>
                 <input
-                  class="w-full pl-12 pr-4 py-4 rounded-xl border-none bg-slate-100 dark:bg-slate-800/80 text-neutral-dark dark:text-white placeholder:text-slate-400 focus:ring-2 focus:ring-primary/50 shadow-sm transition-shadow"
+                  className="w-full pl-12 pr-4 py-4 rounded-xl border-none bg-slate-100 dark:bg-slate-800/80 text-neutral-dark dark:text-white placeholder:text-slate-400 focus:ring-2 focus:ring-primary/50 shadow-sm transition-shadow"
                   placeholder="John Doe"
+                  name="name"
                   type="text"
+                  value={formData.name}
+                  onChange={handleChange}
                 />
               </div>
             </div>
-            <div class="space-y-1">
-              <label class="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase ml-1">
+            <div className="space-y-1">
+              <label className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase ml-1">
                 Email Address
               </label>
-              <div class="relative group">
-                <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-primary transition-colors">
+              <div className="relative group">
+                <span className="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-primary transition-colors">
                   <IoMdMail />
                 </span>
                 <input
-                  class="w-full pl-12 pr-4 py-4 rounded-xl border-none bg-slate-100 dark:bg-slate-800/80 text-neutral-dark dark:text-white placeholder:text-slate-400 focus:ring-2 focus:ring-primary/50 shadow-sm transition-shadow"
+                  className="w-full pl-12 pr-4 py-4 rounded-xl border-none bg-slate-100 dark:bg-slate-800/80 text-neutral-dark dark:text-white placeholder:text-slate-400 focus:ring-2 focus:ring-primary/50 shadow-sm transition-shadow"
                   placeholder="john@example.com"
+                  name="email"
                   type="email"
+                  value={formData.email}
+                  onChange={handleChange}
                 />
               </div>
             </div>
-            <div class="space-y-1">
-              <label class="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase ml-1">
+            <div className="space-y-1">
+              <label className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase ml-1">
                 Password
               </label>
-              <div class="relative group">
-                <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-primary transition-colors">
+              <div className="relative group">
+                <span className="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-primary transition-colors">
                   <FaLock />
                 </span>
                 <input
-                  class="w-full pl-12 pr-4 py-4 rounded-xl border-none bg-slate-100 dark:bg-slate-800/80 text-neutral-dark dark:text-white placeholder:text-slate-400 focus:ring-2 focus:ring-primary/50 shadow-sm transition-shadow"
+                  className="w-full pl-12 pr-4 py-4 rounded-xl border-none bg-slate-100 dark:bg-slate-800/80 text-neutral-dark dark:text-white placeholder:text-slate-400 focus:ring-2 focus:ring-primary/50 shadow-sm transition-shadow"
                   placeholder="••••••••"
+                  name="password"
                   type="password"
+                  value={formData.password}
+                  onChange={handleChange}
                 />
               </div>
             </div>
@@ -192,13 +237,13 @@ const Login = () => {
                 <LuLogIn />
               </span>
             </button>
-          </form>
-          <div class="relative py-4">
-            <div class="absolute inset-0 flex items-center">
-              <div class="w-full border-t border-slate-200 dark:border-slate-800"></div>
+          </div>
+          <div className="relative py-4">
+            <div className="absolute inset-0 flex items-center">
+              <div className="w-full border-t border-slate-200 dark:border-slate-800"></div>
             </div>
-            <div class="relative flex justify-center text-xs uppercase">
-              <span class="bg-white dark:bg-background-dark px-2 text-slate-500">
+            <div className="relative flex justify-center text-xs uppercase">
+              <span className="bg-white dark:bg-background-dark px-2 text-slate-500">
                 Or continue with
               </span>
             </div>
@@ -218,19 +263,19 @@ const Login = () => {
             </button>
           </div>
 
-          <div class="text-center pt-4">
-            <p class="text-slate-500 dark:text-slate-400 text-sm">
+          <div className="text-center pt-4">
+            <p className="text-slate-500 dark:text-slate-400 text-sm">
               Already have an account?
               <Link
                 to="/login"
-                class="text-brand-primary font-bold hover:underline"
+                className="text-brand-primary font-bold hover:underline"
               >
                 Log in
               </Link>
             </p>
           </div>
         </div>
-      </div>
+      </form>
     </div>
   );
 };

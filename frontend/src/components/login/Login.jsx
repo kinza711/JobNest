@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { IoMdMail } from "react-icons/io";
 import { FaLock, FaLinkedin, FaGoogle } from "react-icons/fa";
 import { BsRocketTakeoffFill } from "react-icons/bs";
@@ -7,8 +7,49 @@ import { GrShieldSecurity } from "react-icons/gr";
 import { FaBriefcase } from "react-icons/fa";
 import { SlUser } from "react-icons/sl";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import api from "../../services/api";
 
 const Login = () => {
+  const navigate = useNavigate();
+
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    password: "",
+    role: "HR",
+  });
+
+  const handlechage = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      const res = await api.post("/login", formData);
+
+      alert("Wellcome Back");
+      // role based navigation
+      if (formData.role === "JobSeeker") {
+        navigate("/userdashbord");
+      } else if (formData.role === "HR") {
+        navigate("/empdashboard");
+      } else if (formData.role === "Admin") {
+        navigate("/admindashboard");
+      } else {
+        alert("you d'nt have an acound plx register");
+        navigate("/register");
+      }
+    } catch (err) {
+      alert(err.response?.data?.message || "user not found");
+    }
+  };
+
   return (
     <div className="flex min-h-screen w-full bg-background-light dark:bg-background-dark">
       {/* Left Side */}
@@ -81,7 +122,10 @@ const Login = () => {
       </div>
 
       {/* Right Side: Login Form */}
-      <div className="w-full lg:w-1/2 flex items-center justify-center p-8 md:p-16 lg:p-24 bg-white dark:bg-background-dark">
+      <form
+        onSubmit={handleSubmit}
+        className="w-full lg:w-1/2 flex items-center justify-center p-8 md:p-16 lg:p-24 bg-white dark:bg-background-dark"
+      >
         <div className="w-full max-w-md space-y-8">
           <div className="space-y-2">
             <h2 className="text-4xl font-black text-neutral-dark dark:text-slate-100 tracking-tight">
@@ -92,56 +136,62 @@ const Login = () => {
             </p>
           </div>
           {/* <!-- Role Selection --> */}
-          <div class="space-y-4">
-            <p class="text-sm font-bold text-neutral-dark dark:text-slate-300 uppercase tracking-wider">
+          <div className="space-y-4">
+            <p className="text-sm font-bold text-neutral-dark dark:text-slate-300 uppercase tracking-wider">
               Select your Role
             </p>
-            <div class="grid grid-cols-3 gap-3">
-              <label class="group cursor-pointer">
+            <div className="grid grid-cols-3 gap-3">
+              <label className="group cursor-pointer">
                 <input
-                  checked=""
-                  class="peer hidden"
+                  checked={formData.role === "JobSeeker"}
+                  className="peer hidden"
                   name="role"
                   type="radio"
-                  value="seeker"
+                  value="JobSeeker"
+                  onChange={handlechage}
                 />
-                <div class="flex flex-col items-center justify-center p-2 rounded-xl border-2 border-slate-100 bg-slate-50 transition-all peer-checked:border-primary peer-checked:bg-primary/5 dark:bg-slate-800/50 dark:border-slate-700 dark:peer-checked:bg-primary/10">
-                  <span class="material-symbols-outlined text-slate-400 group-hover:text-primary peer-checked:text-primary transition-colors">
+                <div className="flex flex-col items-center justify-center p-2 rounded-xl border-2 border-slate-100 bg-slate-50 transition-all peer-checked:border-brand-secondary peer-checked:bg-brand-secondary/5 dark:bg-slate-800/50 dark:border-slate-700 dark:peer-checked:bg-brand-ssecondary/10">
+                  <span className="material-symbols-outlined text-slate-400 group-hover:text-brand-secondary peer-checked:text-brand-secondary transition-colors">
                     <SlUser />
                   </span>
-                  <span class="text-xs font-bold mt-2 text-slate-600 dark:text-slate-300">
+                  <span className="text-xs font-bold mt-2 text-slate-600 dark:text-slate-300">
                     Seeker
                   </span>
                 </div>
               </label>
-              <label class="group cursor-pointer">
+              <label className="group cursor-pointer">
                 <input
-                  class="peer hidden"
+                  checked={formData.role === "HR"}
+                  className="peer hidden"
                   name="role"
                   type="radio"
-                  value="employer"
+                  value="HR"
+                  onChange={handlechage}
                 />
-                <div class="flex flex-col items-center justify-center p-2 rounded-xl border-2 border-slate-100 bg-slate-50 transition-all peer-checked:border-secondary peer-checked:bg-secondary/5 dark:bg-slate-800/50 dark:border-slate-700 dark:peer-checked:bg-secondary/10">
-                  <span class="material-symbols-outlined text-slate-400 group-hover:text-secondary peer-checked:text-secondary transition-colors">
+                <div className="flex flex-col items-center justify-center p-2 rounded-xl border-2 border-slate-100 bg-slate-50 transition-all peer-checked:border-brand-secondary peer-checked:bg-brand-secondary/5 dark:bg-slate-800/50 dark:border-slate-700 dark:peer-checked:bg-brand-ssecondary/10">
+                  <span className="material-symbols-outlined text-slate-400 group-hover:text-brand-secondary peer-checked:text-brand-secondary transition-colors">
                     <FaBriefcase />
                   </span>
-                  <span class="text-xs font-bold mt-2 text-slate-600 dark:text-slate-300">
+                  <span className="text-xs font-bold mt-2 text-slate-600 dark:text-slate-300">
                     Employer
                   </span>
                 </div>
               </label>
-              <label class="group cursor-pointer">
+              <label className="group cursor-pointer">
                 <input
-                  class="peer hidden"
+                  checked={formData.role === "Admin"}
+                  className="peer hidden"
                   name="role"
                   type="radio"
-                  value="admin"
+                  value="Admin"
+                  onChange={handlechage}
                 />
-                <div class="flex flex-col items-center justify-center p-2 rounded-xl border-2 border-slate-100 bg-slate-50 transition-all peer-checked:border-accent peer-checked:bg-accent/5 dark:bg-slate-800/50 dark:border-slate-700 dark:peer-checked:bg-accent/10">
-                  <span class="material-symbols-outlined text-slate-400 group-hover:text-accent peer-checked:text-accent transition-colors">
+
+                <div className="flex flex-col items-center justify-center p-2 rounded-xl border-2 border-slate-100 bg-slate-50 transition-all peer-checked:border-brand-secondary peer-checked:bg-brand-secondary/5 dark:bg-slate-800/50 dark:border-slate-700 dark:peer-checked:bg-brand-ssecondary/10">
+                  <span className="material-symbols-outlined text-slate-400 group-hover:text-brand-secondary peer-checked:text-brand-secondary transition-colors">
                     <GrShieldSecurity />
                   </span>
-                  <span class="text-xs font-bold mt-2 text-slate-600 dark:text-slate-300">
+                  <span className="text-xs font-bold mt-2 text-slate-600 dark:text-slate-300">
                     Admin
                   </span>
                 </div>
@@ -149,7 +199,7 @@ const Login = () => {
             </div>
           </div>
 
-          <form className="space-y-5">
+          <div className="space-y-5">
             {/* Email */}
             <div className="space-y-2">
               <label className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase ml-1">
@@ -161,6 +211,9 @@ const Login = () => {
                 </span>
                 <input
                   type="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handlechage}
                   placeholder="john@example.com"
                   className="w-full pl-12 pr-4 py-4 rounded-xl border-none bg-slate-100 dark:bg-slate-800/80 text-neutral-dark dark:text-white placeholder:text-slate-400 focus:ring-2 focus:ring-primary/50 shadow-sm transition-shadow"
                 />
@@ -185,6 +238,9 @@ const Login = () => {
                 <input
                   type="password"
                   placeholder="••••••••"
+                  name="password"
+                  value={formData.password}
+                  onChange={handlechage}
                   className="w-full pl-12 pr-4 py-4 rounded-xl border-none bg-slate-100 dark:bg-slate-800/80 text-neutral-dark dark:text-white placeholder:text-slate-400 focus:ring-2 focus:ring-primary/50 shadow-sm transition-shadow"
                 />
               </div>
@@ -199,7 +255,7 @@ const Login = () => {
                 <LuLogIn />
               </span>
             </button>
-          </form>
+          </div>
 
           {/* Divider */}
           <div className="relative py-4">
@@ -240,7 +296,7 @@ const Login = () => {
             </p>
           </div>
         </div>
-      </div>
+      </form>
     </div>
   );
 };

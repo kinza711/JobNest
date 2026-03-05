@@ -5,7 +5,7 @@ export const PostJob = async (req, res) => {
   try {
     const {
       title,
-      description,
+      disc,
       keys,
       requirements,
       company,
@@ -15,12 +15,13 @@ export const PostJob = async (req, res) => {
       jobType,
       companySize,
       industry,
+      remote,
       urgent,
     } = req.body;
 
     const jobs = await Job.create({
       title,
-      description,
+      disc,
       keys,
       requirements,
       company,
@@ -30,6 +31,7 @@ export const PostJob = async (req, res) => {
       jobType,
       companySize,
       industry,
+      remote,
       urgent,
     });
 
@@ -118,4 +120,3 @@ export const UpdateJob = async (req, res) => {
 };
 
 // edit job logic
-

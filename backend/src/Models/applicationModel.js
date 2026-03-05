@@ -10,7 +10,7 @@ const applicationSchema = new mongoose.Schema(
     location: { type: String },
     portfolio: { type: String },
     coverLetter: { type: String },
-    resumeUrl: { type: String, required: true },
+    resume: { type: String },
     relocate: { type: Boolean, default: false },
     newsletter: { type: Boolean, default: true },
     availability: { type: String, enum: ["Immediate", "1 Month", "3 Months"] },

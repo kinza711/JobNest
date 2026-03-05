@@ -7,9 +7,22 @@ import { FaCloudDownloadAlt } from "react-icons/fa";
 import { MdOutlineLogout } from "react-icons/md";
 import { MdOutlineSupportAgent } from "react-icons/md";
 import { FaUserShield } from "react-icons/fa";
-import { Link } from "react-router-dom";
-
+import { Link, useNavigate } from "react-router-dom";
+import api from "../../services/api";
 const AdminSidebar = () => {
+  const navigate = useNavigate();
+
+  const handleLogout = async () => {
+    try {
+      await api.post("/logout");
+      // localStorage.removeItem("token")
+      alert("you're loggedout successfully");
+      navigate("/login");
+    } catch (err) {
+      alert("you're not loggedout ", err);
+    }
+  };
+
   return (
     <aside className="w-72 flex-shrink-0 bg-white border-r border-slate-200 p-6 flex flex-col">
       <div className="flex items-center gap-3 mb-10 px-2">
@@ -93,15 +106,16 @@ const AdminSidebar = () => {
           <span className="text-sm font-semibold">Download Resume</span>
         </Link>
         <div className="my-4 border-t border-slate-100"></div>
-        <Link
-          to=""
+
+        <button
+          onClick={handleLogout}
           className="flex items-center gap-3 px-4 py-3 text-slate-500 hover:bg-slate-50 rounded-xl transition-all group"
         >
           <span className="material-symbols-outlined group-hover:text-brand-primary">
             <MdOutlineLogout />
           </span>
           <span className="text-sm font-semibold">Logout</span>
-        </Link>
+        </button>
       </nav>
 
       <div className="mt-auto p-4 bg-slate-50 rounded-2xl border border-slate-200">
