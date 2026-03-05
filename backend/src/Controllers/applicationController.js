@@ -60,3 +60,38 @@ export const GetApplications = async (req, res) => {
     });
   }
 };
+
+// total Shortlisted
+export const Shortlisted = async (req, res) => {
+  try {
+    const interview = await Application.find({ status: "Shortlisted" });
+
+    res.status(200).json({
+      message: "shortlisted applications found successfully",
+      data: interview,
+    });
+  } catch (err) {
+    res.status(500).json({
+      message: "shortlisted applications not found",
+      error: err,
+    });
+  }
+};
+
+// total Rejected
+
+export const Rejected = async (req, res) => {
+  try {
+    const interview = await Application.find({ status: "Rejected" });
+
+    res.status(200).json({
+      message: "Rejected applications found successfully",
+      data: interview,
+    });
+  } catch (err) {
+    res.status(500).json({
+      message: "rejected applications not found",
+      error: err,
+    });
+  }
+};

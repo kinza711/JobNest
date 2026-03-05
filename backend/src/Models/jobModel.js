@@ -29,6 +29,7 @@ const jobSchema = new mongoose.Schema(
     companySize: { type: String, required: true },
     industry: { type: String, required: true },
     remote: { type: Boolean, default: false },
+    onsite: { type: Boolean, default: true },
     urgent: { type: Boolean, default: false },
   },
   { timestamps: true },

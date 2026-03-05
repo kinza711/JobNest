@@ -16,6 +16,7 @@ export const PostJob = async (req, res) => {
       companySize,
       industry,
       remote,
+      onsite,
       urgent,
     } = req.body;
 
@@ -32,6 +33,7 @@ export const PostJob = async (req, res) => {
       companySize,
       industry,
       remote,
+      onsite,
       urgent,
     });
 
@@ -120,3 +122,52 @@ export const UpdateJob = async (req, res) => {
 };
 
 // edit job logic
+
+export const EditPost = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const editJobs = await Job.findById({ id });
+    res.status(200).json({
+      message: "job  edited succesfully",
+      data: editJobs,
+    });
+  } catch (err) {
+    res.status(500).json({
+      message: "job not found",
+      error: err,
+    });
+  }
+};
+
+// onsite job
+export const OnsitePost = async (req, res) => {
+  try {
+    const onsite = await Job.find({ onsite: true });
+    res.status(200).json({
+      message: "onsite jobs  founded succesfully",
+      data: onsite,
+    });
+  } catch (err) {
+    res.status(500).json({
+      message: "onsite job not found",
+      error: err,
+    });
+  }
+};
+
+// remote jobs
+
+export const remotePost = async (req, res) => {
+  try {
+    const remote = await Job.find({ remote: true });
+    res.status(200).json({
+      message: "remote jobs  founded succesfully",
+      data: remote,
+    });
+  } catch (err) {
+    res.status(500).json({
+      message: "remote job not found",
+      error: err,
+    });
+  }
+};

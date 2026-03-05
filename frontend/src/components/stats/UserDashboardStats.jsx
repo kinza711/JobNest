@@ -1,28 +1,60 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { FiSend } from "react-icons/fi";
 import { FaRegCalendarCheck } from "react-icons/fa6";
 import { MdOutlineRemoveRedEye } from "react-icons/md";
+import api from "../../services/api";
 
 export default function UserStats() {
+  const [totalSubmit, setTotalSubmit] = useState(0);
+  const [totalRejected, setTotalRejected] = useState(0);
+  const [totalShort, setTotalShort] = useState(0);
+
+  useEffect(() => {
+    const fetchJobs = async () => {
+      try {
+        const res = await api.get("/submit");
+        setTotalSubmit(res.data.data.length);
+      } catch (err) {
+        console.log("Total Jobs fetch error:", err);
+      }
+
+      try {
+        const res = await api.get("/rejected");
+        setTotalRejected(res.data.data.length);
+      } catch (err) {
+        console.log("Onsite Jobs fetch error:", err);
+      }
+
+      try {
+        const res = await api.get("/short");
+        setTotalShort(res.data.data.length);
+      } catch (err) {
+        console.log("Remote Jobs fetch error:", err);
+      }
+    };
+
+    fetchJobs();
+  }, []);
+
   const stats = [
     {
       icon: <FiSend />,
       label: "Applications Sent",
-      value: "42",
+      value: totalSubmit,
       color: "text-brand-primary",
       bg: "bg-brand-primary/10",
     },
     {
       icon: <FaRegCalendarCheck />,
-      label: "Interviews Scheduled",
-      value: "12",
+      label: "Shortlisted",
+      value: totalShort,
       color: "text-emerald-500",
       bg: "bg-emerald-500/10",
     },
     {
       icon: <MdOutlineRemoveRedEye />,
       label: "Rejected applications",
-      value: "128",
+      value: totalRejected,
       color: "text-blue-500",
       bg: "bg-blue-500/10",
     },

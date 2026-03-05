@@ -25,7 +25,8 @@ const JobPostForm = () => {
     jobType: "Full-time",
     companySize: "",
     industry: "",
-    remote: true,
+    remote: false,
+    onsite: true,
     urgent: false,
   });
 
@@ -56,7 +57,8 @@ const JobPostForm = () => {
         jobType: "Full-time",
         companySize: "",
         industry: "",
-        remote: true,
+        remote: false,
+        onsite: true,
         urgent: false,
       });
     } catch (err) {
@@ -293,6 +295,24 @@ const JobPostForm = () => {
                     type="checkbox"
                     name="remote"
                     checked={formData.remote}
+                    onChange={handleChange}
+                    className="h-5 w-5 text-brand-primary"
+                  />
+                </div>
+                {/* onsite jobs */}
+                <div className="flex items-center justify-between">
+                  <div className="flex flex-col">
+                    <span className="text-sm font-semibold text-slate-800 dark:text-slate-200">
+                      Onsite
+                    </span>
+                    <span className="text-xs text-slate-500">
+                      Allow candidates to work from Office
+                    </span>
+                  </div>
+                  <input
+                    type="checkbox"
+                    name="onsite"
+                    checked={formData.onsite}
                     onChange={handleChange}
                     className="h-5 w-5 text-brand-primary"
                   />

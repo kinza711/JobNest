@@ -5,10 +5,6 @@ import AdminStats from "../components/stats/AdminStats";
 import TrafficEngagement from "../components/unique/TrafficEngagement";
 import CategoryDistribution from "../components/unique/CategoryDistribution";
 import JobTable from "../components/tables/JobTable";
-import { FaBriefcase } from "react-icons/fa";
-import { BsFillBuildingsFill } from "react-icons/bs";
-import { FaHome } from "react-icons/fa";
-import { FaUsers } from "react-icons/fa";
 
 const AdminDashboard = () => {
   // Dummy data for TrafficEngagement
@@ -37,46 +33,7 @@ const AdminDashboard = () => {
         <Header />
         <div className="p-8 lg:p-10 max-w-7xl mx-auto w-full space-y-8">
           {/* Stats Cards */}
-          <AdminStats
-            stats={[
-              {
-                icon: <FaBriefcase />,
-                iconBg: "bg-brand-primary/30 text-brand-primary",
-                title: "Total Job Postings",
-                value: "2,482",
-                percentage: "+12.5%",
-                percentageBg: "rgba(16,185,129,0.1)",
-              },
-              {
-                icon: <BsFillBuildingsFill />,
-                iconBg: "bg-brand-secondary/30 text-brand-secondary",
-                title: "Onsite Jobs",
-                value: "1,124",
-                percentage: "+8.2%",
-                percentageBg: "rgba(16,185,129,0.1)",
-              },
-              {
-                icon: <FaHome />,
-                iconBg: "bg-slate-300 text-slate-600",
-                title: "Remote Jobs",
-                value: "518",
-                percentage: "+4.1%",
-                percentageBg: "rgba(249,115,22,0.1)",
-              },
-              {
-                icon: <FaUsers />,
-                iconBg: "bg-white/40 text-white",
-                title: "Total Users",
-                value: "$48.5k",
-                valueColor: "text-white",
-                titleColor: "text-white/80",
-                border: "border-brand-primary",
-                percentage: "Active",
-                percentageBg: "white",
-                bgColor: "bg-brand-primary",
-              },
-            ]}
-          />
+          <AdminStats />
           <div className="charts lg:grid-cols-2 md:grid-cols-2 grid gap-5">
             {/* Traffic & Engagement */}
             <TrafficEngagement
