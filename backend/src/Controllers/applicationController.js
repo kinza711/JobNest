@@ -1,4 +1,5 @@
 import Application from "../Models/applicationModel.js";
+import Job from "../Models/jobModel.js";
 
 // submit appliaction logic
 export const ApplyJob = async (req, res) => {
@@ -13,11 +14,19 @@ export const ApplyJob = async (req, res) => {
       resume,
       relocate,
       newsletter,
+      Experience,
       availability,
       status,
     } = req.body;
 
+    const { id } = req.params;
+    // fetch job details using job ID
+    const job = await Job.findOne(id);
+    if (!job) return res.status(404).json({ message: "Job not found" });
+
     const application = await Application.create({
+      jobTitle: job.title,
+      company: job.company, // automatically add company
       fullName,
       email,
       phone,
@@ -27,6 +36,7 @@ export const ApplyJob = async (req, res) => {
       resume,
       relocate,
       newsletter,
+      Experience,
       availability,
       status,
     });
@@ -91,6 +101,25 @@ export const Rejected = async (req, res) => {
   } catch (err) {
     res.status(500).json({
       message: "rejected applications not found",
+      error: err,
+    });
+  }
+};
+
+// get single application
+
+export const GetSingleApplications = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const singleApplications = await Application.find(id);
+
+    res.status(200).json({
+      message: "applications found successfully",
+      data: singleApplications,
+    });
+  } catch (err) {
+    res.status(500).json({
+      message: "applications not found",
       error: err,
     });
   }

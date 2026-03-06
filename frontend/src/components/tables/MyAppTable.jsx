@@ -1,43 +1,58 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { MdDownload } from "react-icons/md";
 import { AiOutlineLeft, AiOutlineRight } from "react-icons/ai";
-
-const applications = [
-  {
-    company: "TechNova",
-    jobTitle: "Frontend Developer",
-    position: "Remote",
-    experience: "2+ Years",
-    appliedDate: "12 Mar 2026",
-    status: "Review",
-  },
-  {
-    company: "DesignHub",
-    jobTitle: "UI/UX Designer",
-    position: "Full Time",
-    experience: "3+ Years",
-    appliedDate: "10 Mar 2026",
-    status: "Shortlisted",
-  },
-  {
-    company: "CloudSync",
-    jobTitle: "React Developer",
-    position: "Remote",
-    experience: "1+ Year",
-    appliedDate: "08 Mar 2026",
-    status: "Pending",
-  },
-  {
-    company: "Innovate Labs",
-    jobTitle: "Product Designer",
-    position: "Hybrid",
-    experience: "4+ Years",
-    appliedDate: "05 Mar 2026",
-    status: "Rejected",
-  },
-];
+import api from "../../services/api";
+// const applications = [
+//   {
+//     company: "TechNova",
+//     jobTitle: "Frontend Developer",
+//     position: "Remote",
+//     experience: "2+ Years",
+//     appliedDate: "12 Mar 2026",
+//     status: "Review",
+//   },
+//   {
+//     company: "DesignHub",
+//     jobTitle: "UI/UX Designer",
+//     position: "Full Time",
+//     experience: "3+ Years",
+//     appliedDate: "10 Mar 2026",
+//     status: "Shortlisted",
+//   },
+//   {
+//     company: "CloudSync",
+//     jobTitle: "React Developer",
+//     position: "Remote",
+//     experience: "1+ Year",
+//     appliedDate: "08 Mar 2026",
+//     status: "Pending",
+//   },
+//   {
+//     company: "Innovate Labs",
+//     jobTitle: "Product Designer",
+//     position: "Hybrid",
+//     experience: "4+ Years",
+//     appliedDate: "05 Mar 2026",
+//     status: "Rejected",
+//   },
+// ];
 
 const MyApplicationTable = () => {
+  const [applications, setApplications] = useState([]);
+
+  useEffect(() => {
+    const fetchApplication = async () => {
+      try {
+        const res = await api.get("/submit");
+        setApplications(res.data.data);
+        console.log("applications you submited are founded");
+      } catch (err) {
+        console.log("applications not found", err);
+      }
+    };
+    fetchApplication();
+  }, []);
+
   return (
     <div className="glass-panel rounded-2xl shadow-xl shadow-brand-primary/5 overflow-hidden mt-8">
       <div className="overflow-x-auto">
@@ -54,17 +69,17 @@ const MyApplicationTable = () => {
                 Job Title
               </th>
 
-              <th className="px-4 py-4 text-xs font-bold text-slate-500 uppercase">
+              {/* <th className="px-4 py-4 text-xs font-bold text-slate-500 uppercase">
                 Position
-              </th>
+              </th> */}
 
               <th className="px-4 py-4 text-xs font-bold text-center text-slate-500 uppercase">
                 Experience
               </th>
 
-              <th className="px-4 py-4 text-xs font-bold text-slate-500 uppercase">
-                Applied Date
-              </th>
+              {/* <th className="px-4 py-4 text-xs font-bold text-slate-500 uppercase">
+                Relocate
+              </th> */}
 
               <th className="px-4 py-4 text-xs font-bold text-center text-slate-500 uppercase">
                 Status
@@ -90,15 +105,15 @@ const MyApplicationTable = () => {
 
                 <td className="px-4 py-5 text-slate-600">{app.jobTitle}</td>
 
-                <td className="px-4 py-5 text-slate-600">{app.position}</td>
+                {/* <td className="px-4 py-5 text-slate-600">{app.position}</td> */}
 
                 <td className="px-4 py-5 text-center">
                   <span className="px-3 py-1 text-xs font-semibold rounded-full bg-brand-secondary/10 text-brand-secondary">
-                    {app.experience}
+                    {app.Experience}
                   </span>
                 </td>
 
-                <td className="px-4 py-5 text-slate-500">{app.appliedDate}</td>
+                {/* <td className="px-4 py-5 text-slate-500">{app.relocate}</td> */}
 
                 <td className="px-4 py-5 text-center">
                   <span className="px-3 py-1 text-xs font-semibold rounded-full bg-brand-primary/10 text-brand-primary">

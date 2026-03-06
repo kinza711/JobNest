@@ -9,6 +9,7 @@ import {
   EditPost,
   remotePost,
   OnsitePost,
+  GetSinglePost,
 } from "../Controllers/jobController.js";
 
 router.post("/post", PostJob);
@@ -18,5 +19,6 @@ router.put("/post/:id", UpdateJob);
 router.get("/post/:id", EditPost);
 router.get("/remote", remotePost);
 router.get("/onsite", OnsitePost);
+router.get("/job/:id", GetSinglePost);
 
 export default router;

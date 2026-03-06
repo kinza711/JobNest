@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import api from "../../services/api";
 import {
   FiUser,
@@ -10,8 +10,40 @@ import {
   FiSend,
   FiInfo,
 } from "react-icons/fi";
+import { useParams } from "react-router-dom";
 
 const JobApplicationForm = () => {
+  // job and company details
+  // const [recentJobs, setRecentJobs] = useState(null);
+  const [job, setJob] = useState(null);
+  const { id } = useParams();
+
+  // useEffect(() => {
+  //   const fetchJobs = async () => {
+  //     try {
+  //       const res = await api.get(`/post/${id}`);
+  //       setRecentJobs(res.data.data);
+  //       console.log(res);
+  //     } catch (err) {
+  //       console.log("recent jobs not found", err);
+  //     }
+  //   };
+  //   fetchJobs();
+  // }, [id]);
+
+  useEffect(() => {
+    const fetchJob = async () => {
+      try {
+        const res = await api.get(`/job/${id}`);
+        setJob(res.data.data);
+      } catch (err) {
+        console.log("job not found", err);
+      }
+    };
+
+    fetchJob();
+  }, [id]);
+
   const [formData, setFormData] = useState({
     fullName: "",
     email: "",
@@ -36,11 +68,53 @@ const JobApplicationForm = () => {
         type === "checkbox" ? checked : value,
     }));
   };
+  //  working perfectly fine
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
+  //   try {
+  //     const res = await api.post("/submit", formData);
+  //     setFormData({
+  //       fullName: "",
+  //       email: "",
+  //       phone: "",
+  //       location: "",
+  //       portfolio: "",
+  //       coverLetter: "",
+  //       resume: "",
+  //       relocate: false,
+  //       newsletter: true,
+  //       Experience: "fresher",
+  //       availability: "Immediate",
+  //     });
 
+  //     console.log("Application Submitted:", res);
+  //     alert("Application Submitted Successfully!");
+  //   } catch (err) {
+  //     console.log("Application not Submitted:", err);
+  //     alert("Application Submition failed !", err);
+  //   }
+  // };
+
+  // handle submit with jobtite and company
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (!job) {
+      alert("Job details not loaded yet!");
+      return;
+    }
+
     try {
-      const res = await api.post("/submit", formData);
+      // create the data object including job id and company
+      const dataToSend = {
+        ...formData,
+        jobTitle: job.title, // MongoDB ObjectId of the job
+        company: job.company, // company name
+      };
+
+      const res = await api.post("/submit", dataToSend);
+
+      // reset form after successful submission
       setFormData({
         fullName: "",
         email: "",
@@ -59,7 +133,7 @@ const JobApplicationForm = () => {
       alert("Application Submitted Successfully!");
     } catch (err) {
       console.log("Application not Submitted:", err);
-      alert("Application Submition failed !", err);
+      alert("Application Submission failed!");
     }
   };
 
@@ -68,15 +142,36 @@ const JobApplicationForm = () => {
       <form onSubmit={handleSubmit} className="w-full max-w-5xl">
         {/* Header */}
         <div className="flex flex-wrap justify-between items-end gap-4 mb-8">
-          <div>
-            <h1 className="text-3xl font-extrabold text-slate-900 dark:text-white">
-              Apply for <span className="text-brand-primary"> Job</span>
-            </h1>
-            <p className="text-slate-500 dark:text-slate-400">
-              Submit your application details below.
-            </p>
-          </div>
+          {/* {recentJobs.slice(0, 3).map((job) => (
+            <div>
+              <h1 className="text-3xl font-extrabold text-slate-900 dark:text-white">
+                Apply for{" "}
+                <span className="text-brand-primary"> {job.title}</span>
+              </h1>
+              <p className="text-slate-500 dark:text-slate-400">
+                Submit your application details to{" "}
+                <span className="text-brand-secondary font-bold">
+                  {job.company}
+                </span>
+              </p>
+            </div>
+          ))} */}
 
+          {job && (
+            <div>
+              <h1 className="text-3xl font-extrabold text-slate-900 dark:text-white">
+                Apply for
+                <span className="text-brand-primary"> {job.title}</span>
+              </h1>
+
+              <p className="text-slate-500 dark:text-slate-400">
+                Submit your application details to
+                <span className="text-brand-secondary font-bold">
+                  {job.company}
+                </span>
+              </p>
+            </div>
+          )}
           <button
             type="submit"
             className="flex items-center gap-2 rounded-xl h-11 px-8 bg-brand-primary text-white text-sm font-bold shadow-lg shadow-brand-primary/20 hover:scale-[1.02] active:scale-[0.98] transition-all"
@@ -223,6 +318,8 @@ const JobApplicationForm = () => {
 
           {/* Right Side Settings */}
           <div className="space-y-6">
+            {/* preferencess */}
+
             <section className="bg-white dark:bg-slate-900 p-6 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm">
               <h3 className="text-lg font-bold mb-6 flex items-center gap-2">
                 <FiInfo className="text-brand-primary" />

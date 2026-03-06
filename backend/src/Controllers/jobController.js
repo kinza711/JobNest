@@ -171,3 +171,39 @@ export const remotePost = async (req, res) => {
     });
   }
 };
+
+// get single job
+
+// export const GetSinglePost = async (req, res) => {
+//   try {
+//     const singleJobs = await Job.find({id});
+//     res.status(200).json({
+//       message: "job  found succesfully",
+//       data: singleJobs,
+//     });
+//   } catch (err) {
+//     res.status(500).json({
+//       message: "job not found",
+//       error: err,
+//     });
+//   }
+// };
+
+export const GetSinglePost = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const singleJobs = await Job.findById(id);
+
+    res.status(200).json({
+      message: "job found successfully",
+      data: singleJobs,
+    });
+
+  } catch (err) {
+    res.status(500).json({
+      message: "job not found",
+      error: err,
+    });
+  }
+};
