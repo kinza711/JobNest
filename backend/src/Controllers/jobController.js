@@ -129,7 +129,7 @@ export const UpdateJob = async (req, res) => {
 export const EditPost = async (req, res) => {
   try {
     const { id } = req.params;
-    const editJobs = await Job.findById({ id });
+    const editJobs = await Job.findById(id);
     res.status(200).json({
       message: "job  edited succesfully",
       data: editJobs,

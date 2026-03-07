@@ -11,8 +11,12 @@ import { FaUsersBetweenLines } from "react-icons/fa6";
 import { CiGlobe } from "react-icons/ci";
 import api from "../../services/api";
 import Back from "../buttons/Back";
+import { useNavigate, useParams } from "react-router-dom";
+import { useEffect } from "react";
 
 const JobPostForm = () => {
+  const { id } = useParams();
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     title: "",
     disc: "",
@@ -42,31 +46,51 @@ const JobPostForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await api.post("/post", formData);
-
-      console.log("Job Posted:", res);
-      alert("Job Posted Successfully!");
-      setFormData({
-        title: "",
-        disc: "",
-        keys: "",
-        company: "",
-        requirements: "",
-        category: "Web Developer",
-        location: "",
-        salary: "",
-        status: "live",
-        jobType: "Full-time",
-        companySize: "",
-        industry: "",
-        remote: false,
-        onsite: true,
-        urgent: false,
-      });
+      if (id) {
+        await api.put(`/update/${id}`, formData);
+        alert("Job Updated Successfully");
+        navigate("/jobmanagement");
+      } else {
+        await api.post("/post", formData);
+        //console.log("Job Posted:", res);
+        alert("Job Posted Successfully!");
+        setFormData({
+          title: "",
+          disc: "",
+          keys: "",
+          company: "",
+          requirements: "",
+          category: "Web Developer",
+          location: "",
+          salary: "",
+          status: "live",
+          jobType: "Full-time",
+          companySize: "",
+          industry: "",
+          remote: false,
+          onsite: true,
+          urgent: false,
+        });
+      }
     } catch (err) {
       alert("job not posted", err);
     }
   };
+  // fetch job to edit
+  useEffect(() => {
+    if (!id) return;
+
+    const fetchJob = async () => {
+      try {
+        const res = await api.get(`/edit/${id}`);
+        setFormData(res.data.data);
+      } catch (err) {
+        console.log("Job not found", err);
+      }
+    };
+
+    fetchJob();
+  }, [id]);
 
   return (
     <main className="flex-1 flex flex-col items-center py-8 px-4 sm:px-6 lg:px-8">
@@ -87,7 +111,7 @@ const JobPostForm = () => {
               type="submit"
               className="flex items-center justify-center rounded-xl h-11 px-8 bg-brand-primary text-white text-sm font-bold shadow-lg shadow-brand-primary/20 hover:scale-[1.02] active:scale-[0.98] transition-all"
             >
-              Publish Job
+              {id ? "Update Job" : "Publish Job"}
             </button>
           </div>
         </div>

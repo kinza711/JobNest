@@ -66,3 +66,41 @@ export const deleteUser = async (req, res) => {
     });
   }
 };
+
+// edit user via id
+export const EditUsers = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const editusers = await Users.findById(id);
+
+    res.status(200).json({
+      message: "Allusers found successfully",
+      data: editusers,
+    });
+  } catch (err) {
+    res.status(500).json({
+      message: "users not found",
+      error: err,
+    });
+  }
+};
+
+// edit user via id
+export const UpdateUsers = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const updateuser = await Users.findByIdAndUpdate(id, req.body, {
+      new: true,
+    });
+
+    res.status(200).json({
+      message: "Allusers updtaed successfully",
+      data: updateuser,
+    });
+  } catch (err) {
+    res.status(500).json({
+      message: "users not updtaed",
+      error: err,
+    });
+  }
+};

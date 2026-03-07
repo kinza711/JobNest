@@ -44,6 +44,9 @@ export default function JobTable() {
                 Location
               </th>
               <th className="px-6 py-4 text-xs font-bold text-brand-gray-500 uppercase tracking-wider border-b border-border-light dark:border-border-dark">
+                Job_Type
+              </th>
+              <th className="px-6 py-4 text-xs font-bold text-brand-gray-500 uppercase tracking-wider border-b border-border-light dark:border-border-dark">
                 Salary
               </th>
 
@@ -79,6 +82,12 @@ export default function JobTable() {
                   {job.location}
                 </td>
 
+                <td className="px-6 py-5 text-sm  text-brand-primary font-medium">
+                  <span className="bg-brand-primary/10 p-1 px-2 rounded-full">
+                    {job.jobType}
+                  </span>
+                </td>
+
                 <td className="px-6 py-5 text-sm text-brand-gray-500 font-medium">
                   {job.salary}
                 </td>
@@ -111,7 +120,10 @@ export default function JobTable() {
                     </button>
                     <button className="p-2 rounded-lg text-gray-500 hover:bg-gray-100 bg-brand-secondary/10 hover:text-navy transition-all">
                       <span className="material-symbols-outlined text-lg">
-                        <MdEdit />
+                        <Link to={`/postjob/${job._id}`}>
+                          {" "}
+                          <MdEdit />
+                        </Link>
                       </span>
                     </button>
                     <button
