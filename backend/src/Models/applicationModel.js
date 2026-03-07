@@ -14,6 +14,9 @@ const applicationSchema = new mongoose.Schema(
     phone: { type: String, required: true },
     location: { type: String },
     portfolio: { type: String },
+    website: { type: String },
+    linkedIn: { type: String },
+    github: { type: String },
     coverLetter: { type: String },
     resume: { type: String },
     relocate: { type: Boolean, default: false },
@@ -25,7 +28,7 @@ const applicationSchema = new mongoose.Schema(
     availability: { type: String, enum: ["Immediate", "1 Month", "3 Months"] },
     status: {
       type: String,
-      enum: ["Pending", "Reviewed", "Shortlisted", "Rejected", "Hired"],
+      enum: ["Pending", "Shortlisted", "Rejected", "Hired"],
       default: "Pending",
     },
   },

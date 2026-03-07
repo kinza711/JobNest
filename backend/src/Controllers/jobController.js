@@ -13,6 +13,7 @@ export const PostJob = async (req, res) => {
       location,
       salary,
       jobType,
+      status,
       companySize,
       industry,
       remote,
@@ -30,6 +31,7 @@ export const PostJob = async (req, res) => {
       location,
       salary,
       jobType,
+      status,
       companySize,
       industry,
       remote,
@@ -56,7 +58,7 @@ export const DeletePost = async (req, res) => {
   try {
     const { id } = req.params;
 
-    const deletejobs = await Job.findOneAndDelete(id);
+    const deletejobs = await Job.findByIdAndDelete(id);
 
     if (!deletejobs) {
       res.status(200).json({
@@ -65,6 +67,7 @@ export const DeletePost = async (req, res) => {
     }
     res.status(200).json({
       message: "job  Deleted succesfully",
+      data: deletejobs,
     });
     console.log(deletejobs);
   } catch (err) {
@@ -199,7 +202,6 @@ export const GetSinglePost = async (req, res) => {
       message: "job found successfully",
       data: singleJobs,
     });
-
   } catch (err) {
     res.status(500).json({
       message: "job not found",

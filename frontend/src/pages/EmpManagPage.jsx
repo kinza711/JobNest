@@ -15,7 +15,7 @@ const EmpManagPage = () => {
             Employee <span className="text-brand-primary">Management</span>
           </h1>
           <UserStats />
-          <UserTable />
+          <UserTable type="hr" />
         </div>
       </main>
     </div>

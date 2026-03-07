@@ -49,3 +49,20 @@ export const JobSeeker = async (req, res) => {
     });
   }
 };
+
+export const deleteUser = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const deleteuser = await Users.findByIdAndDelete(id);
+
+    res.status(200).json({
+      message: "user delered succesfully",
+      data: deleteuser,
+    });
+  } catch (err) {
+    res.status(500).json({
+      message: "user not deleted",
+      error: err,
+    });
+  }
+};

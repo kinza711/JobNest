@@ -1,10 +1,22 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import UserSidebar from "../components/sidebars/UserSidebar";
 import ProfileInfo from "../components/profile/ProfileInfo";
 import ProfileCard from "../components/profile/ProfileCard";
 import UserHeader from "../components/headers/UserHeader";
+// import { useParams } from "react-router-dom";
+// import api from "../services/api";
 
 export default function ProfilePage() {
+  // const [profile, setProfile] = useState(null);
+  // const { id } = useParams();
+  // useEffect(() => {
+  //   const fetchProfile = async () => {
+  //     const res = await api.get(`/profile/${id}`);
+  //     setProfile(res.data.data);
+  //   };
+  //   fetchProfile();
+  // }, []);
+
   return (
     <main className="flex min-h-screen w-full">
       {/* Left Sidebar */}

@@ -26,6 +26,11 @@ const jobSchema = new mongoose.Schema(
       enum: ["Full-time", "Contract", "Part-time"],
       required: true,
     },
+    status: {
+      type: String,
+      enum: ["live", "closed"],
+      required: true,
+    },
     companySize: { type: String, required: true },
     industry: { type: String, required: true },
     remote: { type: Boolean, default: false },

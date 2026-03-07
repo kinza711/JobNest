@@ -1,66 +1,45 @@
-import React from "react";
-import { FaFilter } from "react-icons/fa";
-import { MdModeEditOutline } from "react-icons/md";
-import { MdDelete } from "react-icons/md";
+import React, { useEffect, useState } from "react";
+import { MdModeEditOutline, MdDelete } from "react-icons/md";
+import api from "../../services/api";
 
-const users = [
-  {
-    name: "Alex Johnson",
-    email: "alex.j@example.com",
-    Titel: "AI/ML engenier",
-    initials: "AJ",
-    color: "orange",
-  },
-  {
-    name: "Brenda Smith",
-    email: "brenda.s@example.com",
-    Titel: "MERN developer",
-    initials: "BS",
-    color: "blue",
-  },
-  {
-    name: "Charlie Brown",
-    email: "charlie.b@example.com",
-    Titel: "Laraval Developer",
-    initials: "CB",
-    color: "green",
-  },
-  {
-    name: "Diana Prince",
-    email: "diana.p@example.com",
-    Titel: "React frontend developer",
-    initials: "DP",
-    color: "blue",
-  },
-  {
-    name: "Ethan Hunt",
-    email: "ethan.h@example.com",
-    Titel: "Wordpress Developer",
-    initials: "EH",
-    color: "orange",
-  },
-];
+const UserTable = ({ type }) => {
+  const [data, setData] = useState([]);
 
-const UserTable = () => {
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        let res;
+        if (type === "JobSeeker") {
+          res = await api.get("/jobseeker");
+        } else if (type === "hr") {
+          res = await api.get("/hr");
+        }
+        setData(res.data.data);
+      } catch (err) {
+        console.log("Data not found", err);
+      }
+    };
+
+    fetchData();
+  }, [type]);
+
+  const handleDelete = async (id) => {
+    try {
+      const res = await api.delete(`/delete/${id}`);
+      alert("user deleted succesfully");
+      // Remove the deleted user from state
+      setData((prev) => prev.filter((user) => user._id !== id));
+    } catch (err) {
+      alert("not delete", err);
+    }
+  };
+
   return (
     <div className="glass-panel rounded-2xl border border-slate-200 overflow-hidden shadow-xl shadow-slate-200/40">
       <div className="px-8 py-5 border-b border-slate-200 flex items-center justify-between">
-        <div className="flex items-center gap-4">
-          <h4 className="font-bold text-slate-800">User List</h4>
-          <div className="flex items-center gap-1 bg-slate-100 px-3 py-1 rounded-full">
-            <span className="size-2 rounded-full bg-brand-secondary animate-pulse"></span>
-            <span className="text-[11px] font-bold text-slate-600">
-              42 Members Online
-            </span>
-          </div>
-        </div>
-        <div className="flex items-center gap-2">
-          <button className="p-2 text-slate-400 hover:text-brand-primary transition-colors">
-            <span className="material-symbols-outlined">
-              <FaFilter />
-            </span>
-          </button>
-        </div>
+        <h4 className="font-bold text-slate-800">
+          {type === "jobseeker" ? "Job Seekers" : "HR Members"}
+        </h4>
       </div>
 
       <div className="overflow-x-auto">
@@ -68,67 +47,47 @@ const UserTable = () => {
           <thead>
             <tr className="bg-slate-50/50">
               <th className="px-8 py-4 text-xs font-bold text-slate-400 uppercase tracking-widest border-b border-slate-200">
-                Member
+                Name
               </th>
               <th className="px-6 py-4 text-xs font-bold text-slate-400 uppercase tracking-widest border-b border-slate-200">
                 Email
               </th>
               <th className="px-6 py-4 text-xs font-bold text-slate-400 uppercase tracking-widest border-b border-slate-200">
-                Titel
+                Role
               </th>
-
+              <th className="px-6 py-4 text-xs font-bold text-slate-400 uppercase tracking-widest border-b border-slate-200">
+                Phone
+              </th>
+              <th className="px-6 py-4 text-xs font-bold text-slate-400 uppercase tracking-widest border-b border-slate-200">
+                Location
+              </th>
               <th className="px-8 py-4 text-xs font-bold text-slate-400 uppercase tracking-widest border-b border-slate-200 text-right">
                 Actions
               </th>
             </tr>
           </thead>
+
           <tbody className="divide-y divide-slate-100">
-            {users.map((user, idx) => (
+            {data.map((user, idx) => (
               <tr
                 key={idx}
                 className="hover:bg-slate-50 transition-colors group"
               >
-                <td className="px-8 py-4">
-                  <div className="flex items-center gap-3">
-                    <div
-                      className={`size-10 rounded-full bg-${user.color}-100 flex items-center justify-center text-${user.color}-600 font-bold text-sm`}
-                    >
-                      {user.initials}
-                    </div>
-                    <div>
-                      <p className="text-sm font-bold text-slate-900">
-                        {user.name}
-                      </p>
-                    </div>
-                  </div>
-                </td>
-                <td className="px-6 py-4">
-                  <p className="text-xs text-slate-400">{user.email}</p>
-                </td>
-                <td className="px-6 py-4">
-                  <span className="px-3 py-1 bg-brand-primary/10 text-slate-600 rounded-lg text-xs font-bold">
-                    {user.Titel}
-                  </span>
-                </td>
-
+                <td className="px-8 py-4 capitalize">{user.name}</td>
+                <td className="px-6 py-4">{user.email}</td>
+                <td className="px-6 py-4">{user.role}</td>
+                <td className="px-6 py-4">{user.phone}</td>
+                <td className="px-6 py-4">{user.location}</td>
                 <td className="px-8 py-4 text-right">
                   <div className="flex items-center justify-end gap-2">
-                    <button
-                      className="size-8 rounded-lg bg-white border border-slate-200 text-slate-400 hover:text-brand-secondary hover:border-brand-secondary transition-all flex items-center justify-center"
-                      title="Edit"
-                    >
-                      <span className="material-symbols-outlined text-lg">
-                        <MdModeEditOutline />
-                      </span>
+                    <button className="size-8 rounded-lg bg-white border border-slate-200 text-slate-400 hover:text-brand-secondary hover:border-brand-secondary transition-all flex items-center justify-center">
+                      <MdModeEditOutline />
                     </button>
-
                     <button
+                      onClick={() => handleDelete(user._id)}
                       className="size-8 rounded-lg bg-white border border-slate-200 text-slate-400 hover:text-red-500 hover:border-red-500 transition-all flex items-center justify-center"
-                      title="Delete"
                     >
-                      <span className="material-symbols-outlined text-lg">
-                        <MdDelete />
-                      </span>
+                      <MdDelete />
                     </button>
                   </div>
                 </td>

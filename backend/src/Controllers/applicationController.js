@@ -10,6 +10,9 @@ export const ApplyJob = async (req, res) => {
       phone,
       location,
       portfolio,
+      website,
+      linkedIn,
+      github,
       coverLetter,
       resume,
       relocate,
@@ -32,6 +35,9 @@ export const ApplyJob = async (req, res) => {
       phone,
       location,
       portfolio,
+      website,
+      linkedIn,
+      github,
       coverLetter,
       resume,
       relocate,
@@ -111,7 +117,7 @@ export const Rejected = async (req, res) => {
 export const GetSingleApplications = async (req, res) => {
   try {
     const { id } = req.params;
-    const singleApplications = await Application.find(id);
+    const singleApplications = await Application.findById(id);
 
     res.status(200).json({
       message: "applications found successfully",
@@ -120,6 +126,51 @@ export const GetSingleApplications = async (req, res) => {
   } catch (err) {
     res.status(500).json({
       message: "applications not found",
+      error: err,
+    });
+  }
+};
+
+// update status
+
+export const UpdateStatus = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { status } = req.body;
+
+    const appstatus = await Application.findByIdAndUpdate(
+      id,
+      { status },
+      { new: true },
+    );
+
+    res.status(200).json({
+      message: "Application status updated successfully",
+      data: appstatus,
+    });
+  } catch (err) {
+    res.status(500).json({
+      message: "Application status not updated",
+      error: err,
+    });
+  }
+};
+
+// delete application logic
+
+export const deleteApp = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const deleteapp = await Application.findByIdAndDelete(id);
+
+    res.status(200).json({
+      message: "Application deleted successfully",
+      data: deleteapp,
+    });
+  } catch (err) {
+    res.status(500).json({
+      message: "Application not deleted",
       error: err,
     });
   }

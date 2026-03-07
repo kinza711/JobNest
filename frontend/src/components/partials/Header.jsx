@@ -20,7 +20,7 @@ export default function Header() {
           </div>
 
           <nav className="hidden lg:flex flex-1 justify-center gap-10">
-            <Link to="/">Find Jobs</Link>
+            <Link to="/jobs">Find Jobs</Link>
             <Link to="/">Companies</Link>
             <Link to="/">Why Us</Link>
             <Link to="/policy">Privacy Policy</Link>

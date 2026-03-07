@@ -1,27 +1,24 @@
-import React from "react";
+// FeaturedJobs.jsx
+import React, { useState, useEffect } from "react";
 import JobCards from "../publicJob/JobCards";
+import api from "../../services/api";
 
 const FeaturedJobs = () => {
-  const jobs = [
-    {
-      title: "Senior Product Designer",
-      company: "Lumina Systems",
-      location: "San Francisco, CA (Remote)",
-      type: "Full-time",
-      salary: "$140k - $190k",
-      posted: "Posted 2 hours ago",
-      badge: "New",
-    },
-    {
-      title: "Lead Frontend Engineer",
-      company: "FinFlow AI",
-      location: "New York, NY",
-      type: "Full-time",
-      salary: "$160k - $210k",
-      posted: "Posted 5 hours ago",
-      badge: "Featured",
-    },
-  ];
+  const [jobs, setJobs] = useState([]);
+
+  useEffect(() => {
+    const fetchJobs = async () => {
+      try {
+        const res = await api.get("/post"); // your API endpoint
+        setJobs(res.data.data);
+      } catch (err) {
+        console.log("Jobs not found", err);
+      }
+    };
+    fetchJobs();
+  }, []);
+
+  if (!jobs.length) return <p className="text-center py-10">Loading...</p>;
 
   return (
     <section className="py-16 bg-brand-gray-50 rounded-3xl dark:bg-brand-gray-900">
@@ -38,16 +35,9 @@ const FeaturedJobs = () => {
       {/* Job Grid */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 px-10">
         {jobs.map((job, index) => (
-          <JobCards key={index} job={job} />
+          <JobCards key={job._id || index} job={job} />
         ))}
       </div>
-
-      {/* CTA Button */}
-      {/* <div className="mt-14 text-center">
-        <button className="px-10 py-3 bg-brand-primary hover:bg-brand-secondary text-white font-semibold rounded-2xl transition-all duration-300 shadow-lg hover:shadow-xl">
-          Browse All 2,400+ Jobs
-        </button>
-      </div> */}
     </section>
   );
 };

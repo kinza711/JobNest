@@ -15,8 +15,8 @@ import {
 router.post("/post", PostJob);
 router.delete("/post/:id", DeletePost);
 router.get("/post", GetPost);
-router.put("/post/:id", UpdateJob);
-router.get("/post/:id", EditPost);
+router.put("/update/:id", UpdateJob);
+router.get("/edit/:id", EditPost);
 router.get("/remote", remotePost);
 router.get("/onsite", OnsitePost);
 router.get("/job/:id", GetSinglePost);

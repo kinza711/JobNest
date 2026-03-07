@@ -5,6 +5,7 @@ import authRoutes from "./Routes/authRoutes.js";
 import jobRoutes from "./Routes/jobRoutes.js";
 import applicationRoutes from "./Routes/applicationRoutes.js";
 import userRoutes from "./Routes/userRoutes.js";
+import profileRoutes from "./Routes/profileRoutes.js";
 
 // to fetch and store data
 app.use(express.urlencoded({ extended: true }));
@@ -29,6 +30,7 @@ app.use("/", authRoutes);
 app.use("/", jobRoutes);
 app.use("/", applicationRoutes);
 app.use("/", userRoutes);
+app.use("/", profileRoutes);
 
 //default apge
 app.get("/", (req, res) => {

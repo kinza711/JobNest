@@ -22,7 +22,7 @@ export default function RecentApplications() {
     <div className="glass rounded-xl overflow-hidden shadow-sm">
       {/* Header */}
       <div className="px-6 py-4 border-b border-brand-primary flex justify-between items-center">
-        <h3 className="text-lg font-bold">Recent Applications</h3>
+        <h3 className="text-lg font-bold">All Jobs Posts</h3>
       </div>
 
       {/* Table */}
@@ -47,7 +47,7 @@ export default function RecentApplications() {
           </thead>
 
           <tbody className="divide-y divide-gray-200">
-            {applications.map((app, index) => (
+            {applications.slice(0, 4).map((app, index) => (
               <tr
                 key={index}
                 className="hover:bg-brand-primary/5 transition-colors"
@@ -89,8 +89,12 @@ export default function RecentApplications() {
 
       {/* Footer */}
       <div className="px-6 py-4 border-t border-gray-200 flex items-center justify-between">
-        <span className="text-sm text-slate-500">
-          Showing {applications.length} applications
+        <span className="text-sm text-slate-500 ">
+          Showing Total{" "}
+          <span className="text-brand-primary font-bold">
+            {applications.length}
+          </span>{" "}
+          applications
         </span>
       </div>
     </div>

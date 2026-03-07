@@ -44,8 +44,8 @@ const App = () => {
           <Route path="/application/:id" element={<ApplicationPage />} />
           <Route path="/jobs" element={<JobsPage />} />
           {/* no link implemented yet for appdetails */}
-          <Route path="/appdetails" element={<CandidateDetail />} />
-          <Route path="/jobdetails" element={<JobDetailsPage />} />
+          <Route path="/appdetails/:id" element={<CandidateDetail />} />
+          <Route path="/jobdetails/:id" element={<JobDetailsPage />} />
           <Route path="/download" element={<CvDownloads />} />
         </Routes>
       </Router>

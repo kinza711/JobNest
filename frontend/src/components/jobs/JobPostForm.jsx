@@ -22,6 +22,7 @@ const JobPostForm = () => {
     category: "Design",
     location: "",
     salary: "",
+    status: "live",
     jobType: "Full-time",
     companySize: "",
     industry: "",
@@ -51,9 +52,10 @@ const JobPostForm = () => {
         keys: "",
         company: "",
         requirements: "",
-        category: "Design",
+        category: "Web Developer",
         location: "",
         salary: "",
+        status: "live",
         jobType: "Full-time",
         companySize: "",
         industry: "",
@@ -317,6 +319,33 @@ const JobPostForm = () => {
                     className="h-5 w-5 text-brand-primary"
                   />
                 </div>
+                {/* status  */}
+                <div className="pt-4 border-t border-slate-100 dark:border-slate-800">
+                  <label className="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">
+                    Status
+                  </label>
+                  <div className="space-y-2">
+                    {["live", "closed"].map((type) => (
+                      <label
+                        key={type}
+                        className="flex items-center gap-3 cursor-pointer"
+                      >
+                        <input
+                          type="radio"
+                          name="status"
+                          value={type}
+                          checked={formData.status === type}
+                          onChange={handleChange}
+                          className="text-brand-primary focus:ring-brand-primary h-4 w-4 border-slate-300"
+                        />
+                        <span className="text-sm text-slate-600 dark:text-slate-400">
+                          {type}
+                        </span>
+                      </label>
+                    ))}
+                  </div>
+                </div>
+
                 <div className="flex items-center justify-between">
                   <div className="flex flex-col">
                     <span className="text-sm font-semibold text-slate-800 dark:text-slate-200">

@@ -50,6 +50,9 @@ const JobApplicationForm = () => {
     phone: "",
     location: "",
     portfolio: "",
+    website: "",
+    linkedIn: "",
+    github: "",
     coverLetter: "",
     resume: "",
     relocate: false,
@@ -121,6 +124,9 @@ const JobApplicationForm = () => {
         phone: "",
         location: "",
         portfolio: "",
+        website: "",
+        linkedIn: "",
+        github: "",
         coverLetter: "",
         resume: "",
         relocate: false,
@@ -269,20 +275,65 @@ const JobApplicationForm = () => {
               </h3>
 
               <div className="space-y-6">
-                <div>
-                  <label className="block text-sm font-semibold mb-2">
-                    Portfolio URL
-                  </label>
-                  <input
-                    type="link"
-                    name="portfolio"
-                    value={formData.portfolio}
-                    onChange={handleChange}
-                    placeholder="https://yourportfolio.com"
-                    className="w-full rounded-xl p-2 border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white"
-                  />
-                </div>
+                <div className="portfolios  grid grid-cols-1 md:grid-cols-2 gap-5 ">
+                  <div>
+                    <label className="block text-sm font-semibold mb-2">
+                      Portfolio URL
+                    </label>
+                    <input
+                      type="link"
+                      name="portfolio"
+                      value={formData.portfolio}
+                      onChange={handleChange}
+                      placeholder="https://yourportfolio.com"
+                      className="w-full rounded-xl p-2 border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white"
+                    />
+                  </div>
+                  {/* website link */}
+                  <div>
+                    <label className="block text-sm font-semibold mb-2">
+                      Website URL
+                    </label>
+                    <input
+                      type="link"
+                      name="website"
+                      value={formData.website}
+                      onChange={handleChange}
+                      placeholder="https://yourwebsite.com"
+                      className="w-full rounded-xl p-2 border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white"
+                    />
+                  </div>
 
+                  {/* LinkedIn link */}
+                  <div>
+                    <label className="block text-sm font-semibold mb-2">
+                      LinkedIn URL
+                    </label>
+                    <input
+                      type="link"
+                      name="linkedIn"
+                      value={formData.linkedIn}
+                      onChange={handleChange}
+                      placeholder="https://yourlinkedin.com"
+                      className="w-full rounded-xl p-2 border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white"
+                    />
+                  </div>
+                  {/* GItHUb link */}
+                  <div>
+                    <label className="block text-sm font-semibold mb-2">
+                      GitHUb URL
+                    </label>
+                    <input
+                      type="link"
+                      name="github"
+                      value={formData.github}
+                      onChange={handleChange}
+                      placeholder="https://yourgithub.com"
+                      className="w-full rounded-xl p-2  border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white"
+                    />
+                  </div>
+                </div>
+                {/* cover later */}
                 <div>
                   <label className="block text-sm font-semibold mb-2">
                     Cover Letter

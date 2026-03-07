@@ -39,6 +39,29 @@ import api from "../../services/api";
 
 const MyApplicationTable = () => {
   const [applications, setApplications] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 5;
+
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+
+  const currentApplications = applications.slice(
+    indexOfFirstItem,
+    indexOfLastItem,
+  );
+
+  const totalPages = Math.ceil(applications.length / itemsPerPage);
+  const nextPage = () => {
+    if (currentPage < totalPages) {
+      setCurrentPage(currentPage + 1);
+    }
+  };
+
+  const prevPage = () => {
+    if (currentPage > 1) {
+      setCurrentPage(currentPage - 1);
+    }
+  };
 
   useEffect(() => {
     const fetchApplication = async () => {
@@ -94,7 +117,7 @@ const MyApplicationTable = () => {
           {/* BODY */}
 
           <tbody className="divide-y divide-brand-primary/5">
-            {applications.map((app, idx) => (
+            {currentApplications.slice(0, 5).map((app, idx) => (
               <tr
                 key={idx}
                 className="hover:bg-brand-primary/[0.05] transition-colors"
@@ -137,25 +160,41 @@ const MyApplicationTable = () => {
 
       <div className="px-6 py-4 flex items-center justify-between border-t border-brand-primary/10">
         <p className="text-sm text-slate-500">
-          Showing <span className="font-bold">1</span> to{" "}
-          <span className="font-bold">4</span> of{" "}
-          <span className="font-bold">12</span> applications
+          Showing Total{" "}
+          <span className="font-bold text-brand-primary ">
+            {applications.length}
+          </span>{" "}
+          to{" "}
+          
+          applications
         </p>
 
         <div className="flex items-center gap-2">
-          <button className="size-8 flex items-center justify-center rounded-lg border text-slate-400">
+          <button
+            onClick={prevPage}
+            className="size-8 flex items-center justify-center rounded-lg border text-slate-400"
+          >
             <AiOutlineLeft />
           </button>
 
-          <button className="size-8 flex items-center justify-center rounded-lg bg-brand-primary text-white text-xs font-bold">
-            1
-          </button>
+          {[...Array(totalPages)].map((_, i) => (
+            <button
+              key={i}
+              onClick={() => setCurrentPage(i + 1)}
+              className={`size-8 flex items-center justify-center rounded-lg text-xs font-bold ${
+                currentPage === i + 1
+                  ? "bg-brand-primary text-white"
+                  : "border text-slate-500"
+              }`}
+            >
+              {i + 1}
+            </button>
+          ))}
 
-          <button className="size-8 flex items-center justify-center rounded-lg border text-slate-500 text-xs font-bold">
-            2
-          </button>
-
-          <button className="size-8 flex items-center justify-center rounded-lg border text-slate-400">
+          <button
+            onClick={nextPage}
+            className="size-8 flex items-center justify-center rounded-lg border text-slate-400"
+          >
             <AiOutlineRight />
           </button>
         </div>

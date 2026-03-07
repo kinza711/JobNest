@@ -10,14 +10,14 @@ export default function StatsCards() {
   const [totalPosts, setTotalPosts] = useState(0);
   const [totalOnsite, setTotalOnsite] = useState(0);
   const [totalRemote, setTotalRemote] = useState(0);
-  
+
   // total users
   useEffect(() => {
     const fetchUsers = async () => {
       try {
         const res = await api.get("/users");
         setTotalUsers(res.data.data.length);
-        console.log("user  found");
+        //console.log("user  found");
       } catch (err) {
         console.log("user not found", err);
       }
@@ -31,7 +31,7 @@ export default function StatsCards() {
       try {
         const res = await api.get("/post");
         setTotalPosts(res.data.data.length);
-        console.log("user  found");
+        //console.log("user   found");
       } catch (err) {
         console.log("user not found", err);
       }
@@ -45,7 +45,7 @@ export default function StatsCards() {
       try {
         const res = await api.get("/onsite");
         setTotalOnsite(res.data.data.length);
-        console.log("user  found");
+        //console.log("user  found");
       } catch (err) {
         console.log("user not found", err);
       }
@@ -59,7 +59,7 @@ export default function StatsCards() {
       try {
         const res = await api.get("/remote");
         setTotalRemote(res.data.data.length);
-        console.log("user  found");
+        //console.log("user  found");
       } catch (err) {
         console.log("user not found", err);
       }

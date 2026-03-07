@@ -1,73 +1,28 @@
 import React from "react";
-import {
-  FiMonitor,
-  FiShield,
-  FiDatabase,
-  FiBarChart2,
-  FiCloud,
-  FiLock,
-  FiArrowRight,
-} from "react-icons/fi";
+import { useEffect } from "react";
+import { useState } from "react";
+import { FiArrowRight } from "react-icons/fi";
 import { Link } from "react-router-dom";
 
-const jobs = [
-  {
-    title: "Senior Frontend Architect",
-    company: "Stellar Systems • Remote",
-    salary: "$140k - $180k",
-    skills: ["React", "Tailwind", "Next.js"],
-    icon: <FiMonitor />,
-    status: "NEW",
-    statusColor: "brand-primary",
-  },
-  {
-    title: "Lead UX Product Designer",
-    company: "Creative Pulse • Hybrid",
-    salary: "$120k - $155k",
-    skills: ["Figma", "Research"],
-    icon: <FiShield />,
-    status: "OPEN",
-    statusColor: "brand-secondary",
-  },
-  {
-    title: "Backend Node.js Engineer",
-    company: "DataFlow Inc • NYC / Remote",
-    salary: "$150k - $210k",
-    skills: ["PostgreSQL", "AWS"],
-    icon: <FiDatabase />,
-    status: "NEW",
-    statusColor: "brand-primary",
-  },
-  {
-    title: "Growth Marketing Manager",
-    company: "ScaleUp Labs • London",
-    salary: "$90k - $130k",
-    skills: ["SEO", "Analytics"],
-    icon: <FiBarChart2 />,
-    status: "OPEN",
-    statusColor: "brand-primary",
-  },
-  {
-    title: "DevOps Infrastructure Lead",
-    company: "CloudSphere • Remote",
-    salary: "$170k - $220k",
-    skills: ["Kubernetes", "Terraform"],
-    icon: <FiCloud />,
-    status: "OPEN",
-    statusColor: "brand-secondary",
-  },
-  {
-    title: "Visual Identity Designer",
-    company: "Design Studio X • Paris",
-    salary: "$60k - $85k",
-    skills: ["Branding"],
-    icon: <FiLock />,
-    status: "CLOSED",
-    disabled: true,
-  },
-];
-
+import api from "../../services/api";
 const AllJobs = () => {
+  const [jobs, setJobs] = useState([]);
+
+  useEffect(() => {
+    const fetchJob = async () => {
+      try {
+        const res = await api.get("/post");
+        setJobs(res.data.data);
+      } catch (err) {
+        console.log("job not found", err);
+      }
+    };
+
+    fetchJob();
+  }, []);
+
+  if (!jobs.length) return <p>Loading...</p>;
+
   return (
     <section className="mt-24 px-6">
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -118,7 +73,7 @@ const AllJobs = () => {
                         : "bg-brand-primary/10 text-brand-primary border-brand-primary/20"
                   }`}
                 >
-                  {job.status}
+                  <span>{job.jobType}</span>
                 </span>
               </div>
 
@@ -132,7 +87,7 @@ const AllJobs = () => {
               </p>
 
               {/* Skills */}
-              <div className="mt-6 flex flex-wrap gap-2">
+              {/* <div className="mt-6 flex flex-wrap gap-2">
                 {job.skills.map((skill, i) => (
                   <span
                     key={i}
@@ -141,7 +96,7 @@ const AllJobs = () => {
                     {skill}
                   </span>
                 ))}
-              </div>
+              </div> */}
 
               {/* Footer */}
               <div className="mt-auto pt-6 flex items-center justify-between  border-gray-200  mt-6">
@@ -163,7 +118,7 @@ const AllJobs = () => {
                       : "bg-brand-primary text-white hover:bg-brand-secondary"
                   }`}
                 >
-                  <Link to="/jobdetails">
+                  <Link to={`/jobdetails/${job._id}`}>
                     <FiArrowRight />
                   </Link>
                 </button>
