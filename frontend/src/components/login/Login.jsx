@@ -32,11 +32,28 @@ const Login = () => {
 
     try {
       const res = await api.post("/login", formData);
+      // de structuring
+      const { token, role, id } = res.data.user;
+      localStorage.setItem("token", token);
+      localStorage.setItem("id", res.data.user.id);
+      localStorage.setItem("role", res.data.user.role);
+
+      // for checking user id
+      if (!token || !id) {
+        console.error("login response missing or id", res.data.user);
+        return;
+      }
+
+      // for checking user role
+      if (!role) {
+        alert("user role is not matched");
+        return;
+      }
 
       alert("Wellcome Back");
       // role based navigation
       if (formData.role === "JobSeeker") {
-        navigate("/userdashbord");
+        navigate("/userdashboard");
       } else if (formData.role === "HR") {
         navigate("/empdashboard");
       } else if (formData.role === "Admin") {

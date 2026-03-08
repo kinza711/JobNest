@@ -3,19 +3,19 @@ import UserSidebar from "../components/sidebars/UserSidebar";
 import ProfileInfo from "../components/profile/ProfileInfo";
 import ProfileCard from "../components/profile/ProfileCard";
 import UserHeader from "../components/headers/UserHeader";
-// import { useParams } from "react-router-dom";
-// import api from "../services/api";
+import { useParams } from "react-router-dom";
+import api from "../services/api";
 
 export default function ProfilePage() {
-  // const [profile, setProfile] = useState(null);
-  // const { id } = useParams();
-  // useEffect(() => {
-  //   const fetchProfile = async () => {
-  //     const res = await api.get(`/profile/${id}`);
-  //     setProfile(res.data.data);
-  //   };
-  //   fetchProfile();
-  // }, []);
+  const [profile, setProfile] = useState(null);
+  const { id } = useParams();
+  useEffect(() => {
+    const fetchProfile = async () => {
+      const res = await api.get(`/profile/${id}`);
+      setProfile(res.data.user);
+    };
+    fetchProfile();
+  }, []);
 
   return (
     <main className="flex min-h-screen w-full">
@@ -36,12 +36,12 @@ export default function ProfilePage() {
           <div className="flex flex-col lg:flex-row gap-6">
             {/* Profile Card */}
             <div className="lg:w-1/3">
-              <ProfileCard />
+              <ProfileCard profile={profile} />
             </div>
 
             {/* Profile Info */}
             <div className="lg:w-2/3 flex flex-col gap-6">
-              <ProfileInfo />
+              <ProfileInfo profile={profile} />
             </div>
           </div>
         </div>

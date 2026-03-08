@@ -1,5 +1,6 @@
 import Users from "../Models/authModel.js";
 import bcrypt from "bcryptjs";
+import jwt from "jsonwebtoken";
 
 //register
 export const Register = async (req, res) => {
@@ -72,17 +73,17 @@ export const Login = async (req, res) => {
       });
     }
     // skip JWT for now only
-    // const token = jwt.sign(
-    //   {
-    //     id: user._id,
-    //     name: user.name,
-    //     role: user.role,
-    //     email: user.email,
-    //   },
-    //   process.env.JWT_SECRET,
-    //   { expireIn: "1d" },
-    // );
-    // console.log(token);
+    const token = jwt.sign(
+      {
+        id: user._id,
+        name: user.name,
+        role: user.role,
+        email: user.email,
+      },
+      process.env.JWT_SECRET,
+      { expiresIn: "1d" },
+    );
+    //console.log(token);
 
     // for cloudinary pics
     // let picUrl = user.pic;
@@ -90,29 +91,29 @@ export const Login = async (req, res) => {
     //   picUrl = `https.cloudinary.com/${process.env.CLOUDE_NAME}/images/upload/${picUrl}`;
     // }
 
-    // res.status(200).json({
-    //   message: "user is varified or loggedin ",
-    //   user: {
-    //     token: token,
-    //     name: user.name,
-    //     id: user._id,
-    //     email: user.email,
-    //     role: user.role,
-    //     //pic:user.pic
-    //   },
-    // });
-    // console.log(user);
+    res.status(200).json({
+      message: "user is varified or loggedin ",
+      user: {
+        token: token,
+        name: user.name,
+        id: user._id,
+        email: user.email,
+        role: user.role,
+        //pic:user.pic
+      },
+    });
+    console.log(user);
 
     // set simple login
-    if (role === "Admin") {
-      res.send("welcome Admin");
-    } else if (role === "HR") {
-      res.send("welcome HR");
-    } else if (role === "JobSeeker") {
-      res.send("welcome Jobseeker ");
-    } else {
-      res.send("you are no authorised go back");
-    }
+    // if (role === "Admin") {
+    //   res.send("welcome Admin");
+    // } else if (role === "HR") {
+    //   res.send("welcome HR");
+    // } else if (role === "JobSeeker") {
+    //   res.send("welcome Jobseeker ");
+    // } else {
+    //   res.send("you are no authorised go back");
+    // }
   } catch (err) {
     res.status(500).json({
       message: "user not loggedin",

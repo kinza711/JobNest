@@ -33,7 +33,9 @@ export default function RecentApplications() {
               <th className="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">
                 Job Title
               </th>
-
+              <th className="px-6 py-4  text-xs font-bold text-slate-500 uppercase tracking-wider text-right">
+                Status
+              </th>
               <th className="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider text-right">
                 Location
               </th>
@@ -62,6 +64,24 @@ export default function RecentApplications() {
                   </div>
                 </td>
 
+                {/* status */}
+                <td className="px-6 py-4 items-center justify-center flex whitespace-nowrap text-sm text-center">
+                  <span
+                    className={`px-3 py-1 text-[10px] font-bold uppercase tracking-widest rounded-full border flex items-center gap-1 ${
+                      app.status === "live"
+                        ? "bg-brand-secondary/10 text-brand-secondary border-brand-secondary/20"
+                        : app.status === "closed"
+                          ? "bg-brand-primary/10 text-brand-primary border-brand-secondary/20"
+                          : "bg-gray-100 text-gray-600 border-gray-300"
+                    }`}
+                  >
+                    {app.status === "live" && (
+                      <span className="w-2 h-2 bg-brand-secondary rounded-full animate-pulse"></span>
+                    )}
+
+                    {app.status}
+                  </span>
+                </td>
                 {/* Location */}
                 <td className="px-6 py-4 whitespace-nowrap text-sm text-right">
                   {app.location}

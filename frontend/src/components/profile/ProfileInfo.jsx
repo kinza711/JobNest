@@ -1,3 +1,4 @@
+// code with correct input fileds
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 
@@ -31,20 +32,20 @@ export default function ProfileInfo() {
 
           {/* Last Name */}
           <div className="flex flex-col gap-2">
-            <label className="text-sm font-medium text-black">Last Name</label>
+            <label className="text-sm font-medium text-black">Email</label>
             <input
-              type="text"
-              placeholder="shahzadi"
+              type="email"
+              placeholder="kinza@gmail.co"
               className="rounded-full px-4 py-2 text-gray-900 bg-white focus:outline-none focus:ring-2 focus:ring-brand-primary"
             />
           </div>
 
           {/* Email */}
           <div className="flex flex-col gap-2">
-            <label className="text-sm font-medium text-black">Email</label>
+            <label className="text-sm font-medium text-black">Location</label>
             <input
-              type="email"
-              placeholder="kinza@gmail.com"
+              type="text"
+              placeholder="lahore , pakistan"
               className="rounded-full px-4 py-2 text-gray-900 bg-white focus:outline-none focus:ring-2 focus:ring-brand-primary"
             />
           </div>
@@ -69,6 +70,18 @@ export default function ProfileInfo() {
             <input
               type="text"
               placeholder="Senior Product Designer"
+              className="rounded-full px-4 py-2 text-gray-900 bg-white focus:outline-none focus:ring-2 focus:ring-brand-primary"
+            />
+          </div>
+
+          {/* password */}
+          <div className="md:col-span-2 flex flex-col gap-2">
+            <label className="text-sm font-medium text-black">
+              Change Password
+            </label>
+            <input
+              type="password"
+              placeholder="*********"
               className="rounded-full px-4 py-2 text-gray-900 bg-white focus:outline-none focus:ring-2 focus:ring-brand-primary"
             />
           </div>

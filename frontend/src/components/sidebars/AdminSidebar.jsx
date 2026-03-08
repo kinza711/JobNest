@@ -9,17 +9,22 @@ import { MdOutlineSupportAgent } from "react-icons/md";
 import { FaUserShield } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
 import api from "../../services/api";
+
 const AdminSidebar = () => {
+  const user = JSON.parse(localStorage.getItem("user"));
+  const role = user?.role;
+
   const navigate = useNavigate();
 
   const handleLogout = async () => {
     try {
       await api.post("/logout");
-      // localStorage.removeItem("token")
+      localStorage.removeItem("token");
       alert("you're loggedout successfully");
       navigate("/login");
     } catch (err) {
       alert("you're not loggedout ", err);
+      console.error(err);
     }
   };
 
@@ -43,7 +48,7 @@ const AdminSidebar = () => {
 
       <nav className="flex flex-col gap-1.5 flex-grow">
         <Link
-          to="/admindashboard"
+          to={role == "Admin" ? "/admindashboard" : "/empdashboard"}
           className="flex items-center gap-3 px-4 py-3 text-slate-500 hover:bg-slate-50 rounded-xl transition-all group"
         >
           <span className="material-symbols-outlined group-hover:text-brand-primary">
@@ -51,6 +56,7 @@ const AdminSidebar = () => {
           </span>
           <span className="text-sm font-semibold">Dashboard Overview</span>
         </Link>
+
         <Link
           to="/usermanagement"
           className="flex items-center gap-3 px-4 py-3 text-brand-primary bg-brand-primary/10 border border-brand-primary/10 rounded-xl transition-all"

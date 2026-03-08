@@ -8,6 +8,7 @@ const userSchema = new mongoose.Schema(
     phone: { type: Number }, // for profile
     heading: { type: String }, //for profile
     location: { type: String }, //for profile
+    summery: { type: String },
     role: { type: String, required: true, enum: ["Admin", "HR", "JobSeeker"] },
     //pic:{type:String, required: true},
   },

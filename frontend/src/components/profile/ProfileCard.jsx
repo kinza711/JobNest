@@ -1,10 +1,11 @@
+// cod wuth correct input fileds
 import React from "react";
 import { HiCheckBadge } from "react-icons/hi2";
 import { IoMdCamera } from "react-icons/io";
-import { FaFileAlt } from "react-icons/fa";
 import { FaPhoneAlt } from "react-icons/fa";
 import { IoMdMail } from "react-icons/io";
 import { IoLocationSharp } from "react-icons/io5";
+import { GrUserSettings } from "react-icons/gr";
 
 export default function UserSidebar() {
   return (
@@ -24,7 +25,7 @@ export default function UserSidebar() {
           <div
             className="h-36 w-36 rounded-full border-4 border-white shadow-xl bg-center bg-cover"
             style={{
-              backgroundImage: 'url("https://i.pravatar.cc/151")',
+              backgroundImage: 'url("https://i.pravatar.cc/154")',
             }}
           />
 
@@ -36,37 +37,16 @@ export default function UserSidebar() {
         </div>
 
         <div className="text-center space-y-1">
-          <h3 className="text-2xl font-bold text-slate-900">
-            Alexandre Dubois
-          </h3>
-          <p className="text-gray-accent font-medium">
-            Senior Product Designer
-          </p>
+          <h3 className="text-2xl font-bold text-slate-900">Dummy</h3>
+          <p className="text-gray-accent font-medium">Dummmy DEveloper</p>
         </div>
 
-        {/* Completion */}
-        <div className="w-full mt-8 pt-6 border-t border-gray-100">
-          <div className="flex justify-between items-center mb-2">
-            <span className="text-xs font-bold text-slate-500 uppercase">
-              Profile Completion
-            </span>
-            <span className="text-xs font-bold text-brand-secondary">92%</span>
-          </div>
-
-          <div className="h-2 w-full bg-gray-100 rounded-full overflow-hidden">
-            <div
-              className="h-full bg-brand-secondary shadow-glow-green"
-              style={{ width: "92%" }}
-            />
-          </div>
-        </div>
-
-        <button className="mt-8 w-full py-4 rounded-xl bg-slate-900 text-white text-sm font-bold flex items-center justify-center gap-3 hover:bg-slate-800 transition-all shadow-xl">
+        <div className="mt-8 w-full py-4 rounded-xl bg-slate-900 text-white text-sm font-bold flex items-center justify-center gap-3 hover:bg-slate-800 transition-all shadow-xl">
           <span className="material-symbols-outlined">
-            <FaFileAlt />
+            <GrUserSettings />
           </span>
-          Download Portfolio
-        </button>
+          Profile Summery
+        </div>
       </div>
 
       {/* Contact Info */}
@@ -78,19 +58,19 @@ export default function UserSidebar() {
         <ContactItem
           icon=<IoMdMail />
           title="Email"
-          value="alex@email.com"
+          value="dummy@gmail.com"
           color="brand-primary"
         />
         <ContactItem
           icon=<FaPhoneAlt />
           title="Phone"
-          value="+33 6 12 34 56 78"
+          value="9238787989"
           color="brand-secondary"
         />
         <ContactItem
           icon=<IoLocationSharp />
           title="Location"
-          value="Paris, France"
+          value="Dummy lahore narowal"
           color="brand-primary"
         />
       </div>
