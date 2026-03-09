@@ -10,7 +10,7 @@ const userSchema = new mongoose.Schema(
     location: { type: String }, //for profile
     summery: { type: String },
     role: { type: String, required: true, enum: ["Admin", "HR", "JobSeeker"] },
-    //pic:{type:String, required: true},
+    pic: { type: String, required: true },
   },
   { timestamps: true },
 );

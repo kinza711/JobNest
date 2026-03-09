@@ -6,6 +6,12 @@ import jwt from "jsonwebtoken";
 export const Register = async (req, res) => {
   try {
     const { name, email, password, role } = req.body;
+
+    if (!req.file) {
+      return res.status(400).json({
+        message: "Profile image is required",
+      });
+    }
     // if user already registered
     const ExistingUser = await Users.findOne({ email });
     if (ExistingUser) {
@@ -21,7 +27,7 @@ export const Register = async (req, res) => {
       email,
       password: hashpassword,
       role,
-      //pic: req.file?.path || "",
+      pic: req.file?.path || "",
     });
 
     console.log(users);

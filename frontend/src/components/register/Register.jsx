@@ -13,6 +13,7 @@ import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const navigate = useNavigate();
+  const [profileImageFile, setProfileImageFile] = useState(null);
 
   const [formData, setFormData] = useState({
     name: "",
@@ -28,10 +29,31 @@ const Login = () => {
     });
   };
 
+  // for imag handling
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setProfileImageFile(file); // real file
+    }
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await api.post("/register", formData);
+      const data = new FormData();
+      data.append("name", formData.name);
+      data.append("email", formData.email);
+      data.append("password", formData.password);
+      data.append("role", formData.role);
+
+      // ✅ append the actual file object
+      if (profileImageFile) {
+        data.append("file", profileImageFile); // 'pic' = multer key
+      }
+
+      const res = await api.post("/register", data, {
+        headers: { "Content-Type": "multipart/form-data" },
+      });
 
       alert(res.data.message); // show backend message
 
@@ -224,6 +246,25 @@ const Login = () => {
                   type="password"
                   value={formData.password}
                   onChange={handleChange}
+                />
+              </div>
+              {/* user pic */}
+            </div>
+
+            <div className="space-y-1">
+              <label className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase ml-1">
+                Upload profile image
+              </label>
+              <div className="relative group">
+                <span className="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-primary transition-colors">
+                  <FaLock />
+                </span>
+                <input
+                  className="w-full pl-12 pr-4 py-4 rounded-xl border-none bg-slate-100 dark:bg-slate-800/80 text-neutral-dark dark:text-white placeholder:text-slate-400 focus:ring-2 focus:ring-primary/50 shadow-sm transition-shadow"
+                  placeholder="uplaod image.png"
+                  name="file"
+                  type="file"
+                  onChange={handleImageChange}
                 />
               </div>
             </div>
