@@ -11,12 +11,24 @@ import {
   OnsitePost,
   GetSinglePost,
 } from "../Controllers/jobController.js";
+import verifyToken from "../Middlewares/varifyToken.js";
+import authorizeRoles from "../Middlewares/varifyRole.js";
 
-router.post("/post", PostJob);
-router.delete("/post/:id", DeletePost);
+router.post("/post", verifyToken, authorizeRoles("Admin", "HR"), PostJob);
+router.delete(
+  "/post/:id",
+  verifyToken,
+  authorizeRoles("Admin", "HR"),
+  DeletePost,
+);
 router.get("/post", GetPost);
-router.put("/update/:id", UpdateJob);
-router.get("/edit/:id", EditPost);
+router.put(
+  "/update/:id",
+  verifyToken,
+  authorizeRoles("Admin", "HR"),
+  UpdateJob,
+);
+router.get("/edit/:id", verifyToken, authorizeRoles("Admin", "HR"), EditPost);
 router.get("/remote", remotePost);
 router.get("/onsite", OnsitePost);
 router.get("/job/:id", GetSinglePost);

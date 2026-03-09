@@ -10,7 +10,7 @@ export default function RecentApplications() {
       try {
         const res = await api.get("/post");
         setApplications(res.data.data);
-        console.log("Applications fetched successfully");
+        //console.log("Applications fetched successfully");
       } catch (err) {
         console.log("Applications not found", err);
       }

@@ -1,5 +1,3 @@
-
-
 import React from "react";
 import { MdDashboard } from "react-icons/md";
 import { GrNotes } from "react-icons/gr";
@@ -7,9 +5,25 @@ import { IoMdSearch } from "react-icons/io";
 import { CgProfile } from "react-icons/cg";
 import { MdLogout } from "react-icons/md";
 import { FaBriefcase } from "react-icons/fa";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import api from "../../services/api";
 
 export default function Sidebar() {
+  const navigate = useNavigate();
+  const handleLogout = async () => {
+    try {
+      await api.post("/logout"); // optional if backend logout route exists
+      localStorage.removeItem("token");
+
+      alert("You're logged out successfully");
+
+      navigate("/login");
+    } catch (err) {
+      console.error(err);
+      alert("Logout failed");
+    }
+  };
+
   const location = useLocation();
 
   const links = [
@@ -57,16 +71,30 @@ export default function Sidebar() {
         {links.map((link, index) => {
           const isActive = location.pathname === link.path;
 
+          // Logout button
+          if (link.label === "Logout") {
+            return (
+              <button
+                key={index}
+                onClick={handleLogout}
+                className="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-slate-600 dark:text-slate-400 hover:bg-red-100 dark:hover:bg-red-900/30 transition-all"
+              >
+                <span className="text-lg">{link.icon}</span>
+                <span className="font-medium">{link.label}</span>
+              </button>
+            );
+          }
+
           return (
             <Link
               key={index}
               to={link.path}
               className={`flex items-center gap-3 px-4 py-3 rounded-xl transition-all
-                ${
-                  isActive
-                    ? "bg-brand-primary text-white"
-                    : "text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800"
-                }`}
+          ${
+            isActive
+              ? "bg-brand-primary text-white"
+              : "text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800"
+          }`}
             >
               <span className="text-lg">{link.icon}</span>
               <span className="font-medium">{link.label}</span>

@@ -21,6 +21,7 @@ import CandidateDetail from "./pages/CandidateDetailPage";
 import JobDetailsPage from "./pages/JobDetailsPage";
 import CvDownloads from "./pages/CVdownloadPage";
 import EditUserPage from "./pages/EditUserPage";
+import ProtectedRoute from "./utils/protected";
 
 const App = () => {
   return (
@@ -32,24 +33,122 @@ const App = () => {
           <Route path="/register" element={<RegisterPage />} />
           <Route path="*" element={<F404Page />} />
           <Route path="/unauth" element={<UnAuthPage />} />
-          <Route path="/userdashboard" element={<UserDashboard />} />
-          <Route path="/admindashboard" element={<AdminDashboard />} />
-          <Route path="/myapplications" element={<MyApplicationsPage />} />
-          <Route path="/profile" element={<ProfilePage />} />
+          <Route
+            path="/userdashboard"
+            element={
+              <ProtectedRoute allowedRoles={["JobSeeker"]}>
+                <UserDashboard />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/admindashboard"
+            element={
+              <ProtectedRoute allowedRoles={["Admin"]}>
+                <AdminDashboard />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/myapplications"
+            element={
+              <ProtectedRoute allowedRoles={["Admin", "HR", "JobSeeker"]}>
+                <MyApplicationsPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/profile"
+            element={
+              <ProtectedRoute allowedRoles={["Admin", "HR", "JobSeeker"]}>
+                <ProfilePage />
+              </ProtectedRoute>
+            }
+          />
           <Route path="/policy" element={<PrivacyPolicyPage />} />
-          <Route path="/jobmanagement" element={<JObManag />} />
-          <Route path="/usermanagement" element={<UserManagPage />} />
-          <Route path="/empmanagement" element={<EmpManagPage />} />
-          <Route path="/postjob" element={<JobPostPage />} />
-          <Route path="/postjob/:id" element={<JobPostPage />} />
-          <Route path="/empdashboard" element={<EmpDashbaord />} />
-          <Route path="/application/:id" element={<ApplicationPage />} />
+          <Route
+            path="/jobmanagement"
+            element={
+              <ProtectedRoute allowedRoles={["Admin", "HR"]}>
+                <JObManag />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/usermanagement"
+            element={
+              <ProtectedRoute allowedRoles={["Admin", "HR"]}>
+                <UserManagPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/empmanagement"
+            element={
+              <ProtectedRoute allowedRoles={["Admin"]}>
+                <EmpManagPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/postjob"
+            element={
+              <ProtectedRoute allowedRoles={["Admin", "HR"]}>
+                <JobPostPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/postjob/:id"
+            element={
+              <ProtectedRoute allowedRoles={["Admin", "HR"]}>
+                <JobPostPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/empdashboard"
+            element={
+              <ProtectedRoute allowedRoles={["HR"]}>
+                <EmpDashbaord />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/application/:id"
+            element={
+              <ProtectedRoute allowedRoles={["Admin", "HR", "JobSeeker"]}>
+                <ApplicationPage />
+              </ProtectedRoute>
+            }
+          />
           <Route path="/jobs" element={<JobsPage />} />
           {/* no link implemented yet for appdetails */}
-          <Route path="/appdetails/:id" element={<CandidateDetail />} />
+          <Route
+            path="/appdetails/:id"
+            element={
+              <ProtectedRoute allowedRoles={["Admin", "HR", "JobSeeker"]}>
+                <CandidateDetail />
+              </ProtectedRoute>
+            }
+          />
           <Route path="/jobdetails/:id" element={<JobDetailsPage />} />
-          <Route path="/download" element={<CvDownloads />} />
-          <Route path="/edituser/:id" element={<EditUserPage />} />
+          <Route
+            path="/download"
+            element={
+              <ProtectedRoute allowedRoles={["Admin", "HR"]}>
+                <CvDownloads />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/edituser/:id"
+            element={
+              <ProtectedRoute allowedRoles={["Admin", "HR"]}>
+                <EditUserPage />
+              </ProtectedRoute>
+            }
+          />
         </Routes>
       </Router>
     </>

@@ -3,13 +3,8 @@ import { FaBell } from "react-icons/fa6";
 import { IoIosSearch } from "react-icons/io";
 
 export default function Header() {
-  // const user = JSON.parse(localStorage.getItem("user"));
-  const user = {
-    name: localStorage.getItem("name"),
-    id: localStorage.getItem("id"),
-    role: localStorage.getItem("role"),
-    pic: localStorage.getItem("file") || null,
-  };
+  const user = JSON.parse(localStorage.getItem("user"));
+
   return (
     <header className="h-20 glass border-b border-slate-200 dark:border-slate-800 flex items-center justify-between px-8 shrink-0 z-10">
       {/* Search */}

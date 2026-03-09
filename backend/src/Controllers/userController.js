@@ -104,3 +104,22 @@ export const UpdateUsers = async (req, res) => {
     });
   }
 };
+
+// find user bt id
+
+export const findSingleUsers = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const singleuser = await Users.findById(id);
+
+    res.status(200).json({
+      message: "users found successfully",
+      data: singleuser,
+    });
+  } catch (err) {
+    res.status(500).json({
+      message: "users not found",
+      error: err,
+    });
+  }
+};

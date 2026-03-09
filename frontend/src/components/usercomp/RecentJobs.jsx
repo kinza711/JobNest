@@ -4,6 +4,7 @@ import api from "../../services/api";
 
 export default function RecentJobs() {
   const [recentJobs, setRecentJobs] = useState([]);
+  const [application, setApplication] = useState([]);
   const { id } = useParams();
 
   useEffect(() => {
@@ -11,7 +12,7 @@ export default function RecentJobs() {
       try {
         const res = await api.get("/post");
         setRecentJobs(res.data.data);
-        console.log(res);
+        //console.log(res);
       } catch (err) {
         console.log("recent jobs not found", err);
       }
@@ -23,44 +24,14 @@ export default function RecentJobs() {
     const fetchSingleApplication = async () => {
       try {
         const res = await api.get(`/submit/${id}`);
-        setRecentJobs(res.data.data);
-        console.log(res);
+        setApplication(res.data.data);
+        //console.log(res);
       } catch (err) {
         console.log("recent jobs not found", err);
       }
     };
     fetchSingleApplication();
   }, [id]);
-
-  // const jobs = [
-  //   {
-  //     id: 1,
-  //     title: "Frontend Developer",
-  //     company: "TechVerse",
-  //     location: "Remote",
-  //     type: "Full Time",
-  //     posted: "2 days ago",
-  //     logo: "T",
-  //   },
-  //   {
-  //     id: 2,
-  //     title: "React Developer",
-  //     company: "CodeCraft",
-  //     location: "Karachi, PK",
-  //     type: "Part Time",
-  //     posted: "3 days ago",
-  //     logo: "C",
-  //   },
-  //   {
-  //     id: 3,
-  //     title: "UI/UX Designer",
-  //     company: "Designify",
-  //     location: "Remote",
-  //     type: "Contract",
-  //     posted: "5 days ago",
-  //     logo: "D",
-  //   },
-  // ];
 
   return (
     <div className="bg-white dark:bg-slate-900/50 border border-slate-200 dark:border-slate-800 rounded-2xl p-6">
@@ -84,11 +55,6 @@ export default function RecentJobs() {
           >
             {/* Left */}
             <div className="flex items-center gap-4">
-              {/* Logo */}
-              {/* <div className="w-12 h-12 rounded-xl bg-brand-primary/10 dark:bg-brand-primary/20 flex items-center justify-center font-bold text-brand-primary">
-                {job.logo}
-              </div> */}
-
               {/* Info */}
               <div>
                 <h4 className="font-semibold text-slate-900 dark:text-white">

@@ -32,11 +32,14 @@ const Login = () => {
 
     try {
       const res = await api.post("/login", formData);
-      // de structuring
+      //console.log(res.data.user);
+      // ✅ correct destructuring
       const { token, role, id } = res.data.user;
       localStorage.setItem("token", token);
       localStorage.setItem("id", res.data.user.id);
       localStorage.setItem("role", res.data.user.role);
+
+      localStorage.setItem("user", JSON.stringify(res.data.user));
 
       // for checking user id
       if (!token || !id) {
