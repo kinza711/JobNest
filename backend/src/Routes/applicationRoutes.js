@@ -9,13 +9,17 @@ import {
   GetSingleApplications,
   UpdateStatus,
   deleteApp,
+  GetUserApplications,
+  UserTotalApplications,
 } from "../Controllers/applicationController.js";
 import verifyToken from "../Middlewares/varifyToken.js";
 import authorizeRoles from "../Middlewares/varifyRole.js";
+import upload from "../Middlewares/upload.js";
 
 router.post(
   "/submit",
   verifyToken,
+  upload.single("resume"),
   authorizeRoles("Admin", "HR", "JobSeeker"),
   ApplyJob,
 );
@@ -25,10 +29,18 @@ router.get(
   authorizeRoles("Admin", "HR", "JobSeeker"),
   GetApplications,
 );
+
+router.get(
+  "/totaluserapp",
+  verifyToken,
+  authorizeRoles("Admin", "HR", "JobSeeker"),
+  UserTotalApplications,
+);
 router.get(
   "/rejected",
-  authorizeRoles("Admin", "HR", "JobSeeker"),
   verifyToken,
+  authorizeRoles("Admin", "HR", "JobSeeker"),
+
   Rejected,
 );
 router.get(
@@ -37,6 +49,14 @@ router.get(
   authorizeRoles("Admin", "HR", "JobSeeker"),
   Shortlisted,
 );
+router.get(
+  "/myapps/:id",
+  verifyToken,
+  authorizeRoles("Admin", "HR", "JobSeeker"),
+  GetUserApplications,
+);
+
+// get by user id
 router.get(
   "/submit/:id",
   verifyToken,
@@ -55,4 +75,5 @@ router.delete(
   authorizeRoles("Admin", "HR"),
   deleteApp,
 );
+
 export default router;

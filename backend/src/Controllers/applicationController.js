@@ -2,59 +2,87 @@ import Application from "../Models/applicationModel.js";
 import Job from "../Models/jobModel.js";
 
 // submit appliaction logic
+// export const ApplyJob = async (req, res) => {
+//   try {
+//     const {
+//       fullName,
+//       email,
+//       phone,
+//       location,
+//       portfolio,
+//       website,
+//       linkedIn,
+//       github,
+//       coverLetter,
+//       resume,
+//       relocate,
+//       newsletter,
+//       Experience,
+//       availability,
+//       status,
+//     } = req.body;
+
+//     const { id } = req.params;
+//     // fetch job details using job ID
+//     const job = await Job.findById(id);
+//     if (!job) return res.status(404).json({ message: "Job not found" });
+
+//     const application = await Application.create({
+//       jobTitle: job.title,
+//       company: job.company, // automatically add company
+//       fullName,
+//       email,
+//       phone,
+//       location,
+//       portfolio,
+//       website,
+//       linkedIn,
+//       github,
+//       coverLetter,
+//       resume,
+//       //resume: req.file ? req.file.path : null,
+//       relocate,
+//       newsletter,
+//       Experience,
+//       availability,
+//       status,
+//     });
+
+//     res.status(200).json({
+//       message: "application submitted successfully",
+//       data: application,
+//     });
+//   } catch (err) {
+//     res.status(500).json({
+//       message: "application not submitted",
+//       error: err,
+//     });
+//   }
+// };
+// submit application with resume and user id
+
 export const ApplyJob = async (req, res) => {
   try {
-    const {
-      fullName,
-      email,
-      phone,
-      location,
-      portfolio,
-      website,
-      linkedIn,
-      github,
-      coverLetter,
-      resume,
-      relocate,
-      newsletter,
-      Experience,
-      availability,
-      status,
-    } = req.body;
+    const data = req.body;
+    const resume = req.file?.path;
 
-    const { id } = req.params;
-    // fetch job details using job ID
-    const job = await Job.findOne(id);
-    if (!job) return res.status(404).json({ message: "Job not found" });
+    // Attach logged-in user ID
+    const userId = req.user._id;
 
     const application = await Application.create({
-      jobTitle: job.title,
-      company: job.company, // automatically add company
-      fullName,
-      email,
-      phone,
-      location,
-      portfolio,
-      website,
-      linkedIn,
-      github,
-      coverLetter,
+      ...data,
       resume,
-      relocate,
-      newsletter,
-      Experience,
-      availability,
-      status,
+      user: userId, // ⚡ link application to user
     });
 
-    res.status(200).json({
-      message: "application submitted successfully",
+    res.status(201).json({
+      message: "Application submitted",
       data: application,
     });
-  } catch (err) {
+  } catch (error) {
     res.status(500).json({
-      message: "application not submitted",
-      error: err,
+      message: "Submission failed",
+      error: error.message,
     });
   }
 };
@@ -80,7 +108,11 @@ export const GetApplications = async (req, res) => {
 // total Shortlisted
 export const Shortlisted = async (req, res) => {
   try {
-    const interview = await Application.find({ status: "Shortlisted" });
+    const userId = req.user._id;
+    const interview = await Application.find({
+      user: userId,
+      status: "Shortlisted",
+    });
 
     res.status(200).json({
       message: "shortlisted applications found successfully",
@@ -98,7 +130,11 @@ export const Shortlisted = async (req, res) => {
 
 export const Rejected = async (req, res) => {
   try {
-    const interview = await Application.find({ status: "Rejected" });
+    const userId = req.user._id;
+    const interview = await Application.find({
+      user: userId,
+      status: "Rejected",
+    });
 
     res.status(200).json({
       message: "Rejected applications found successfully",
@@ -171,6 +207,44 @@ export const deleteApp = async (req, res) => {
   } catch (err) {
     res.status(500).json({
       message: "Application not deleted",
+      error: err,
+    });
+  }
+};
+
+// get applications by user id
+export const GetUserApplications = async (req, res) => {
+  try {
+    const userId = req.user._id; // logged-in user from token
+    const userApplications = await Application.find({ user: userId });
+
+    res.status(200).json({
+      message: "Applications fetched successfully",
+      data: userApplications,
+    });
+  } catch (err) {
+    res.status(500).json({
+      message: "Could not fetch applications",
+      error: err.message,
+    });
+  }
+};
+
+// find total submited application for uers
+export const UserTotalApplications = async (req, res) => {
+  try {
+    const userId = req.user._id;
+    const AllApplications = await Application.find({
+      user: userId,
+    });
+
+    res.status(200).json({
+      message: "applications found successfully",
+      data: AllApplications,
+    });
+  } catch (err) {
+    res.status(500).json({
+      message: "applications not found",
       error: err,
     });
   }

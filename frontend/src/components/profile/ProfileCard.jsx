@@ -7,7 +7,14 @@ import { IoMdMail } from "react-icons/io";
 import { IoLocationSharp } from "react-icons/io5";
 import { GrUserSettings } from "react-icons/gr";
 
-export default function UserSidebar() {
+export default function ProfileCard({
+  profile,
+  formData,
+  fileInputRef,
+  handleClick,
+  handleImageChange,
+  preview,
+}) {
   return (
     <aside className="lg:col-span-4 bg-[#F1F6F6] rounded-3xl space-y-6">
       {/* Profile Card */}
@@ -22,23 +29,33 @@ export default function UserSidebar() {
         </div>
 
         <div className="relative mb-6">
-          <div
-            className="h-36 w-36 rounded-full border-4 border-white shadow-xl bg-center bg-cover"
-            style={{
-              backgroundImage: 'url("https://i.pravatar.cc/154")',
-            }}
-          />
+          <div className="h-36 w-36 items-center justify-center flex rounded-full border-4 border-white shadow-xl overflow-hidden">
+            <img
+              src={preview || profile?.pic || "https://i.pravatar.cc/150"}
+              className=" rounded-full object-cover"
+              alt="profile"
+            />
+          </div>
 
-          <button className="absolute bottom-1 right-1 flex items-center justify-center bg-brand-primary text-white h-10 w-10 rounded-full border-4 border-white hover:scale-105 transition-transform shadow-lg">
-            <span className="material-symbols-outlined !text-[18px]">
-              <IoMdCamera />
-            </span>
+          <input
+            type="file"
+            ref={fileInputRef}
+            className="hidden"
+            accept="image/*"
+            onChange={handleImageChange}
+          />
+          <button
+            type="button"
+            onClick={handleClick}
+            className="absolute bottom-1 right-1 flex items-center justify-center bg-brand-primary text-white h-10 w-10 rounded-full border-4 border-white hover:scale-105 transition-transform shadow-lg"
+          >
+            <IoMdCamera size={18} />
           </button>
         </div>
 
         <div className="text-center space-y-1">
-          <h3 className="text-2xl font-bold text-slate-900">Dummy</h3>
-          <p className="text-gray-accent font-medium">Dummmy DEveloper</p>
+          <h3 className="text-2xl font-bold text-slate-900">{profile?.name}</h3>
+          <p className="text-gray-accent font-medium">{profile?.heading}</p>
         </div>
 
         <div className="mt-8 w-full py-4 rounded-xl bg-slate-900 text-white text-sm font-bold flex items-center justify-center gap-3 hover:bg-slate-800 transition-all shadow-xl">
@@ -58,19 +75,19 @@ export default function UserSidebar() {
         <ContactItem
           icon=<IoMdMail />
           title="Email"
-          value="dummy@gmail.com"
+          value={profile?.email}
           color="brand-primary"
         />
         <ContactItem
           icon=<FaPhoneAlt />
           title="Phone"
-          value="9238787989"
+          value={profile?.phone}
           color="brand-secondary"
         />
         <ContactItem
           icon=<IoLocationSharp />
           title="Location"
-          value="Dummy lahore narowal"
+          value={profile?.location}
           color="brand-primary"
         />
       </div>

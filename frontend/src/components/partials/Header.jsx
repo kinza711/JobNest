@@ -20,8 +20,9 @@ export default function Header() {
           </div>
 
           <nav className="hidden lg:flex flex-1 justify-center gap-10">
+            <Link to="/">Home</Link>
+            {/* <Link to="/">Companies</Link> */}
             <Link to="/jobs">Find Jobs</Link>
-            <Link to="/">Companies</Link>
             <Link to="/">Why Us</Link>
             <Link to="/policy">Privacy Policy</Link>
           </nav>
@@ -31,7 +32,7 @@ export default function Header() {
               <Link to="/login"> Sign In</Link>
             </button>
             <button className="px-6 py-2.5 bg-brand-primary hover:bg-orange-600 text-white rounded-full text-sm font-bold shadow-glow-orange transition-all hover:scale-105 active:scale-95">
-              Post a Job
+              <Link to="/login">Post a Job</Link>
             </button>
           </div>
         </header>

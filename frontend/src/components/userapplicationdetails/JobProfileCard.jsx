@@ -1,13 +1,13 @@
 import { FiMail, FiPhone, FiMapPin } from "react-icons/fi"; // icons for email, phone, location
 
-const ProfileCard = ({ userApp }) => {
+const ProfileCard = ({ userApp, users }) => {
   return (
     <div className="glass rounded-xl p-6 shadow-sm">
       {/* Profile Header */}
       <div className="flex flex-col items-center text-center pb-6 border-b border-slate-200 dark:border-slate-700">
         <div className="w-32 h-32 rounded-2xl bg-slate-200 dark:bg-slate-800 mb-4 overflow-hidden">
           <img
-            src="https://i.pravatar.cc/153"
+            src={users?.pic || "https://i.pravatar.cc/153"}
             alt="Marcus Richardson"
             className="w-full h-full object-cover"
           />
@@ -15,9 +15,7 @@ const ProfileCard = ({ userApp }) => {
         <h3 className="text-xl font-bold text-slate-900 dark:text-white">
           {userApp?.fullName}
         </h3>
-        <p className="text-slate-500 dark:text-slate-400">
-          {userApp?.jobTitle}
-        </p>
+        <p className="text-slate-500 dark:text-slate-400">{users?.heading}</p>
       </div>
 
       {/* Contact Info */}

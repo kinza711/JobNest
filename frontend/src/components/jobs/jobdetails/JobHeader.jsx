@@ -12,10 +12,15 @@ export default function JobHeader({ job }) {
     <section className="bg-white dark:bg-slate-900 p-8 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-800">
       <div className="flex flex-col md:flex-row md:items-start gap-6">
         <div className="size-20 bg-slate-100 dark:bg-slate-800 rounded-2xl overflow-hidden flex items-center justify-center border border-slate-200 dark:border-slate-700">
-          <img
+          {/* <img
             className="w-12 h-12"
             src="https://i.pravatar.cc/155"
             alt="Company Logo"
+          /> */}
+
+          <img
+            src={`https://www.sourcesplash.com/i/random?q=technology&`}
+            alt="random"
           />
         </div>
         <div className="flex-1">

@@ -66,15 +66,19 @@ const AdminSidebar = () => {
           </span>
           <span className="text-sm font-semibold">User Management</span>
         </Link>
-        <Link
-          to="/empmanagement"
-          className="flex items-center gap-3 px-4 py-3 text-slate-500 hover:bg-slate-50 rounded-xl transition-all group"
-        >
-          <span className="material-symbols-outlined fill-1">
-            <HiUsers />
-          </span>
-          <span className="text-sm font-semibold">Employee Management</span>
-        </Link>
+
+        {role === "Admin" && (
+          <Link
+            to="/empmanagement"
+            className="flex items-center gap-3 px-4 py-3 text-slate-500 hover:bg-slate-50 rounded-xl transition-all group"
+          >
+            <span className="material-symbols-outlined fill-1">
+              <HiUsers />
+            </span>
+            <span className="text-sm font-semibold">Employee Management</span>
+          </Link>
+        )}
+
         <Link
           to="/jobmanagement"
           className="flex items-center gap-3 px-4 py-3 text-slate-500 hover:bg-slate-50 rounded-xl transition-all group"
@@ -84,7 +88,7 @@ const AdminSidebar = () => {
           </span>
           <span className="text-sm font-semibold">Job Management</span>
         </Link>
-        <Link
+        {/* <Link
           to="/profile"
           className="flex items-center gap-3 px-4 py-3 text-slate-500 hover:bg-slate-50 rounded-xl transition-all group"
         >
@@ -92,7 +96,7 @@ const AdminSidebar = () => {
             <FaUserLarge />
           </span>
           <span className="text-sm font-semibold">Profile</span>
-        </Link>
+        </Link> */}
         <Link
           to="/postjob"
           className="flex items-center gap-3 px-4 py-3 text-slate-500 hover:bg-slate-50 rounded-xl transition-all group"
@@ -112,7 +116,15 @@ const AdminSidebar = () => {
           <span className="text-sm font-semibold">Download Resume</span>
         </Link>
         <div className="my-4 border-t border-slate-100"></div>
-
+        <Link
+          to="/profile"
+          className="flex items-center gap-3 px-4 py-3 text-slate-500 hover:bg-slate-50 rounded-xl transition-all group"
+        >
+          <span className="material-symbols-outlined fill-1">
+            <FaUserLarge />
+          </span>
+          <span className="text-sm font-semibold">Profile</span>
+        </Link>
         <button
           onClick={handleLogout}
           className="flex items-center gap-3 px-4 py-3 text-slate-500 hover:bg-slate-50 rounded-xl transition-all group"

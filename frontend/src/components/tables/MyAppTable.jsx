@@ -36,8 +36,9 @@ import api from "../../services/api";
 //     status: "Rejected",
 //   },
 // ];
-
+import { Link, useParams } from "react-router-dom";
 const MyApplicationTable = () => {
+  const { id } = useParams();
   const [applications, setApplications] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 5;
@@ -66,7 +67,7 @@ const MyApplicationTable = () => {
   useEffect(() => {
     const fetchApplication = async () => {
       try {
-        const res = await api.get("/submit");
+        const res = await api.get(`/myapps/${id}`);
         setApplications(res.data.data);
         console.log("applications you submited are founded");
       } catch (err) {
@@ -74,7 +75,7 @@ const MyApplicationTable = () => {
       }
     };
     fetchApplication();
-  }, []);
+  }, [id]);
 
   return (
     <div className="glass-panel rounded-2xl shadow-xl shadow-brand-primary/5 overflow-hidden mt-8">
@@ -92,17 +93,9 @@ const MyApplicationTable = () => {
                 Job Title
               </th>
 
-              {/* <th className="px-4 py-4 text-xs font-bold text-slate-500 uppercase">
-                Position
-              </th> */}
-
               <th className="px-4 py-4 text-xs font-bold text-center text-slate-500 uppercase">
                 Experience
               </th>
-
-              {/* <th className="px-4 py-4 text-xs font-bold text-slate-500 uppercase">
-                Relocate
-              </th> */}
 
               <th className="px-4 py-4 text-xs font-bold text-center text-slate-500 uppercase">
                 Status
@@ -128,15 +121,11 @@ const MyApplicationTable = () => {
 
                 <td className="px-4 py-5 text-slate-600">{app.jobTitle}</td>
 
-                {/* <td className="px-4 py-5 text-slate-600">{app.position}</td> */}
-
                 <td className="px-4 py-5 text-center">
                   <span className="px-3 py-1 text-xs font-semibold rounded-full bg-brand-secondary/10 text-brand-secondary">
                     {app.Experience}
                   </span>
                 </td>
-
-                {/* <td className="px-4 py-5 text-slate-500">{app.relocate}</td> */}
 
                 <td className="px-4 py-5 text-center">
                   <span className="px-3 py-1 text-xs font-semibold rounded-full bg-brand-primary/10 text-brand-primary">
@@ -145,9 +134,15 @@ const MyApplicationTable = () => {
                 </td>
 
                 <td className="px-4 py-5 text-right">
-                  <button className="inline-flex items-center gap-1 px-3 py-2 bg-brand-primary text-white rounded-lg text-xs font-bold hover:scale-105 transition">
-                    <MdDownload />
-                    Download CV
+                  <button className=" bg-brand-primary text-white rounded-lg ">
+                    <Link
+                      to={`/appdetails/${app._id}`}
+                      className="text-xs font-bold hover:scale-105 transition gap-1 inline-flex items-center  px-3 py-2"
+                    >
+                      {" "}
+                      <MdDownload />
+                      View Application{" "}
+                    </Link>
                   </button>
                 </td>
               </tr>
@@ -164,9 +159,7 @@ const MyApplicationTable = () => {
           <span className="font-bold text-brand-primary ">
             {applications.length}
           </span>{" "}
-          to{" "}
-          
-          applications
+          to applications
         </p>
 
         <div className="flex items-center gap-2">

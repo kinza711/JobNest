@@ -92,10 +92,11 @@ export const Login = async (req, res) => {
     //console.log(token);
 
     // for cloudinary pics
-    // let picUrl = user.pic;
-    // if (user.pic && !picUrl.startsWith("https")) {
-    //   picUrl = `https.cloudinary.com/${process.env.CLOUDE_NAME}/images/upload/${picUrl}`;
-    // }
+    let picUrl = user.pic;
+
+    if (user.pic && !picUrl.startsWith("https")) {
+      picUrl = `https://res.cloudinary.com/${process.env.CLOUD_NAME}/image/upload/${picUrl}`;
+    }
 
     res.status(200).json({
       message: "user is varified or loggedin ",
@@ -105,7 +106,8 @@ export const Login = async (req, res) => {
         id: user._id,
         email: user.email,
         role: user.role,
-        //pic:user.pic
+        pic: user.pic,
+        heading: user.heading,
       },
     });
     console.log(user);

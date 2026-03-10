@@ -14,22 +14,8 @@ import { useParams } from "react-router-dom";
 
 const JobApplicationForm = () => {
   // job and company details
-  // const [recentJobs, setRecentJobs] = useState(null);
   const [job, setJob] = useState(null);
   const { id } = useParams();
-
-  // useEffect(() => {
-  //   const fetchJobs = async () => {
-  //     try {
-  //       const res = await api.get(`/post/${id}`);
-  //       setRecentJobs(res.data.data);
-  //       console.log(res);
-  //     } catch (err) {
-  //       console.log("recent jobs not found", err);
-  //     }
-  //   };
-  //   fetchJobs();
-  // }, [id]);
 
   useEffect(() => {
     const fetchJob = async () => {
@@ -62,26 +48,57 @@ const JobApplicationForm = () => {
   });
 
   const handleChange = (e) => {
-    // const { name, value, type, checked, files } = e.target;
-    const { name, value, type, checked } = e.target;
+    const { name, value, type, checked, files } = e.target;
+    //const { name, value, type, checked } = e.target;
     setFormData((prev) => ({
       ...prev,
       [name]:
-        // type === "checkbox" ? checked : type === "file" ? files[0] : value, // for files
-        type === "checkbox" ? checked : value,
+        type === "checkbox" ? checked : type === "file" ? files[0] : value, // for files
+      //type === "checkbox" ? checked : value,
     }));
   };
-  //  working perfectly fine
+
+  // handle submit with jobtite and company
   // const handleSubmit = async (e) => {
   //   e.preventDefault();
+
+  //   const form = new FormData();
+
+  //   Object.keys(formData).forEach((key) => {
+  //     form.append(key, formData[key]);
+  //   });
+
+  //   // find job
+
+  //   if (!job) {
+  //     alert("Job details not loaded yet!");
+  //     return;
+  //   }
+
   //   try {
-  //     const res = await api.post("/submit", formData);
+  //     // create the data object including job id and company
+  //     const dataToSend = {
+  //       ...formData,
+  //       jobTitle: job.title, // MongoDB ObjectId of the job
+  //       company: job.company, // company name
+  //     };
+
+  //     const res = await api.post("/submit", dataToSend, form, {
+  //       headers: {
+  //         "Content-Type": "multipart/form-data",
+  //       },
+  //     });
+
+  //     // reset form after successful submission
   //     setFormData({
   //       fullName: "",
   //       email: "",
   //       phone: "",
   //       location: "",
   //       portfolio: "",
+  //       website: "",
+  //       linkedIn: "",
+  //       github: "",
   //       coverLetter: "",
   //       resume: "",
   //       relocate: false,
@@ -94,11 +111,10 @@ const JobApplicationForm = () => {
   //     alert("Application Submitted Successfully!");
   //   } catch (err) {
   //     console.log("Application not Submitted:", err);
-  //     alert("Application Submition failed !", err);
+  //     alert("Application Submission failed!");
   //   }
   // };
 
-  // handle submit with jobtite and company
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -107,38 +123,28 @@ const JobApplicationForm = () => {
       return;
     }
 
+    const form = new FormData();
+
+    Object.keys(formData).forEach((key) => {
+      form.append(key, formData[key]);
+    });
+
+    // append job data
+    form.append("jobTitle", job.title);
+    form.append("company", job.company);
+
     try {
-      // create the data object including job id and company
-      const dataToSend = {
-        ...formData,
-        jobTitle: job.title, // MongoDB ObjectId of the job
-        company: job.company, // company name
-      };
-
-      const res = await api.post("/submit", dataToSend);
-
-      // reset form after successful submission
-      setFormData({
-        fullName: "",
-        email: "",
-        phone: "",
-        location: "",
-        portfolio: "",
-        website: "",
-        linkedIn: "",
-        github: "",
-        coverLetter: "",
-        resume: "",
-        relocate: false,
-        newsletter: true,
-        Experience: "fresher",
-        availability: "Immediate",
+      const res = await api.post("/submit", form, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
       });
 
-      console.log("Application Submitted:", res);
+      console.log(res);
+
       alert("Application Submitted Successfully!");
     } catch (err) {
-      console.log("Application not Submitted:", err);
+      console.log("Application not Submitted:", err.response?.data || err);
       alert("Application Submission failed!");
     }
   };
@@ -148,21 +154,6 @@ const JobApplicationForm = () => {
       <form onSubmit={handleSubmit} className="w-full max-w-5xl">
         {/* Header */}
         <div className="flex flex-wrap justify-between items-end gap-4 mb-8">
-          {/* {recentJobs.slice(0, 3).map((job) => (
-            <div>
-              <h1 className="text-3xl font-extrabold text-slate-900 dark:text-white">
-                Apply for{" "}
-                <span className="text-brand-primary"> {job.title}</span>
-              </h1>
-              <p className="text-slate-500 dark:text-slate-400">
-                Submit your application details to{" "}
-                <span className="text-brand-secondary font-bold">
-                  {job.company}
-                </span>
-              </p>
-            </div>
-          ))} */}
-
           {job && (
             <div>
               <h1 className="text-3xl font-extrabold text-slate-900 dark:text-white">
@@ -281,7 +272,7 @@ const JobApplicationForm = () => {
                       Portfolio URL
                     </label>
                     <input
-                      type="link"
+                      type="url"
                       name="portfolio"
                       value={formData.portfolio}
                       onChange={handleChange}
@@ -295,7 +286,7 @@ const JobApplicationForm = () => {
                       Website URL
                     </label>
                     <input
-                      type="link"
+                      type="url"
                       name="website"
                       value={formData.website}
                       onChange={handleChange}
@@ -310,7 +301,7 @@ const JobApplicationForm = () => {
                       LinkedIn URL
                     </label>
                     <input
-                      type="link"
+                      type="url"
                       name="linkedIn"
                       value={formData.linkedIn}
                       onChange={handleChange}
@@ -324,7 +315,7 @@ const JobApplicationForm = () => {
                       GitHUb URL
                     </label>
                     <input
-                      type="link"
+                      type="url"
                       name="github"
                       value={formData.github}
                       onChange={handleChange}
@@ -357,7 +348,7 @@ const JobApplicationForm = () => {
                     <input
                       type="file"
                       name="resume"
-                      value={formData.resume}
+                      //value={formData.resume}
                       onChange={handleChange}
                       className="text-sm p-5"
                     />

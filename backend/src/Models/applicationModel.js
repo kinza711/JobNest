@@ -7,6 +7,7 @@ const applicationSchema = new mongoose.Schema(
     //   ref: "Job",
     //   required: true,
     // },
+    user: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
     jobTitle: { type: String, required: true }, // store title as string
     company: { type: String, required: true }, // add this
     fullName: { type: String, required: true },

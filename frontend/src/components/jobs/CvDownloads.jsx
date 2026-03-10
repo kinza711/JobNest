@@ -98,11 +98,11 @@ const ApplicationDownloads = () => {
                 >
                   <td className="px-3 py-2">
                     <div className="flex items-center gap-2">
-                      <img
+                      {/* <img
                         src={a.img || "https://i.pravatar.cc/150"}
                         alt={a.fullName}
                         className="w-11 h-11 rounded-xl object-cover"
-                      />
+                      /> */}
 
                       <p className="font-semibold">{a.fullName}</p>
                     </div>
@@ -120,7 +120,7 @@ const ApplicationDownloads = () => {
 
                   <td className="px-3 py-2 text-center">
                     <span className="px-3 py-1 text-xs rounded-full bg-brand-secondary/10 text-brand-secondary">
-                      {a.experience}
+                      {a.Experience}
                     </span>
                   </td>
 

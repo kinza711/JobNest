@@ -4,13 +4,16 @@ import ProfileInfo from "../components/profile/ProfileInfo";
 import ProfileCard from "../components/profile/ProfileCard";
 import UserHeader from "../components/headers/UserHeader";
 import EditUser from "../components/edituser/EditForm";
+import AdminSidebar from "../components/sidebars/AdminSidebar";
 
 export default function ProfilePage() {
+  const user = JSON.parse(localStorage.getItem("user"));
+  const role = user?.role;
   return (
     <main className="flex min-h-screen w-full">
       {/* Left Sidebar */}
       <aside className="flex h-screen overflow-hidden">
-        <UserSidebar />
+        {role === "JobSeeker" ? <UserSidebar /> : <AdminSidebar />}
       </aside>
 
       {/* Right Content Area */}

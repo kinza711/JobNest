@@ -10,10 +10,12 @@ import { useState } from "react";
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import api from "../services/api";
+import UserHeader from "../components/headers/UserHeader";
 
 export default function JobPage() {
   const [job, setJob] = useState(null);
   const { id } = useParams();
+  const token = localStorage.getItem("token");
 
   useEffect(() => {
     const fetchJob = async () => {
@@ -29,6 +31,31 @@ export default function JobPage() {
   }, [id]);
 
   if (!job) return <p>Loading...</p>;
+
+  if (token) {
+    return (
+      <div className="min-h-screen bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100">
+        <UserHeader />
+
+        <main className="px-4 lg:px-20 py-8">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <div className="lg:col-span-2 space-y-8">
+              <JobHeader job={job} />
+              <JobDisc job={job} />
+              <Benefits />
+            </div>
+
+            <div className="lg:col-span-1 space-y-5">
+              <ApplicationPanel job={job} />
+              <CompanySnapshot job={job} />
+            </div>
+          </div>
+        </main>
+
+        <Footer />
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100">

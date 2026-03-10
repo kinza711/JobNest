@@ -12,7 +12,7 @@ export default function UserStats() {
   useEffect(() => {
     const fetchJobs = async () => {
       try {
-        const res = await api.get("/submit");
+        const res = await api.get("/totaluserapp");
         setTotalSubmit(res.data.data.length);
       } catch (err) {
         console.log("Total Jobs fetch error:", err);

@@ -10,8 +10,9 @@ import {
 import api from "../../services/api";
 import { useNavigate, useParams } from "react-router-dom";
 import Back from "../buttons/Back";
+import ProfileCard from "../profile/ProfileCard";
 
-const EditUser = () => {
+const EditUser = ({ profile }) => {
   const { id } = useParams();
   const [users, setUsers] = useState(null);
   const [formData, setFormData] = useState({});
@@ -95,48 +96,7 @@ const EditUser = () => {
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
         {/* Profile Card */}
         <div className="md:col-span-1">
-          <div className="bg-white dark:bg-slate-900 rounded-xl p-6 shadow-sm border border-slate-200 dark:border-slate-800 text-center">
-            <div className="relative inline-block mb-4">
-              <img
-                src="https://i.pravatar.cc/200"
-                alt="profile"
-                className="w-32 h-32 rounded-full border-4 border-slate-100 dark:border-slate-800 shadow-lg object-cover mx-auto"
-              />
-
-              <button className="absolute bottom-1 right-1 w-10 h-10 bg-brand-primary text-white rounded-full flex items-center justify-center shadow-md hover:scale-105 transition">
-                <MdPhotoCamera />
-              </button>
-            </div>
-
-            <h3 className="text-xl font-bold">{formData.name}</h3>
-            <p className="text-slate-500 text-sm mb-4">Member since Oct 2023</p>
-
-            <div className="flex items-center justify-center gap-2 mb-6">
-              <span className="px-3 py-1 bg-green-100 text-green-600 text-xs font-bold rounded-full">
-                Active
-              </span>
-
-              <span className="px-3 py-1 bg-brand-primary/10 text-brand-primary text-xs font-bold rounded-full">
-                Recruiter
-              </span>
-            </div>
-
-            <div className="grid grid-cols-2 gap-4 text-center border-t border-slate-100 dark:border-slate-800 pt-6">
-              <div>
-                <p className="text-xl font-bold">14</p>
-                <p className="text-xs text-slate-400 uppercase font-semibold">
-                  Jobs Posted
-                </p>
-              </div>
-
-              <div>
-                <p className="text-xl font-bold">284</p>
-                <p className="text-xs text-slate-400 uppercase font-semibold">
-                  Applicants
-                </p>
-              </div>
-            </div>
-          </div>
+          <ProfileCard profile={users} />
         </div>
 
         {/* Edit Form */}

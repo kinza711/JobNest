@@ -2,7 +2,12 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 
-export default function ProfileInfo() {
+export default function ProfileInfo({
+  //profile,
+  formData,
+  updateProfile,
+  handleChange,
+}) {
   const navigate = useNavigate();
   return (
     <div className="lg:col-span-8 space-y-8">
@@ -25,6 +30,9 @@ export default function ProfileInfo() {
             <label className="text-sm font-medium text-black">First Name</label>
             <input
               type="text"
+              name="name"
+              value={formData?.name}
+              onChange={handleChange}
               defaultValue="kinza"
               className="rounded-full px-4 py-2 text-gray-900 bg-white focus:outline-none focus:ring-2 focus:ring-brand-primary"
             />
@@ -35,6 +43,9 @@ export default function ProfileInfo() {
             <label className="text-sm font-medium text-black">Email</label>
             <input
               type="email"
+              name="email"
+              onChange={handleChange}
+              value={formData?.email || ""}
               placeholder="kinza@gmail.co"
               className="rounded-full px-4 py-2 text-gray-900 bg-white focus:outline-none focus:ring-2 focus:ring-brand-primary"
             />
@@ -45,6 +56,9 @@ export default function ProfileInfo() {
             <label className="text-sm font-medium text-black">Location</label>
             <input
               type="text"
+              name="location"
+              onChange={handleChange}
+              value={formData?.location}
               placeholder="lahore , pakistan"
               className="rounded-full px-4 py-2 text-gray-900 bg-white focus:outline-none focus:ring-2 focus:ring-brand-primary"
             />
@@ -57,6 +71,9 @@ export default function ProfileInfo() {
             </label>
             <input
               type="number"
+              name="phone"
+              onChange={handleChange}
+              value={formData?.phone}
               placeholder="+9288888799"
               className="rounded-full px-4 py-2 text-gray-900 bg-white focus:outline-none focus:ring-2 focus:ring-brand-primary"
             />
@@ -69,6 +86,9 @@ export default function ProfileInfo() {
             </label>
             <input
               type="text"
+              name="heading"
+              onChange={handleChange}
+              value={formData?.heading}
               placeholder="Senior Product Designer"
               className="rounded-full px-4 py-2 text-gray-900 bg-white focus:outline-none focus:ring-2 focus:ring-brand-primary"
             />
@@ -81,6 +101,9 @@ export default function ProfileInfo() {
             </label>
             <input
               type="password"
+              name="password"
+              onChange={handleChange}
+              value={formData?.password}
               placeholder="*********"
               className="rounded-full px-4 py-2 text-gray-900 bg-white focus:outline-none focus:ring-2 focus:ring-brand-primary"
             />
@@ -97,6 +120,10 @@ export default function ProfileInfo() {
 
         <h3 className="text-xl font-bold ">About You</h3>
         <textarea
+          type="text"
+          name="summery"
+          value={formData?.summery}
+          onChange={handleChange}
           className="input-field w-full min-h-[150px] rounded-3xl bg-[#FFFFFF] p-3 "
           placeholder="A highly motivated and creative Senior Product Designer..."
         />
@@ -109,7 +136,10 @@ export default function ProfileInfo() {
             Discard Changes
           </button>
 
-          <button className="px-10 py-3 rounded-full bg-brand-primary text-white font-bold shadow-glow-orange hover:shadow-xl">
+          <button
+            onClick={updateProfile}
+            className="px-10 py-3 rounded-full bg-brand-primary text-white font-bold shadow-glow-orange hover:shadow-xl"
+          >
             Save Profile
           </button>
         </div>
