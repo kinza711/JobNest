@@ -8,7 +8,8 @@ import api from "../services/api";
 import { useRef } from "react";
 import AdminSidebar from "../components/sidebars/AdminSidebar";
 
-export default function ProfilePage() {
+export default function ProfilePage({ children }) {
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   //const { id } = useParams();
   const [profile, setProfile] = useState(null);
   //const [updateProfile, setUpdateProfile] = useState(null);
@@ -105,14 +106,24 @@ export default function ProfilePage() {
     <main className="flex min-h-screen w-full">
       {/* Left Sidebar */}
       <aside className="flex h-screen overflow-hidden">
-        {role === "JobSeeker" ? <UserSidebar /> : <AdminSidebar />}
+        {role === "JobSeeker" ? (
+          <UserSidebar
+            isSidebarOpen={isSidebarOpen}
+            setIsSidebarOpen={setIsSidebarOpen}
+          />
+        ) : (
+          <AdminSidebar
+            isSidebarOpen={isSidebarOpen}
+            setIsSidebarOpen={setIsSidebarOpen}
+          />
+        )}
       </aside>
 
       {/* Right Content Area */}
       <section className="flex-1 flex flex-col h-screen overflow-hidden">
         {/* Header on top */}
         <div className="mb-4">
-          <UserHeader />
+          <UserHeader setIsSidebarOpen={setIsSidebarOpen} />
         </div>
 
         {/* Scrollable Content */}

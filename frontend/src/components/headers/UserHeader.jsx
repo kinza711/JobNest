@@ -1,8 +1,9 @@
 import React from "react";
 import { FaBell } from "react-icons/fa6";
 import { IoIosSearch } from "react-icons/io";
+import { HiMenu } from "react-icons/hi";
 
-export default function Header() {
+export default function Header({ setIsSidebarOpen }) {
   const user = JSON.parse(localStorage.getItem("user"));
 
   return (
@@ -51,6 +52,14 @@ export default function Header() {
               alt="profile"
             />
           </div>
+
+          {/* ✅ Menu Button (Mobile Only) */}
+          <button
+            onClick={() => setIsSidebarOpen(true)}
+            className="md:hidden text-3xl text-brand-primary font-extrabold"
+          >
+            <HiMenu />
+          </button>
         </div>
       </div>
     </header>

@@ -3,7 +3,7 @@ import Header from "../components/partials/Header";
 import Footer from "../components/partials/Footer";
 import Found404 from "../components/404 & Auth/Found404";
 
-const LoginPage = () => {
+const F404Page = () => {
   return (
     <>
       <Header />
@@ -13,4 +13,4 @@ const LoginPage = () => {
   );
 };
 
-export default LoginPage;
+export default F404Page;

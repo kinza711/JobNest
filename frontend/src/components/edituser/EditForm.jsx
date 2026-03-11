@@ -25,7 +25,7 @@ const EditUser = ({ profile }) => {
         email: users.email,
         phone: users.phone,
         location: users.location,
-        role: users.role || "Recruiter",
+        role: users.role || "HR",
       });
     }
   }, [users]);

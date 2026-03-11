@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Header from "../components/headers/UserHeader";
 import AdminSidebar from "../components/sidebars/AdminSidebar";
 import AdminStats from "../components/stats/AdminStats";
@@ -10,13 +10,17 @@ import { FaHome } from "react-icons/fa";
 import { FaUsers } from "react-icons/fa";
 import RecentApplications from "../components/usercomp/RecentApplications";
 
-
-const AdminDashboard = () => {
+const AdminDashboard = ({ children }) => {
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   return (
     <div className="flex h-screen w-full overflow-hidden">
-      <AdminSidebar />
+      {children}
+      <AdminSidebar
+        isSidebarOpen={isSidebarOpen}
+        setIsSidebarOpen={setIsSidebarOpen}
+      />
       <main className="flex-1 flex flex-col min-w-0 overflow-y-auto bg-slate-50 dark:bg-background-dark">
-        <Header />
+        <Header setIsSidebarOpen={setIsSidebarOpen} />
         <div className="p-8 lg:p-10 max-w-7xl mx-auto w-full space-y-8">
           {/* Stats Cards */}
           <AdminStats

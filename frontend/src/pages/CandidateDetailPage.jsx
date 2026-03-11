@@ -7,14 +7,15 @@ import ResumeSection from "../components/userapplicationdetails/ResumeSection";
 import InternalNotes from "../components/userapplicationdetails/InternalNotes";
 
 import UserHeader from "../components/headers/UserHeader";
-import AdminHeader from "../components/sidebars/AdminSidebar";
+import AdminSidebar from "../components/sidebars/AdminSidebar";
+import UserSidebar from "../components/sidebars/UserSidebar";
 
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import api from "../services/api";
-import UserSidebar from "../components/sidebars/UserSidebar";
 
 const CandidateDetail = () => {
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const user = JSON.parse(localStorage.getItem("user"));
   const role = user?.role;
 
@@ -45,36 +46,55 @@ const CandidateDetail = () => {
     fetchUserProfile();
   }, [id]);
 
+  if (!userApp)
+    return (
+      <p className="flex justify-center items-center h-screen">Loading...</p>
+    );
+
   return (
-    <div className="bg-background-light dark:bg-background-dark min-h-screen text-slate-900 dark:text-slate-100">
-      <UserHeader />
+    <div className="flex h-screen bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 overflow-hidden">
+      {/* Sidebar */}
+      {role === "JobSeeker" ? (
+        <UserSidebar
+          isSidebarOpen={isSidebarOpen}
+          setIsSidebarOpen={setIsSidebarOpen}
+        />
+      ) : (
+        <AdminSidebar
+          isSidebarOpen={isSidebarOpen}
+          setIsSidebarOpen={setIsSidebarOpen}
+        />
+      )}
 
-      <main className="max-w-8xl mx-auto px-4 py-10">
-        {/* <BreadcrumbHeader userApp={userApp} /> */}
+      {/* Main Content */}
+      <div className="flex-1 flex flex-col">
+        {/* Header */}
+        <UserHeader setIsSidebarOpen={setIsSidebarOpen} />
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
-          {/* Left Column: Admin Sidebar */}
-          <aside className="lg:col-span-3">
-            {role === "JobSeeker" ? <UserSidebar /> : <AdminHeader />}
-          </aside>
+        {/* Scrollable Content */}
+        <div className="flex-1 overflow-y-auto">
+          <main className="max-w-8xl mx-auto px-8 py-10 space-y-10">
+            {/* Grid Layout */}
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+              {/* Left Column: Sidebar is fixed, so we can skip it here for content */}
+              {/* Middle Column */}
+              <div className="lg:col-span-8 space-y-6">
+                {role === "HR" && <BreadcrumbHeader userApp={userApp} />}
+                <ApplicationStats userApp={userApp} />
+                <Coverlatter userApp={userApp} />
+                <ResumeSection userApp={userApp} />
+                <InternalNotes userApp={userApp} />
+              </div>
 
-          {/* Middle Column: Application Details */}
-          <div className="lg:col-span-6 space-y-6">
-            {role === "HR" && <BreadcrumbHeader userApp={userApp} />}
-
-            <ApplicationStats userApp={userApp} />
-            <Coverlatter userApp={userApp} />
-            <ResumeSection userApp={userApp} />
-            <InternalNotes userApp={userApp} />
-          </div>
-
-          {/* Right Column: Job Profile + Professional Links */}
-          <div className="lg:col-span-3 space-y-6">
-            <JobProfileCard userApp={userApp} users={users} />
-            <ProfessionalLinks userApp={userApp} />
-          </div>
+              {/* Right Column */}
+              <div className="lg:col-span-4 space-y-6">
+                <JobProfileCard userApp={userApp} profile={users} />
+                <ProfessionalLinks userApp={userApp} />
+              </div>
+            </div>
+          </main>
         </div>
-      </main>
+      </div>
     </div>
   );
 };

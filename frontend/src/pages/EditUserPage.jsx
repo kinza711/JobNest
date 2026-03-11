@@ -6,21 +6,34 @@ import UserHeader from "../components/headers/UserHeader";
 import EditUser from "../components/edituser/EditForm";
 import AdminSidebar from "../components/sidebars/AdminSidebar";
 
-export default function ProfilePage() {
+export default function ProfilePage({ children }) {
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+
   const user = JSON.parse(localStorage.getItem("user"));
   const role = user?.role;
   return (
     <main className="flex min-h-screen w-full">
       {/* Left Sidebar */}
       <aside className="flex h-screen overflow-hidden">
-        {role === "JobSeeker" ? <UserSidebar /> : <AdminSidebar />}
+        {children}
+        {role === "JobSeeker" ? (
+          <UserSidebar
+            isSidebarOpen={isSidebarOpen}
+            setIsSidebarOpen={setIsSidebarOpen}
+          />
+        ) : (
+          <AdminSidebar
+            isSidebarOpen={isSidebarOpen}
+            setIsSidebarOpen={setIsSidebarOpen}
+          />
+        )}
       </aside>
 
       {/* Right Content Area */}
       <section className="flex-1 flex flex-col h-screen overflow-hidden">
         {/* Header on top */}
         <div className="mb-4">
-          <UserHeader />
+          <UserHeader setIsSidebarOpen={setIsSidebarOpen} />
         </div>
 
         {/* Scrollable Content */}
