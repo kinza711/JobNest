@@ -11,11 +11,19 @@ const storage = new CloudinaryStorage({
     // if file is imag
     if (file.mimetype.startsWith("image")) {
       folder = "Job_folder/images";
+      return { folder, resource_type: "image" };
     }
 
     // if file is doc or pdf
     if (file.mimetype === "application/pdf") {
       folder = "Job_folder/CVs";
+      // return {
+      //   folder,
+      //   resource_type: "image", // Cloudinary can serve PDFs as images/inline
+      //   format: "pdf",
+      //   flags: "attachment:false", // serves inline, not as download
+      // };
+      return { folder, resource_type: "auto", format: "pdf" }; // ⚡ raw here
     }
     return {
       folder: folder,

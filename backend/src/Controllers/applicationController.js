@@ -71,7 +71,7 @@ export const ApplyJob = async (req, res) => {
 
     const application = await Application.create({
       ...data,
-      resume,
+      resume: resume,
       user: userId, // ⚡ link application to user
     });
 
@@ -153,16 +153,16 @@ export const Rejected = async (req, res) => {
 export const GetSingleApplications = async (req, res) => {
   try {
     const { id } = req.params;
-    const singleApplications = await Application.findById(id);
+    const application = await Application.findById(id);
 
     res.status(200).json({
-      message: "applications found successfully",
-      data: singleApplications,
+      message: "Application found successfully",
+      data: application,
     });
   } catch (err) {
     res.status(500).json({
-      message: "applications not found",
-      error: err,
+      message: "Application not found",
+      error: err.message,
     });
   }
 };

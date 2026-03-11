@@ -15,7 +15,7 @@ const ProfileCard = ({ userApp, users }) => {
         <h3 className="text-xl font-bold text-slate-900 dark:text-white">
           {userApp?.fullName}
         </h3>
-        <p className="text-slate-500 dark:text-slate-400">{users?.heading}</p>
+        <p className="text-slate-500 dark:text-slate-400">{userApp?.heading}</p>
       </div>
 
       {/* Contact Info */}
