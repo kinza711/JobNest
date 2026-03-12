@@ -23,7 +23,7 @@ const JobPostForm = () => {
     keys: "",
     company: "",
     requirements: "",
-    category: "Design",
+    category: "Web Developer",
     location: "",
     salary: "",
     status: "live",

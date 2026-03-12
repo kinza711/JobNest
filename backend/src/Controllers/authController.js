@@ -1,6 +1,6 @@
 import Users from "../Models/authModel.js";
 import bcrypt from "bcryptjs";
-import jwt from "jsonwebtoken";
+import { generateToken } from "../utils/generateToken.js";
 
 //register
 export const Register = async (req, res) => {
@@ -78,17 +78,21 @@ export const Login = async (req, res) => {
         message: "password is incorrrect invalid crediantials",
       });
     }
+
+    // ✅ generate token using your separate function
+    const token = generateToken(user);
+
     // skip JWT for now only
-    const token = jwt.sign(
-      {
-        id: user._id,
-        name: user.name,
-        role: user.role,
-        email: user.email,
-      },
-      process.env.JWT_SECRET,
-      { expiresIn: "1d" },
-    );
+    // const token = jwt.sign(
+    //   {
+    //     id: user._id,
+    //     name: user.name,
+    //     role: user.role,
+    //     email: user.email,
+    //   },
+    //   process.env.JWT_SECRET,
+    //   { expiresIn: "1d" },
+    // );
     //console.log(token);
 
     // for cloudinary pics
