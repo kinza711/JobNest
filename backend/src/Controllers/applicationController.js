@@ -1,79 +1,50 @@
 import Application from "../Models/applicationModel.js";
 import Job from "../Models/jobModel.js";
+import { sendMail } from "../services/emailservice.js";
 
-// submit appliaction logic
-// export const ApplyJob = async (req, res) => {
-//   try {
-//     const {
-//       fullName,
-//       email,
-//       phone,
-//       location,
-//       portfolio,
-//       website,
-//       linkedIn,
-//       github,
-//       coverLetter,
-//       resume,
-//       relocate,
-//       newsletter,
-//       Experience,
-//       availability,
-//       status,
-//     } = req.body;
-
-//     const { id } = req.params;
-//     // fetch job details using job ID
-//     const job = await Job.findById(id);
-//     if (!job) return res.status(404).json({ message: "Job not found" });
-
-//     const application = await Application.create({
-//       jobTitle: job.title,
-//       company: job.company, // automatically add company
-//       fullName,
-//       email,
-//       phone,
-//       location,
-//       portfolio,
-//       website,
-//       linkedIn,
-//       github,
-//       coverLetter,
-//       resume,
-//       //resume: req.file ? req.file.path : null,
-//       relocate,
-//       newsletter,
-//       Experience,
-//       availability,
-//       status,
-//     });
-
-//     res.status(200).json({
-//       message: "application submitted successfully",
-//       data: application,
-//     });
-//   } catch (err) {
-//     res.status(500).json({
-//       message: "application not submitted",
-//       error: err,
-//     });
-//   }
-// };
 // submit application with resume and user id
 
 export const ApplyJob = async (req, res) => {
   try {
     const data = req.body;
     const resume = req.file?.path;
-
     // Attach logged-in user ID
     const userId = req.user._id;
+
+    console.log(process.env.EMAIL_USER);
+    console.log(process.env.EMAIL_PASS);
+
+    // Check if form email matches logged-in user email
+    if (req.user.email !== data.email) {
+      return res.status(400).json({
+        message:
+          "Invalid email address. Please use the email you registered with.",
+      });
+    }
 
     const application = await Application.create({
       ...data,
       resume: resume,
       user: userId, // ⚡ link application to user
     });
+
+    // DEBUG check
+    console.log("Recipient email:", req.user.email);
+
+    // send email WITHOUT blocking response
+    sendMail(
+      req.user.email,
+      "Application Received Successfully",
+      `Dear Candidate,
+
+Thank you for applying through JobNest.
+
+We have successfully received your job application.
+Our hiring team will review your profile and contact you soon.
+
+Best regards,
+JobNest Hiring Team`,
+    );
 
     res.status(201).json({
       message: "Application submitted",
@@ -179,6 +150,44 @@ export const UpdateStatus = async (req, res) => {
       { status },
       { new: true },
     );
+
+    let subject = "";
+    let message = "";
+
+    if (status === "Shortlisted") {
+      subject = "Application Update – Shortlisted";
+      message = `Dear Candidate,
+
+We are pleased to inform you that your application has been shortlisted. Our team will contact you soon regarding the next steps of the interview process.
+
+Best regards,
+JobNest Hiring Team`;
+    } else if (status === "Rejected") {
+      subject = "Application Update";
+      message = `Dear Candidate,
+
+Thank you for applying through JobNest. After careful review, we regret to inform you that your application was not selected for this position.
+
+We wish you success in your future opportunities.
+
+Best regards,
+JobNest Hiring Team`;
+    } else if (status === "Hired") {
+      subject = "Congratulations – You Have Been Selected";
+      message = `Dear Candidate,
+
+Congratulations! We are delighted to inform you that you have been selected for the position.
+
+Our team will contact you soon with the next steps.
+
+Best regards,
+JobNest Hiring Team`;
+    }
+
+    // send email if status matches
+    if (subject && message) {
+      await sendMail(appstatus.email, subject, message);
+    }
 
     res.status(200).json({
       message: "Application status updated successfully",

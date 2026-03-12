@@ -15,6 +15,7 @@ import { useParams } from "react-router-dom";
 const JobApplicationForm = () => {
   // job and company details
   const [job, setJob] = useState(null);
+  const [errors, setErrors] = useState({}); // store field-specific errors
   const { id } = useParams();
 
   useEffect(() => {
@@ -58,65 +59,9 @@ const JobApplicationForm = () => {
     }));
   };
 
-  // handle submit with jobtite and company
-  // const handleSubmit = async (e) => {
-  //   e.preventDefault();
-
-  //   const form = new FormData();
-
-  //   Object.keys(formData).forEach((key) => {
-  //     form.append(key, formData[key]);
-  //   });
-
-  //   // find job
-
-  //   if (!job) {
-  //     alert("Job details not loaded yet!");
-  //     return;
-  //   }
-
-  //   try {
-  //     // create the data object including job id and company
-  //     const dataToSend = {
-  //       ...formData,
-  //       jobTitle: job.title, // MongoDB ObjectId of the job
-  //       company: job.company, // company name
-  //     };
-
-  //     const res = await api.post("/submit", dataToSend, form, {
-  //       headers: {
-  //         "Content-Type": "multipart/form-data",
-  //       },
-  //     });
-
-  //     // reset form after successful submission
-  //     setFormData({
-  //       fullName: "",
-  //       email: "",
-  //       phone: "",
-  //       location: "",
-  //       portfolio: "",
-  //       website: "",
-  //       linkedIn: "",
-  //       github: "",
-  //       coverLetter: "",
-  //       resume: "",
-  //       relocate: false,
-  //       newsletter: true,
-  //       Experience: "fresher",
-  //       availability: "Immediate",
-  //     });
-
-  //     console.log("Application Submitted:", res);
-  //     alert("Application Submitted Successfully!");
-  //   } catch (err) {
-  //     console.log("Application not Submitted:", err);
-  //     alert("Application Submission failed!");
-  //   }
-  // };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setErrors({}); // clear previous errors
 
     if (!job) {
       alert("Job details not loaded yet!");
@@ -145,7 +90,13 @@ const JobApplicationForm = () => {
       alert("Application Submitted Successfully!");
     } catch (err) {
       console.log("Application not Submitted:", err.response?.data || err);
-      alert("Application Submission failed!");
+
+      // Backend sends message for email mismatch
+      if (err.response?.data?.message) {
+        setErrors({ email: err.response.data.message });
+      } else {
+        alert("Application Submission failed!");
+      }
     }
   };
 
@@ -216,9 +167,18 @@ const JobApplicationForm = () => {
                         value={formData.email}
                         onChange={handleChange}
                         placeholder="you@email.com"
-                        className="w-full pl-10 rounded-xl p-2 border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white"
+                        className={`w-full pl-10 rounded-xl p-2 border ${
+                          errors.email
+                            ? "border-red-500"
+                            : "border-slate-200 dark:border-slate-700"
+                        } bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white`}
                       />
                     </div>
+                    {errors.email && (
+                      <p className="text-red-500 mt-1 text-sm">
+                        {errors.email}
+                      </p>
+                    )}
                   </div>
 
                   <div>

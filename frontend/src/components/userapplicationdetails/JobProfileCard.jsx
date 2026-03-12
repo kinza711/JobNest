@@ -19,7 +19,7 @@ const ProfileCard = ({ userApp, profile }) => {
       </div>
 
       {/* Contact Info */}
-      <div className="py-6 space-y-4  px-5 text-sm">
+      <div className="py-6 space-y-4  px-5 text-sm break-all">
         <div className="flex items-center gap-2 ">
           <FiMail className="w-4 h-4 text-brand-primary" />
           <span className="font-medium">{userApp?.email}</span>

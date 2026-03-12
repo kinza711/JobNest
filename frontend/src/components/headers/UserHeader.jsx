@@ -37,20 +37,24 @@ export default function Header({ setIsSidebarOpen }) {
 
         {/* User */}
 
-        <div className="flex items-center gap-3">
+        <div className="flex items-center justify-center gap-3">
           <div className="text-right hidden sm:block">
             <p className="text-sm font-bold">{user?.name || "Guest"}</p>
             <p className="text-xs text-slate-500">
               {user?.heading || "UI/UX desiner "}
             </p>
           </div>
-
-          <div className="w-10 h-10 rounded-full bg-brand-primary/20 border-2 border-brand-primary overflow-hidden">
-            <img
-              src={user?.pic || "https://i.pravatar.cc/150"}
-              className="w-10 h-10 rounded-full object-cover"
-              alt="profile"
-            />
+          <div className="img flex-col items-center justify-center">
+            <div className="w-10   h-10 rounded-full bg-brand-primary/20 border-2 border-brand-primary overflow-hidden">
+              <img
+                src={user?.pic || "https://i.pravatar.cc/150"}
+                className="w-10 h-10 rounded-full object-cover"
+                alt="profile"
+              />
+            </div>
+            {/* <h3 className="text-brand-primary px-3 font-bold text-sm">
+              {user?.role}
+            </h3> */}
           </div>
 
           {/* ✅ Menu Button (Mobile Only) */}

@@ -67,7 +67,7 @@ export default function ProfileCard({
       </div>
 
       {/* Contact Info */}
-      <div className="glass-card rounded-lg p-6 space-y-4">
+      <div className="glass-card rounded-lg p-6 space-y-4 break-all">
         <h4 className="text-xs font-bold text-slate-400 uppercase tracking-widest px-2">
           Contact Information
         </h4>
