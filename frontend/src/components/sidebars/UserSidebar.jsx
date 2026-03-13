@@ -63,7 +63,7 @@ export default function Sidebar({ isSidebarOpen, setIsSidebarOpen }) {
         ></div>
       )}
       <aside
-        className={`fixed top-0 left-0 h-full w-72 bg-white shadow-lg z-50 transform transition-transform duration-300
+        className={`fixed flex flex-col top-0 left-0 h-full w-72 bg-white shadow-lg z-50 transform transition-transform duration-300
        ${isSidebarOpen ? "translate-x-0" : "-translate-x-full"} md:translate-x-0 md:static`}
       >
         {/* Logo */}
