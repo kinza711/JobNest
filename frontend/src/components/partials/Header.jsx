@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { HiMenu, HiX } from "react-icons/hi";
+import Logo from "../../assets/jobnest.png";
 
 export default function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -9,7 +10,10 @@ export default function Header() {
     <div className="items-center justify-center flex sticky top-0 z-50 py-3 dark:bg-slate-900 ">
       <header className="flex items-center bg-white shadow-md shadow-brand-primary/15 w-[80%] rounded-full justify-between px-4 sm:px-6 lg:px-20 py-3 md:py-4">
         {/* Logo */}
-        <div className="flex items-center gap-2">
+        <div className="flex items-center">
+          <div className="cirlcel w-14 h-14 rounded-full">
+            <img src={Logo} alt="logo" className="h-full w-full" />
+          </div>
           <h2 className="text-xl font-bold tracking-tight text-slate-900 dark:text-white">
             <Link to="/">
               Job<span className="text-brand-primary">Nest</span>

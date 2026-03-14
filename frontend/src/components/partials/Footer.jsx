@@ -1,4 +1,5 @@
 import React from "react";
+import Logo from "../../assets/jobnest.png";
 
 const Footer = () => {
   return (
@@ -7,8 +8,8 @@ const Footer = () => {
         <div className="max-w-7xl mx-auto px-4 grid grid-cols-2 md:grid-cols-5 gap-12">
           {/* <!-- Logo & Description --> */}
           <div className="col-span-2 md:col-span-2">
-            <div className="flex items-center gap-2 mb-6">
-              <div className="text-brand-primary w-8 h-8">
+            <div className="flex items-center mb-6">
+              {/* <div className="text-brand-primary w-8 h-8">
                 <svg
                   fill="currentColor"
                   viewBox="0 0 24 24"
@@ -16,6 +17,9 @@ const Footer = () => {
                 >
                   <path d="M20 6h-4V4c0-1.11-.89-2-2-2h-4c-1.11 0-2 .89-2 2v2H4c-1.11 0-1.99.89-1.99 2L2 19c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2zm-6 0h-4V4h4v2z"></path>
                 </svg>
+              </div> */}
+              <div className="cirlcel w-24 h-24 rounded-full">
+                <img src={Logo} alt="logo" className="h-full w-full" />
               </div>
               <h2 className="text-2xl font-bold tracking-tight">
                 Job<span className="text-brand-primary">Nest</span>

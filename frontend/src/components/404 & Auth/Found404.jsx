@@ -4,7 +4,7 @@ import { FaArrowLeft } from "react-icons/fa";
 import { MdLiveHelp } from "react-icons/md";
 import { BiSolidBellRing } from "react-icons/bi";
 import { IoBriefcaseSharp } from "react-icons/io5";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 const Found404 = () => {
   const navigate = useNavigate();
@@ -70,24 +70,21 @@ const Found404 = () => {
           </p>
           {/* <!-- CTA Section --> */}
           <div class="pt-8 flex flex-col sm:flex-row items-center justify-center gap-4">
-            <button
-              onClick={() => navigate(-1)}
-              class="group relative px-8 py-4 bg-brand-primary hover:bg-brand-primary text-white font-bold rounded-full transition-all duration-300 shadow-xl shadow-brand-primary hover:shadow-brand-primary hover:scale-105 flex items-center gap-2"
-            >
+            <button class="group relative px-8 py-4 bg-brand-primary hover:bg-brand-primary text-white font-bold rounded-full transition-all duration-300 shadow-xl shadow-brand-primary hover:shadow-brand-primary hover:scale-105 flex items-center gap-2">
               <span class="material-icons text-xl group-hover:-translate-x-1 transition-transform">
                 <FaArrowLeft />
               </span>
-              Back to Home
+              <Link to="/">Back to Home</Link>
             </button>
-            <a
-              class="px-8 py-4 glass text-slate-900 dark:text-slate-100 font-semibold rounded-full hover:bg-white/60 dark:hover:bg-slate-800/60 transition-all duration-300 border border-slate-200 dark:border-slate-700 flex items-center gap-2"
-              href="#"
+            <Link
+              to="/jobs"
+              class="px-8 py-4 glass text-slate-900 dark:text-slate-100 font-semibold rounded-full hover:bg-white/60 dark:hover:bg-slate-800/60 transition-all duration-300 border border-brand-primary dark:border-slate-700 flex items-center gap-2"
             >
               <span class="material-icons text-xl text-brand-secondary">
                 <FaSearchengin />
               </span>
               Browse Jobs
-            </a>
+            </Link>
           </div>
         </div>
         {/* <!-- Secondary Info / Links --> */}

@@ -5,6 +5,7 @@ import { FiArrowRight } from "react-icons/fi";
 import { Link } from "react-router-dom";
 import { AiOutlineLeft, AiOutlineRight } from "react-icons/ai";
 import api from "../../services/api";
+import RandomTechImage from "../unique/RandomTechImage ";
 
 const AllJobs = () => {
   const [jobs, setJobs] = useState([]);
@@ -73,7 +74,7 @@ const AllJobs = () => {
               {/* Top */}
               <div className="flex justify-between items-start mb-4">
                 <div
-                  className={`size-12 rounded-full border-2 flex items-center justify-center text-lg
+                  className={`size-12 rounded-full border-2 flex overflow-hidden items-center justify-center text-lg
                   ${
                     job.statusColor === "brand-secondary"
                       ? "bg-brand-secondary/10 text-brand-secondary"
@@ -82,9 +83,10 @@ const AllJobs = () => {
                         : "bg-brand-primary/10 text-brand-primary"
                   }`}
                 >
-                  <span className="animate-pulse text-brand-secondary">
+                  {/* <span className="animate-pulse text-brand-secondary">
                     {job.status}
-                  </span>
+                  </span> */}
+                  <RandomTechImage />
                 </div>
 
                 <span

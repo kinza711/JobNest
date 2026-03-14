@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const CTA = () => {
   return (
@@ -29,10 +30,10 @@ const CTA = () => {
             </p>
             <div className="flex flex-col sm:flex-row gap-4 mt-4 w-full justify-center">
               <button className="px-10 py-5 bg-white text-brand-primary rounded-full text-lg font-bold shadow-xl hover:scale-105 transition-all">
-                Create Candidate Profile
+                <Link to="/register">Create Candidate Profile</Link>
               </button>
               <button className="px-10 py-5 bg-brand-gray-900 text-white rounded-full text-lg font-bold shadow-xl hover:scale-105 transition-all">
-                Join as Employer
+                <Link to="/login">Join as Employer</Link>
               </button>
             </div>
           </div>
