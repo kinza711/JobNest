@@ -1,9 +1,34 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import api from "../../services/api";
+import { AiOutlineLeft, AiOutlineRight } from "react-icons/ai";
 
 export default function RecentApplications() {
   const [applications, setApplications] = useState([]);
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 4;
+
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+
+  const currentApplications = applications.slice(
+    indexOfFirstItem,
+    indexOfLastItem,
+  );
+
+  const totalPages = Math.ceil(applications.length / itemsPerPage);
+  const nextPage = () => {
+    if (currentPage < totalPages) {
+      setCurrentPage(currentPage + 1);
+    }
+  };
+
+  const prevPage = () => {
+    if (currentPage > 1) {
+      setCurrentPage(currentPage - 1);
+    }
+  };
 
   useEffect(() => {
     const fetchApplication = async () => {
@@ -49,7 +74,7 @@ export default function RecentApplications() {
           </thead>
 
           <tbody className="divide-y divide-gray-200">
-            {applications.slice(0, 4).map((app, index) => (
+            {currentApplications.slice(0, 4).map((app, index) => (
               <tr
                 key={index}
                 className="hover:bg-brand-primary/5 transition-colors"
@@ -107,15 +132,46 @@ export default function RecentApplications() {
         </table>
       </div>
 
-      {/* Footer */}
-      <div className="px-6 py-4 border-t border-gray-200 flex items-center justify-between">
-        <span className="text-sm text-slate-500 ">
+      {/* Pagination */}
+
+      <div className="px-6 py-4 flex items-center justify-between border-t border-brand-primary/10">
+        <p className="text-sm text-slate-500">
           Showing Total{" "}
-          <span className="text-brand-primary font-bold">
+          <span className="font-bold text-brand-primary ">
             {applications.length}
           </span>{" "}
-          applications
-        </span>
+          job post
+        </p>
+
+        <div className="flex items-center gap-2">
+          <button
+            onClick={prevPage}
+            className="size-8 flex items-center justify-center rounded-lg border text-slate-400"
+          >
+            <AiOutlineLeft />
+          </button>
+
+          {[...Array(totalPages)].map((_, i) => (
+            <button
+              key={i}
+              onClick={() => setCurrentPage(i + 1)}
+              className={`size-8 flex items-center justify-center rounded-lg text-xs font-bold ${
+                currentPage === i + 1
+                  ? "bg-brand-primary text-white"
+                  : "border text-slate-500"
+              }`}
+            >
+              {i + 1}
+            </button>
+          ))}
+
+          <button
+            onClick={nextPage}
+            className="size-8 flex items-center justify-center rounded-lg border text-slate-400"
+          >
+            <AiOutlineRight />
+          </button>
+        </div>
       </div>
     </div>
   );

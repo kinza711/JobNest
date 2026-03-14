@@ -1,10 +1,33 @@
+
 // FeaturedJobs.jsx
 import React, { useState, useEffect } from "react";
 import JobCards from "../publicJob/JobCards";
 import api from "../../services/api";
+import { AiOutlineLeft, AiOutlineRight } from "react-icons/ai";
 
 const FeaturedJobs = () => {
   const [jobs, setJobs] = useState([]);
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 2;
+
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+
+  const currentApplications = jobs.slice(indexOfFirstItem, indexOfLastItem);
+
+  const totalPages = Math.ceil(jobs.length / itemsPerPage);
+  const nextPage = () => {
+    if (currentPage < totalPages) {
+      setCurrentPage(currentPage + 1);
+    }
+  };
+
+  const prevPage = () => {
+    if (currentPage > 1) {
+      setCurrentPage(currentPage - 1);
+    }
+  };
 
   useEffect(() => {
     const fetchJobs = async () => {
@@ -34,9 +57,34 @@ const FeaturedJobs = () => {
 
       {/* Job Grid */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 px-10">
-        {jobs.map((job, index) => (
+        {currentApplications.slice(0, 2).map((job, index) => (
           <JobCards key={job._id || index} job={job} />
         ))}
+      </div>
+      {/* Pagination */}
+
+      <div className="px-6 py-4 flex items-center justify-between border-t border-brand-primary/10">
+        <p className="text-sm text-slate-500">
+          Showing Total{" "}
+          <span className="font-bold text-brand-primary ">{jobs.length}</span>{" "}
+          features jobs
+        </p>
+
+        <div className="flex items-center gap-2">
+          <button
+            onClick={prevPage}
+            className="size-8 flex items-center justify-center rounded-lg border text-slate-400"
+          >
+            <AiOutlineLeft />
+          </button>
+
+          <button
+            onClick={nextPage}
+            className="size-8 flex items-center justify-center rounded-lg border text-slate-400"
+          >
+            <AiOutlineRight />
+          </button>
+        </div>
       </div>
     </section>
   );

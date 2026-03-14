@@ -2,8 +2,31 @@ import React, { useEffect, useState } from "react";
 import { MdOutlineRemoveRedEye, MdDelete, MdEdit } from "react-icons/md";
 import api from "../../services/api";
 import { Link } from "react-router-dom";
+import { AiOutlineLeft, AiOutlineRight } from "react-icons/ai";
+
 export default function JobTable() {
   const [jobs, setJobs] = useState([]);
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 4;
+
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+
+  const currentApplications = jobs.slice(indexOfFirstItem, indexOfLastItem);
+
+  const totalPages = Math.ceil(jobs.length / itemsPerPage);
+  const nextPage = () => {
+    if (currentPage < totalPages) {
+      setCurrentPage(currentPage + 1);
+    }
+  };
+
+  const prevPage = () => {
+    if (currentPage > 1) {
+      setCurrentPage(currentPage - 1);
+    }
+  };
 
   useEffect(() => {
     const fetchApplication = async () => {
@@ -60,7 +83,7 @@ export default function JobTable() {
           </thead>
 
           <tbody className="divide-y divide-gray-200 dark:divide-border-dark">
-            {jobs.map((job) => (
+            {currentApplications.slice(0, 4).map((job) => (
               <tr
                 key={job._id}
                 className="hover:bg-gray-50/80 dark:hover:bg-gray-800/30 transition-colors"
@@ -142,17 +165,44 @@ export default function JobTable() {
         </table>
       </div>
 
-      {/* Pagination (unchanged) */}
-      <div className="px-6 py-4 flex items-center justify-between border-t border-gray-200 dark:border-border-dark bg-gray-50 dark:bg-gray-800/50">
-        <p className="text-xs font-semibold text-gray-500 uppercase tracking-wider">
-          Page 1 of 42
+      {/* Pagination */}
+
+      <div className="px-6 py-4 flex items-center justify-between border-t border-brand-primary/10">
+        <p className="text-sm text-slate-500">
+          Showing Total{" "}
+          <span className="font-bold text-brand-primary ">
+            {jobs.length}
+          </span>{" "}
+          job post
         </p>
-        <div className="flex gap-2">
-          <button className="px-4 py-2 text-xs font-bold text-gray-500 bg-white dark:bg-gray-900 border border-gray-200 dark:border-border-dark rounded-lg hover:bg-gray-50">
-            Previous
+
+        <div className="flex items-center gap-2">
+          <button
+            onClick={prevPage}
+            className="size-8 flex items-center justify-center rounded-lg border text-slate-400"
+          >
+            <AiOutlineLeft />
           </button>
-          <button className="px-4 py-2 text-xs font-bold text-white bg-brand-primary rounded-lg shadow-sm">
-            Next
+
+          {[...Array(totalPages)].map((_, i) => (
+            <button
+              key={i}
+              onClick={() => setCurrentPage(i + 1)}
+              className={`size-8 flex items-center justify-center rounded-lg text-xs font-bold ${
+                currentPage === i + 1
+                  ? "bg-brand-primary text-white"
+                  : "border text-slate-500"
+              }`}
+            >
+              {i + 1}
+            </button>
+          ))}
+
+          <button
+            onClick={nextPage}
+            className="size-8 flex items-center justify-center rounded-lg border text-slate-400"
+          >
+            <AiOutlineRight />
           </button>
         </div>
       </div>

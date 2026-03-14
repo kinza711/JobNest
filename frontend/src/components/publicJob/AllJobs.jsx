@@ -3,10 +3,32 @@ import { useEffect } from "react";
 import { useState } from "react";
 import { FiArrowRight } from "react-icons/fi";
 import { Link } from "react-router-dom";
-
+import { AiOutlineLeft, AiOutlineRight } from "react-icons/ai";
 import api from "../../services/api";
+
 const AllJobs = () => {
   const [jobs, setJobs] = useState([]);
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 6;
+
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+
+  const currentApplications = jobs.slice(indexOfFirstItem, indexOfLastItem);
+
+  const totalPages = Math.ceil(jobs.length / itemsPerPage);
+  const nextPage = () => {
+    if (currentPage < totalPages) {
+      setCurrentPage(currentPage + 1);
+    }
+  };
+
+  const prevPage = () => {
+    if (currentPage > 1) {
+      setCurrentPage(currentPage - 1);
+    }
+  };
 
   useEffect(() => {
     const fetchJob = async () => {
@@ -26,7 +48,7 @@ const AllJobs = () => {
   return (
     <section className="mt-24 px-6">
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {jobs.map((job, index) => (
+        {currentApplications.slice(0, 6).map((job, index) => (
           <div
             key={index}
             className={`rounded-2xl overflow-hidden flex flex-col transition-all duration-300 hover:-translate-y-2 border 
@@ -51,7 +73,7 @@ const AllJobs = () => {
               {/* Top */}
               <div className="flex justify-between items-start mb-4">
                 <div
-                  className={`size-12 rounded-xl flex items-center justify-center text-lg
+                  className={`size-12 rounded-full border-2 flex items-center justify-center text-lg
                   ${
                     job.statusColor === "brand-secondary"
                       ? "bg-brand-secondary/10 text-brand-secondary"
@@ -60,7 +82,9 @@ const AllJobs = () => {
                         : "bg-brand-primary/10 text-brand-primary"
                   }`}
                 >
-                  {job.icon}
+                  <span className="animate-pulse text-brand-secondary">
+                    {job.status}
+                  </span>
                 </div>
 
                 <span
@@ -85,18 +109,6 @@ const AllJobs = () => {
               <p className="text-brand-gray-500 dark:text-brand-gray-400 text-sm font-medium mt-1">
                 {job.company}
               </p>
-
-              {/* Skills */}
-              {/* <div className="mt-6 flex flex-wrap gap-2">
-                {job.skills.map((skill, i) => (
-                  <span
-                    key={i}
-                    className="px-3 py-1 bg-brand-gray-100 dark:bg-brand-gray-700 text-brand-gray-600 dark:text-brand-gray-300 text-[10px] font-bold rounded-lg uppercase tracking-wide"
-                  >
-                    {skill}
-                  </span>
-                ))}
-              </div> */}
 
               {/* Footer */}
               <div className="mt-auto pt-6 flex items-center justify-between  border-gray-200  mt-6">
@@ -129,26 +141,43 @@ const AllJobs = () => {
       </div>
 
       {/* Pagination */}
-      <div className="flex justify-between items-center pt-6">
-        <button className="px-5 py-2.5 rounded-xl border border-brand-gray-200 dark:border-brand-gray-700 text-sm font-bold text-brand-gray-600 dark:text-brand-gray-400 hover:bg-brand-gray-50 dark:hover:bg-brand-gray-800 transition-colors">
-          Previous
-        </button>
 
-        <div className="flex gap-2">
-          <button className="size-10 rounded-xl bg-brand-primary text-white font-bold text-sm">
-            1
+      <div className="px-6 py-4 flex items-center justify-between border-t border-brand-primary/10">
+        <p className="text-sm text-slate-500">
+          Showing Total{" "}
+          <span className="font-bold text-brand-primary ">{jobs.length}</span>{" "}
+          to applications
+        </p>
+
+        <div className="flex items-center gap-2">
+          <button
+            onClick={prevPage}
+            className="size-8 flex items-center justify-center rounded-lg border text-slate-400"
+          >
+            <AiOutlineLeft />
           </button>
-          <button className="size-10 rounded-xl bg-white dark:bg-brand-gray-800 border border-brand-gray-200 dark:border-brand-gray-700 text-brand-gray-600 dark:text-brand-gray-400 font-bold text-sm hover:border-brand-primary transition-colors">
-            2
-          </button>
-          <button className="size-10 rounded-xl bg-white dark:bg-brand-gray-800 border border-brand-gray-200 dark:border-brand-gray-700 text-brand-gray-600 dark:text-brand-gray-400 font-bold text-sm hover:border-brand-primary transition-colors">
-            3
+
+          {[...Array(totalPages)].map((_, i) => (
+            <button
+              key={i}
+              onClick={() => setCurrentPage(i + 1)}
+              className={`size-8 flex items-center justify-center rounded-lg text-xs font-bold ${
+                currentPage === i + 1
+                  ? "bg-brand-primary text-white"
+                  : "border text-slate-500"
+              }`}
+            >
+              {i + 1}
+            </button>
+          ))}
+
+          <button
+            onClick={nextPage}
+            className="size-8 flex items-center justify-center rounded-lg border text-slate-400"
+          >
+            <AiOutlineRight />
           </button>
         </div>
-
-        <button className="px-5 py-2.5 rounded-xl border border-brand-gray-200 dark:border-brand-gray-700 text-sm font-bold text-brand-gray-600 dark:text-brand-gray-400 hover:bg-brand-gray-50 dark:hover:bg-brand-gray-800 transition-colors">
-          Next
-        </button>
       </div>
     </section>
   );
