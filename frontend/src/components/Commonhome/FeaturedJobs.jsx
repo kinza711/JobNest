@@ -11,7 +11,7 @@ const FeaturedJobs = () => {
         const res = await api.get("/post"); // your API endpoint
         setJobs(res.data.data);
       } catch (err) {
-        console.log("Jobs not found", err);
+        console.error("Jobs not found", err);
       }
     };
     fetchJobs();

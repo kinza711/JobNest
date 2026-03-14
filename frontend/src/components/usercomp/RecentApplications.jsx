@@ -37,7 +37,7 @@ export default function RecentApplications() {
         setApplications(res.data.data);
         //console.log("Applications fetched successfully");
       } catch (err) {
-        console.log("Applications not found", err);
+        console.error("Applications not found", err);
       }
     };
     fetchApplication();

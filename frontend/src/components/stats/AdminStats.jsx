@@ -19,7 +19,7 @@ export default function StatsCards() {
         setTotalUsers(res.data.data.length);
         //console.log("user  found");
       } catch (err) {
-        console.log("user not found", err);
+        console.error("user not found", err);
       }
     };
     fetchUsers();
@@ -33,7 +33,7 @@ export default function StatsCards() {
         setTotalPosts(res.data.data.length);
         //console.log("user   found");
       } catch (err) {
-        console.log("user not found", err);
+        console.error("user not found", err);
       }
     };
     fetchJobs();
@@ -47,7 +47,7 @@ export default function StatsCards() {
         setTotalOnsite(res.data.data.length);
         //console.log("user  found");
       } catch (err) {
-        console.log("user not found", err);
+        console.error("user not found", err);
       }
     };
     Onsite();
@@ -61,7 +61,7 @@ export default function StatsCards() {
         setTotalRemote(res.data.data.length);
         //console.log("user  found");
       } catch (err) {
-        console.log("user not found", err);
+        console.error("user not found", err);
       }
     };
     Remote();

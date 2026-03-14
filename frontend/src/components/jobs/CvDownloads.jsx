@@ -39,7 +39,7 @@ const ApplicationDownloads = () => {
         const res = await api.get("/submit");
         setApplications(res.data.data);
       } catch (err) {
-        console.log("application not found", err);
+        console.error("application not found", err);
       }
     };
 
@@ -54,7 +54,7 @@ const ApplicationDownloads = () => {
 
       alert("Application deleted successfully");
     } catch (err) {
-      console.log("Delete failed", err);
+      console.error("Delete failed", err);
       alert("Application delete failed");
     }
   };

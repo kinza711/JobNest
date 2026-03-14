@@ -24,7 +24,7 @@ const JobApplicationForm = () => {
         const res = await api.get(`/job/${id}`);
         setJob(res.data.data);
       } catch (err) {
-        console.log("job not found", err);
+        console.error("job not found", err);
       }
     };
 
@@ -89,7 +89,7 @@ const JobApplicationForm = () => {
 
       alert("Application Submitted Successfully!");
     } catch (err) {
-      console.log("Application not Submitted:", err.response?.data || err);
+      console.error("Application not Submitted:", err.response?.data || err);
 
       // Backend sends message for email mismatch
       if (err.response?.data?.message) {

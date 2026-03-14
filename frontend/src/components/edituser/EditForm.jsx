@@ -43,7 +43,7 @@ const EditUser = ({ profile }) => {
         const res = await api.get(`/users/${id}`);
         setUsers(res.data.data);
       } catch (err) {
-        console.log("user record not found", err);
+        console.error("user record not found", err);
       }
     };
     fetchUsers();
@@ -57,7 +57,7 @@ const EditUser = ({ profile }) => {
       setUsers(res.data.data);
       alert("user updated successfully");
     } catch (err) {
-      console.log("user record not found", err);
+      console.error("user record not found", err);
       alert("user nott updated successfully");
     }
   };
@@ -75,7 +75,7 @@ const EditUser = ({ profile }) => {
       alert("User deleted successfully");
       navigate("/usermanagement"); // redirect to user management page
     } catch (err) {
-      console.log("Delete error:", err);
+      console.error("Delete error:", err);
       alert("Failed to delete user");
     }
   };

@@ -69,9 +69,9 @@ const MyApplicationTable = () => {
       try {
         const res = await api.get(`/myapps/${id}`);
         setApplications(res.data.data);
-        console.log("applications you submited are founded");
+        // console.log("applications you submited are founded");
       } catch (err) {
-        console.log("applications not found", err);
+        console.error("applications not found", err);
       }
     };
     fetchApplication();

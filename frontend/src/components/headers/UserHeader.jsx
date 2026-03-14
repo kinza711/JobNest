@@ -2,6 +2,7 @@ import React from "react";
 import { FaBell } from "react-icons/fa6";
 import { IoIosSearch } from "react-icons/io";
 import { HiMenu } from "react-icons/hi";
+import { Link } from "react-router-dom";
 
 export default function Header({ setIsSidebarOpen }) {
   const user = JSON.parse(localStorage.getItem("user"));
@@ -45,13 +46,16 @@ export default function Header({ setIsSidebarOpen }) {
             </p>
           </div>
           <div className="img flex-col items-center justify-center">
-            <div className="w-10   h-10 rounded-full bg-brand-primary/20 border-2 border-brand-primary overflow-hidden">
-              <img
-                src={user?.pic || "https://i.pravatar.cc/150"}
-                className="w-10 h-10 rounded-full object-cover"
-                alt="profile"
-              />
-            </div>
+            <Link to="/profile">
+              <div className="w-10   h-10 rounded-full bg-brand-primary/20 border-2 border-brand-primary overflow-hidden">
+                <img
+                  src={user?.pic || "https://i.pravatar.cc/150"}
+                  className="w-10 h-10 rounded-full object-cover"
+                  alt="profile"
+                />
+              </div>
+            </Link>
+
             {/* <h3 className="text-brand-primary px-3 font-bold text-sm">
               {user?.role}
             </h3> */}

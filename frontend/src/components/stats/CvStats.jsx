@@ -18,21 +18,21 @@ const CvStats = () => {
         const resJobs = await api.get("/post");
         setTotalJobs(resJobs.data.data.length);
       } catch (err) {
-        console.log("Error fetching total jobs:", err);
+        console.error("Error fetching total jobs:", err);
       }
 
       try {
         const resRemote = await api.get("/remote");
         setRemoteJobs(resRemote.data.data.length);
       } catch (err) {
-        console.log("Error fetching remote jobs:", err);
+        console.error("Error fetching remote jobs:", err);
       }
 
       try {
         const resOnsite = await api.get("/onsite");
         setOnsiteJobs(resOnsite.data.data.length);
       } catch (err) {
-        console.log("Error fetching onsite jobs:", err);
+        console.error("Error fetching onsite jobs:", err);
       }
     };
 

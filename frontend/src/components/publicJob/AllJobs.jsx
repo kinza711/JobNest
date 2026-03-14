@@ -36,7 +36,7 @@ const AllJobs = () => {
         const res = await api.get("/post");
         setJobs(res.data.data);
       } catch (err) {
-        console.log("job not found", err);
+        console.error("job not found", err);
       }
     };
 

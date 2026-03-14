@@ -85,7 +85,7 @@ const JobPostForm = () => {
         const res = await api.get(`/edit/${id}`);
         setFormData(res.data.data);
       } catch (err) {
-        console.log("Job not found", err);
+        console.error("Job not found", err);
       }
     };
 

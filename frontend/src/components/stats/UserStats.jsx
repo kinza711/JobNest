@@ -18,7 +18,7 @@ const UserStats = () => {
         setTotalUsers(res.data.data.length);
         //console.log("user  found");
       } catch (err) {
-        console.log("user not found", err);
+        console.error("user not found", err);
       }
     };
     fetchUsers();
@@ -32,7 +32,7 @@ const UserStats = () => {
         setTotalHR(res.data.data.length);
         //console.log("user  found");
       } catch (err) {
-        console.log("user not found", err);
+        console.error("user not found", err);
       }
     };
     fetchHR();
@@ -46,7 +46,7 @@ const UserStats = () => {
         setTotalJobSeeker(res.data.data.length);
         //console.log("user  found");
       } catch (err) {
-        console.log("user not found", err);
+        console.error("user not found", err);
       }
     };
     fetchJobSeeker();

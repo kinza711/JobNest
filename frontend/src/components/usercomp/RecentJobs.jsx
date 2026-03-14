@@ -14,7 +14,7 @@ export default function RecentJobs() {
         setRecentJobs(res.data.data);
         //console.log(res);
       } catch (err) {
-        console.log("recent jobs not found", err);
+        console.error("recent jobs not found", err);
       }
     };
     fetchJobs();
@@ -27,7 +27,7 @@ export default function RecentJobs() {
         setApplication(res.data.data);
         //console.log(res);
       } catch (err) {
-        console.log("recent jobs not found", err);
+        console.error("recent jobs not found", err);
       }
     };
     fetchSingleApplication();

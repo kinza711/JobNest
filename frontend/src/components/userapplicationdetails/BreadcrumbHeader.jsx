@@ -9,7 +9,7 @@ const BreadcrumbHeader = ({ userApp }) => {
       window.location.reload();
       alert("status updtaed succesfully");
     } catch (err) {
-      console.log("status update failed", err);
+      console.error("status update failed", err);
       alert("status updtaed faild");
     }
   };

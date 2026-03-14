@@ -15,21 +15,21 @@ export default function UserStats() {
         const res = await api.get("/totaluserapp");
         setTotalSubmit(res.data.data.length);
       } catch (err) {
-        console.log("Total Jobs fetch error:", err);
+        console.error("Total Jobs fetch error:", err);
       }
 
       try {
         const res = await api.get("/rejected");
         setTotalRejected(res.data.data.length);
       } catch (err) {
-        console.log("Onsite Jobs fetch error:", err);
+        console.error("Onsite Jobs fetch error:", err);
       }
 
       try {
         const res = await api.get("/short");
         setTotalShort(res.data.data.length);
       } catch (err) {
-        console.log("Remote Jobs fetch error:", err);
+        console.error("Remote Jobs fetch error:", err);
       }
     };
 

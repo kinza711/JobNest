@@ -36,7 +36,7 @@ export default function JobTable() {
         setJobs(res.data.data);
         // console.log("Applications fetched successfully");
       } catch (err) {
-        console.log("Applications not found", err);
+        console.error("Applications not found", err);
       }
     };
     fetchApplication();
@@ -49,7 +49,7 @@ export default function JobTable() {
 
       setJobs((prev) => prev.filter((job) => job._id !== id));
     } catch (err) {
-      console.log(err);
+      console.error(err, "job not deleted");
       alert("Job not deleted");
     }
   };
@@ -170,9 +170,7 @@ export default function JobTable() {
       <div className="px-6 py-4 flex items-center justify-between border-t border-brand-primary/10">
         <p className="text-sm text-slate-500">
           Showing Total{" "}
-          <span className="font-bold text-brand-primary ">
-            {jobs.length}
-          </span>{" "}
+          <span className="font-bold text-brand-primary ">{jobs.length}</span>{" "}
           job post
         </p>
 

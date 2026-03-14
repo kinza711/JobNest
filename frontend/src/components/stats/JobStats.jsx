@@ -17,21 +17,21 @@ export default function JobStats() {
         const res = await api.get("/post");
         setTotalPosts(res.data.data.length);
       } catch (err) {
-        console.log("Total Jobs fetch error:", err);
+        console.error("Total Jobs fetch error:", err);
       }
 
       try {
         const res = await api.get("/onsite");
         setTotalOnsite(res.data.data.length);
       } catch (err) {
-        console.log("Onsite Jobs fetch error:", err);
+        console.error("Onsite Jobs fetch error:", err);
       }
 
       try {
         const res = await api.get("/remote");
         setTotalRemote(res.data.data.length);
       } catch (err) {
-        console.log("Remote Jobs fetch error:", err);
+        console.error("Remote Jobs fetch error:", err);
       }
     };
 
