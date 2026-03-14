@@ -22,11 +22,8 @@ export default function StatsCards() {
         console.error("user not found", err);
       }
     };
-    fetchUsers();
-  }, []);
 
-  // total jobs
-  useEffect(() => {
+    // total jobs
     const fetchJobs = async () => {
       try {
         const res = await api.get("/post");
@@ -36,11 +33,8 @@ export default function StatsCards() {
         console.error("user not found", err);
       }
     };
-    fetchJobs();
-  }, []);
 
-  //onsite jobs
-  useEffect(() => {
+    // onsite jobs
     const Onsite = async () => {
       try {
         const res = await api.get("/onsite");
@@ -50,11 +44,8 @@ export default function StatsCards() {
         console.error("user not found", err);
       }
     };
-    Onsite();
-  }, []);
 
-  // remote jobs
-  useEffect(() => {
+    //remote jobs
     const Remote = async () => {
       try {
         const res = await api.get("/remote");
@@ -64,6 +55,10 @@ export default function StatsCards() {
         console.error("user not found", err);
       }
     };
+
+    fetchUsers();
+    fetchJobs();
+    Onsite();
     Remote();
   }, []);
 

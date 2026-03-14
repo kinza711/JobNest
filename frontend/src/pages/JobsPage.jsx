@@ -68,9 +68,8 @@ const JobPage = () => {
         <AllJobs />
 
         <StatsSection />
-
-        <Footer />
       </main>
+      <Footer />
     </div>
   );
 };

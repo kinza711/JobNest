@@ -8,19 +8,6 @@ export default function RecentJobs() {
   const { id } = useParams();
 
   useEffect(() => {
-    const fetchJobs = async () => {
-      try {
-        const res = await api.get("/post");
-        setRecentJobs(res.data.data);
-        //console.log(res);
-      } catch (err) {
-        console.error("recent jobs not found", err);
-      }
-    };
-    fetchJobs();
-  }, []);
-
-  useEffect(() => {
     const fetchSingleApplication = async () => {
       try {
         const res = await api.get(`/submit/${id}`);
@@ -30,7 +17,19 @@ export default function RecentJobs() {
         console.error("recent jobs not found", err);
       }
     };
+
+    const fetchJobs = async () => {
+      try {
+        const res = await api.get("/post");
+        setRecentJobs(res.data.data);
+        //console.log(res);
+      } catch (err) {
+        console.error("recent jobs not found", err);
+      }
+    };
+
     fetchSingleApplication();
+    fetchJobs();
   }, [id]);
 
   return (

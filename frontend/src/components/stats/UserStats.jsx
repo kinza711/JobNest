@@ -21,11 +21,8 @@ const UserStats = () => {
         console.error("user not found", err);
       }
     };
-    fetchUsers();
-  }, []);
 
-  // total HR's
-  useEffect(() => {
+    //total Hr
     const fetchHR = async () => {
       try {
         const res = await api.get("/hr");
@@ -35,11 +32,8 @@ const UserStats = () => {
         console.error("user not found", err);
       }
     };
-    fetchHR();
-  }, []);
 
-  // total HR's
-  useEffect(() => {
+    //total jobseekers
     const fetchJobSeeker = async () => {
       try {
         const res = await api.get("/jobseeker");
@@ -49,6 +43,8 @@ const UserStats = () => {
         console.error("user not found", err);
       }
     };
+    fetchUsers();
+    fetchHR();
     fetchJobSeeker();
   }, []);
 
