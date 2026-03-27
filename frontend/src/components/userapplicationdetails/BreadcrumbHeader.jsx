@@ -6,7 +6,7 @@ const BreadcrumbHeader = ({ userApp }) => {
   const fetchupdateStatus = async (status) => {
     try {
       await api.put(`/status/${userApp._id}`, { status });
-      window.location.reload();
+      //window.location.reload();
       alert("status updtaed succesfully");
     } catch (err) {
       console.error("status update failed", err);
