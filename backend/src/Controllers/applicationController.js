@@ -185,15 +185,26 @@ JobNest Hiring Team`;
     }
 
     // send email if status matches
+    // if (subject && message) {
+    //   await sendMail(appstatus.email, subject, message);
+    // }
     if (subject && message) {
-      await sendMail(appstatus.email, subject, message);
+      try {
+        const info = await sendMail(appstatus.email, subject, message);
+        if (info && info.response) {
+          console.log("✅ Status email sent:", info.response);
+        } else {
+          console.log("✅ Status email sent (no response info)");
+        }
+      } catch (error) {
+        console.error("❌ Status email failed:", error);
+      }
     }
 
     res.status(200).json({
       message: "Application status updated successfully",
       data: appstatus,
     });
-    console.log("✅status Email sent :", info.response);
   } catch (err) {
     res.status(500).json({
       message: "Application status not updated",
