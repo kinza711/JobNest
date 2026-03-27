@@ -37,7 +37,7 @@ const ResumeSection = ({ userApp }) => {
           <iframe
             src={resumeURL}
             title="Resume Preview"
-            className="w-full h-[40vh] rounded-lg"
+            className="w-full h-[60vh] rounded-lg"
           ></iframe>
         ) : (
           <p className="text-slate-500 dark:text-slate-400">
