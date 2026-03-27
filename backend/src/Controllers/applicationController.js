@@ -140,31 +140,114 @@ export const GetSingleApplications = async (req, res) => {
 
 // update status
 
+// export const UpdateStatus = async (req, res) => {
+//   try {
+//     const { id } = req.params;
+//     const { status } = req.body;
+
+//     const appstatus = await Application.findByIdAndUpdate(
+//       id,
+//       { status },
+//       { new: true },
+//     );
+
+//     let subject = "";
+//     let message = "";
+
+//     if (status === "Shortlisted") {
+//       subject = "Application Update – Shortlisted";
+//       message = `Dear Candidate,
+
+// We are pleased to inform you that your application has been shortlisted. Our team will contact you soon regarding the next steps of the interview process.
+
+// Best regards,
+// JobNest Hiring Team`;
+//     } else if (status === "Rejected") {
+//       subject = "Application Update";
+//       message = `Dear Candidate,
+
+// Thank you for applying through JobNest. After careful review, we regret to inform you that your application was not selected for this position.
+
+// We wish you success in your future opportunities.
+
+// Best regards,
+// JobNest Hiring Team`;
+//     } else if (status === "Hired") {
+//       subject = "Congratulations – You Have Been Selected";
+//       message = `Dear Candidate,
+
+// Congratulations! We are delighted to inform you that you have been selected for the position.
+
+// Our team will contact you soon with the next steps.
+
+// Best regards,
+// JobNest Hiring Team`;
+//     }
+
+//     // send email if status matches
+//     // if (subject && message) {
+//     //   await sendMail(appstatus.email, subject, message);
+//     // }
+//     if (subject && message) {
+//       try {
+//         const info = await sendMail(appstatus.email, subject, message);
+//         if (info && info.response) {
+//           console.log("✅ Status email sent:", info.response);
+//         } else {
+//           console.log("✅ Status email sent (no response info)");
+//         }
+//       } catch (error) {
+//         console.error("❌ Status email failed:", error);
+//       }
+//     }
+
+//     res.status(200).json({
+//       message: "Application status updated successfully",
+//       data: appstatus,
+//     });
+//   } catch (err) {
+//     res.status(500).json({
+//       message: "Application status not updated",
+//       error: err,
+//     });
+//   }
+// };
+
+
 export const UpdateStatus = async (req, res) => {
   try {
     const { id } = req.params;
     const { status } = req.body;
 
+    // ⚡ Update status and get updated doc
     const appstatus = await Application.findByIdAndUpdate(
       id,
       { status },
-      { new: true },
+      { returnDocument: 'after' }
     );
 
+    if (!appstatus) {
+      return res.status(404).json({ message: "Application not found" });
+    }
+
+    // ⚡ Prepare email content
     let subject = "";
     let message = "";
 
-    if (status === "Shortlisted") {
-      subject = "Application Update – Shortlisted";
-      message = `Dear Candidate,
+    switch (status) {
+      case "Shortlisted":
+        subject = "Application Update – Shortlisted";
+        message = `Dear Candidate,
 
 We are pleased to inform you that your application has been shortlisted. Our team will contact you soon regarding the next steps of the interview process.
 
 Best regards,
 JobNest Hiring Team`;
-    } else if (status === "Rejected") {
-      subject = "Application Update";
-      message = `Dear Candidate,
+        break;
+
+      case "Rejected":
+        subject = "Application Update";
+        message = `Dear Candidate,
 
 Thank you for applying through JobNest. After careful review, we regret to inform you that your application was not selected for this position.
 
@@ -172,9 +255,11 @@ We wish you success in your future opportunities.
 
 Best regards,
 JobNest Hiring Team`;
-    } else if (status === "Hired") {
-      subject = "Congratulations – You Have Been Selected";
-      message = `Dear Candidate,
+        break;
+
+      case "Hired":
+        subject = "Congratulations – You Have Been Selected";
+        message = `Dear Candidate,
 
 Congratulations! We are delighted to inform you that you have been selected for the position.
 
@@ -182,33 +267,30 @@ Our team will contact you soon with the next steps.
 
 Best regards,
 JobNest Hiring Team`;
+        break;
+
+      default:
+        break;
     }
 
-    // send email if status matches
-    // if (subject && message) {
-    //   await sendMail(appstatus.email, subject, message);
-    // }
-    if (subject && message) {
-      try {
-        const info = await sendMail(appstatus.email, subject, message);
-        if (info && info.response) {
-          console.log("✅ Status email sent:", info.response);
-        } else {
-          console.log("✅ Status email sent (no response info)");
-        }
-      } catch (error) {
-        console.error("❌ Status email failed:", error);
-      }
+    // ⚡ Send email asynchronously, but do not block response
+    if (subject && message && appstatus.email) {
+      sendMail(appstatus.email, subject, message)
+        .then(info => console.log("✅ Status email sent:", info?.response || "no response info"))
+        .catch(err => console.error("❌ Status email failed:", err.message));
     }
 
-    res.status(200).json({
+    // ⚡ Send API response immediately
+    return res.status(200).json({
       message: "Application status updated successfully",
       data: appstatus,
     });
+
   } catch (err) {
-    res.status(500).json({
+    console.error("❌ UpdateStatus error:", err);
+    return res.status(500).json({
       message: "Application status not updated",
-      error: err,
+      error: err.message,
     });
   }
 };
