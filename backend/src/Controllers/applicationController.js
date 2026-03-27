@@ -193,6 +193,7 @@ JobNest Hiring Team`;
       message: "Application status updated successfully",
       data: appstatus,
     });
+    console.log("✅status Email sent :", info.response);
   } catch (err) {
     res.status(500).json({
       message: "Application status not updated",
