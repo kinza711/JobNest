@@ -3,14 +3,30 @@ import api from "../../services/api";
 
 const BreadcrumbHeader = ({ userApp }) => {
   // const { id } = useParams();
+  // const fetchupdateStatus = async (status) => {
+  //   try {
+  //     await api.put(`/status/${userApp._id}`, { status });
+  //     //window.location.reload();
+  //     alert("status updtaed succesfully");
+  //   } catch (err) {
+  //     console.error("status update failed", err);
+  //     alert("status updtaed faild");
+  //   }
+  // };
+
   const fetchupdateStatus = async (status) => {
     try {
       await api.put(`/status/${userApp._id}`, { status });
-      //window.location.reload();
-      alert("status updtaed succesfully");
+
+      setTimeout(() => {
+        alert("status updated successfully");
+      }, 0);
     } catch (err) {
       console.error("status update failed", err);
-      alert("status updtaed faild");
+
+      setTimeout(() => {
+        alert("status update failed");
+      }, 0);
     }
   };
 
