@@ -8,7 +8,7 @@ export const sendMail = async (to, subject, text) => {
       subject,
       text,
     });
-    //console.log("email sended successfully to applicatnt",);
+    console.log("email sended successfully to applicatnt");
     console.log("Email sent:", info.response);
     //return info; // ← yeh add karo
   } catch (err) {

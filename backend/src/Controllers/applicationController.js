@@ -12,7 +12,7 @@ export const ApplyJob = async (req, res) => {
     const userId = req.user._id;
 
     console.log(process.env.EMAIL_USER);
-    console.log(process.env.EMAIL_PASS);
+    // console.log(process.env.EMAIL_PASS);
 
     // Check if form email matches logged-in user email
     if (req.user.email !== data.email) {
