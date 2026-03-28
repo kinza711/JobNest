@@ -13,4 +13,13 @@ const Transporter = nodemailer.createTransport({
   },
 });
 
+// Yeh line add karo — verify karta hai connection
+Transporter.verify((error, success) => {
+  if (error) {
+    console.error("❌ SMTP Connection Failed:", error);
+  } else {
+    console.log("✅ SMTP Connected Successfully!");
+  }
+});
+
 export default Transporter;
