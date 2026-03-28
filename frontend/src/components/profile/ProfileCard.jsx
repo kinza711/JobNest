@@ -55,7 +55,7 @@ export default function ProfileCard({
 
         <div className="text-center space-y-1">
           <h3 className="text-2xl font-bold text-slate-900">{profile?.name}</h3>
-          <p className="text-gray-accent font-medium">{profile?.heading}</p>
+          <p className="text-gray-accent font-medium">{profile?.role}</p>
         </div>
 
         <div className="mt-8 w-full py-4 rounded-xl bg-slate-900 text-white text-sm font-bold flex items-center justify-center gap-3 hover:bg-slate-800 transition-all shadow-xl">
@@ -74,10 +74,17 @@ export default function ProfileCard({
 
         <ContactItem
           icon=<IoMdMail />
+          title="Heading"
+          value={profile?.heading}
+          color="brand-primary"
+        />
+        <ContactItem
+          icon=<IoMdMail />
           title="Email"
           value={profile?.email}
           color="brand-primary"
         />
+
         <ContactItem
           icon=<FaPhoneAlt />
           title="Phone"
