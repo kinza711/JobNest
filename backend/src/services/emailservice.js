@@ -10,7 +10,7 @@ export const sendMail = async (to, subject, text) => {
     });
     //console.log("email sended successfully to applicatnt",);
     console.log("Email sent:", info.response);
-    return info; // ← yeh add karo
+    //return info; // ← yeh add karo
   } catch (err) {
     console.error(err, "sorry email not sended to applicant");
   }
