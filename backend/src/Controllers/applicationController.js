@@ -32,7 +32,7 @@ export const ApplyJob = async (req, res) => {
     console.log("Recipient email:", req.user.email);
 
     // send email WITHOUT blocking response
-    sendMail(
+    await sendMail(
       req.user.email,
       "Application Received Successfully",
       `Dear Candidate,

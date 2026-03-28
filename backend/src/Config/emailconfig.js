@@ -15,6 +15,8 @@ dotenv.config();
 //     rejectUnauthorized: false,
 //   },
 // });
+console.log("USER:", process.env.BREVO_USER);
+console.log("PASS:", process.env.BREVO_PASS);
 
 const Transporter = nodemailer.createTransport({
   host: "smtp-relay.brevo.com",
