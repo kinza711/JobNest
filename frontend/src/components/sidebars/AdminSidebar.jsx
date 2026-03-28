@@ -90,13 +90,13 @@ const AdminSidebar = ({ isSidebarOpen, setIsSidebarOpen }) => {
               to="/empmanagement"
               className={`flex items-center gap-3 px-4 py-3 rounded-xl transition-all
   ${
-    location.pathname === "/usermanagement"
+    location.pathname === "/empmanagement"
       ? "text-brand-primary bg-brand-primary/10"
       : "text-slate-500 hover:bg-slate-50"
   }`}
             >
               <HiUsers />
-              <span className="text-sm font-semibold">User Management</span>
+              <span className="text-sm font-semibold">HR Management</span>
             </Link>
           )}
 
