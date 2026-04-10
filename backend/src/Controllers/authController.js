@@ -37,8 +37,8 @@ export const Register = async (req, res) => {
     });
   } catch (err) {
     res.status(500).json({
-      message: "user not craeted",
-      error: err,
+      message: "server error user not craeted",
+      error: err.message,
     });
   }
 };
@@ -48,7 +48,11 @@ export const Logout = (req, res) => {
   try {
     res.status(200).json("Logout Successfully");
   } catch (err) {
-    res.status(500).json("Logout failed");
+    //res.status(500).json("Logout failed");
+    res.status(500).json({
+      message: "server error logout failed",
+      error: err.message,
+    });
   }
 };
 
@@ -128,8 +132,8 @@ export const Login = async (req, res) => {
     // }
   } catch (err) {
     res.status(500).json({
-      message: "user not loggedin",
-      error: err,
+      message: "server error user not loggedin",
+      error: err.message,
     });
   }
 };

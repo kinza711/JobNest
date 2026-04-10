@@ -14,6 +14,7 @@ export default function Sidebar({ isSidebarOpen, setIsSidebarOpen }) {
     try {
       await api.post("/logout"); // optional if backend logout route exists
       localStorage.removeItem("token");
+      localStorage.removeItem("user");
 
       alert("You're logged out successfully");
 

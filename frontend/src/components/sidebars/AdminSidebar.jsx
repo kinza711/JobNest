@@ -21,6 +21,7 @@ const AdminSidebar = ({ isSidebarOpen, setIsSidebarOpen }) => {
     try {
       await api.post("/logout");
       localStorage.removeItem("token");
+      localStorage.removeItem("user");
       alert("you're loggedout successfully");
       navigate("/login");
     } catch (err) {

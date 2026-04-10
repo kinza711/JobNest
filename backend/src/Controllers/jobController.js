@@ -46,8 +46,8 @@ export const PostJob = async (req, res) => {
     console.log(jobs);
   } catch (err) {
     res.status(500).json({
-      message: "job not posted",
-      error: err,
+      message: "server error job not posted",
+      error: err.message,
     });
   }
 };
@@ -72,8 +72,8 @@ export const DeletePost = async (req, res) => {
     console.log(deletejobs);
   } catch (err) {
     res.status(500).json({
-      message: "job not deleted",
-      error: err,
+      message: "server error job not deleted",
+      error: err.message,
     });
   }
 };
@@ -89,8 +89,8 @@ export const GetPost = async (req, res) => {
     });
   } catch (err) {
     res.status(500).json({
-      message: "job not found",
-      error: err,
+      message: "server error job not found",
+      error: err.message,
     });
   }
 };
@@ -118,8 +118,8 @@ export const UpdateJob = async (req, res) => {
     });
   } catch (err) {
     res.status(500).json({
-      message: "job not updated",
-      error: err,
+      message: "server error job not updated",
+      error: err.message,
     });
   }
 };
@@ -136,8 +136,8 @@ export const EditPost = async (req, res) => {
     });
   } catch (err) {
     res.status(500).json({
-      message: "job not found",
-      error: err,
+      message: "server error job not found",
+      error: err.message,
     });
   }
 };
@@ -152,8 +152,8 @@ export const OnsitePost = async (req, res) => {
     });
   } catch (err) {
     res.status(500).json({
-      message: "onsite job not found",
-      error: err,
+      message: "server error onsite job not found",
+      error: err.message,
     });
   }
 };
@@ -169,8 +169,8 @@ export const remotePost = async (req, res) => {
     });
   } catch (err) {
     res.status(500).json({
-      message: "remote job not found",
-      error: err,
+      message: "server error remote job not found",
+      error: err.message,
     });
   }
 };
@@ -204,8 +204,8 @@ export const GetSinglePost = async (req, res) => {
     });
   } catch (err) {
     res.status(500).json({
-      message: "job not found",
-      error: err,
+      message: "server error job not found",
+      error: err.message,
     });
   }
 };

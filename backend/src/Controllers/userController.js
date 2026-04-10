@@ -10,8 +10,8 @@ export const AllUsers = async (req, res) => {
     });
   } catch (err) {
     res.status(500).json({
-      message: "users not found",
-      error: err,
+      message: "server error users not found",
+      error: err.message,
     });
   }
 };
@@ -27,8 +27,8 @@ export const HRs = async (req, res) => {
     });
   } catch (err) {
     res.status(500).json({
-      message: "HR not found",
-      error: err,
+      message: "server error HR not found",
+      error: err.message,
     });
   }
 };
@@ -44,8 +44,8 @@ export const JobSeeker = async (req, res) => {
     });
   } catch (err) {
     res.status(500).json({
-      message: "JobSeeker not found",
-      error: err,
+      message: "server error JobSeeker not found",
+      error: err.message,
     });
   }
 };
@@ -61,14 +61,14 @@ export const deleteUser = async (req, res) => {
     });
   } catch (err) {
     res.status(500).json({
-      message: "user not deleted",
-      error: err,
+      message: "server error user not deleted",
+      error: err.message,
     });
   }
 };
 
 // edit user via id
-export const EditUsers = async (req, res) => {
+export const wquiopEditUsers = async (req, res) => {
   try {
     const { id } = req.params;
     const editusers = await Users.findById(id);
@@ -79,8 +79,8 @@ export const EditUsers = async (req, res) => {
     });
   } catch (err) {
     res.status(500).json({
-      message: "users not found",
-      error: err,
+      message: "server error users not found",
+      error: err.message,
     });
   }
 };
@@ -99,8 +99,8 @@ export const UpdateUsers = async (req, res) => {
     });
   } catch (err) {
     res.status(500).json({
-      message: "users not updtaed",
-      error: err,
+      message: "server error users not updtaed",
+      error: err.message,
     });
   }
 };
@@ -118,8 +118,8 @@ export const findSingleUsers = async (req, res) => {
     });
   } catch (err) {
     res.status(500).json({
-      message: "users not found",
-      error: err,
+      message: "server error users not found",
+      error: err.message,
     });
   }
 };

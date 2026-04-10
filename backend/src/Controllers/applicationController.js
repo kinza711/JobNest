@@ -52,7 +52,7 @@ JobNest Hiring Team`,
     });
   } catch (error) {
     res.status(500).json({
-      message: "Submission failed",
+      message: "server error Submission failed",
       error: error.message,
     });
   }
@@ -70,8 +70,8 @@ export const GetApplications = async (req, res) => {
     });
   } catch (err) {
     res.status(500).json({
-      message: "applications not found",
-      error: err,
+      message: "server error applications not found",
+      error: err.message,
     });
   }
 };
@@ -91,8 +91,8 @@ export const Shortlisted = async (req, res) => {
     });
   } catch (err) {
     res.status(500).json({
-      message: "shortlisted applications not found",
-      error: err,
+      message: "server error shortlisted applications not found",
+      error: err.message,
     });
   }
 };
@@ -113,8 +113,8 @@ export const Rejected = async (req, res) => {
     });
   } catch (err) {
     res.status(500).json({
-      message: "rejected applications not found",
-      error: err,
+      message: "server error rejected applications not found",
+      error: err.message,
     });
   }
 };
@@ -132,7 +132,7 @@ export const GetSingleApplications = async (req, res) => {
     });
   } catch (err) {
     res.status(500).json({
-      message: "Application not found",
+      message: "server error Application not found",
       error: err.message,
     });
   }
@@ -207,8 +207,8 @@ JobNest Hiring Team`;
     });
   } catch (err) {
     res.status(500).json({
-      message: "Application status not updated",
-      error: err,
+      message: "server error Application status not updated",
+      error: err.message,
     });
   }
 };
@@ -227,8 +227,8 @@ export const deleteApp = async (req, res) => {
     });
   } catch (err) {
     res.status(500).json({
-      message: "Application not deleted",
-      error: err,
+      message: "server error Application not deleted",
+      error: err.message,
     });
   }
 };
@@ -245,7 +245,7 @@ export const GetUserApplications = async (req, res) => {
     });
   } catch (err) {
     res.status(500).json({
-      message: "Could not fetch applications",
+      message: "server error Could not fetch applications",
       error: err.message,
     });
   }
@@ -265,8 +265,8 @@ export const UserTotalApplications = async (req, res) => {
     });
   } catch (err) {
     res.status(500).json({
-      message: "applications not found",
-      error: err,
+      message: "server error applications not found",
+      error: err.message,
     });
   }
 };

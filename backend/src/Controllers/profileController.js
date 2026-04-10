@@ -24,7 +24,10 @@ export const getProfile = async (req, res) => {
     });
   } catch (err) {
     console.error(err);
-    res.status(500).json({ message: "Server error" });
+    res.status(500).json({
+      message: "server error",
+      error: err.message,
+    });
   }
 };
 
@@ -73,6 +76,9 @@ export const updateProfile = async (req, res) => {
     });
   } catch (err) {
     console.error("Update profile error:", err);
-    res.status(500).json({ message: "Server error", error: err.message });
+    res.status(500).json({
+      message: "Server error",
+      error: err.message,
+    });
   }
 };
