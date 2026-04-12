@@ -68,7 +68,7 @@ export const deleteUser = async (req, res) => {
 };
 
 // edit user via id
-export const wquiopEditUsers = async (req, res) => {
+export const EditUsers = async (req, res) => {
   try {
     const { id } = req.params;
     const editusers = await Users.findById(id);
