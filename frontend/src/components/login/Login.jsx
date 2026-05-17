@@ -12,7 +12,7 @@ import api from "../../services/api";
 
 const Login = () => {
   const navigate = useNavigate();
-
+  const [error, setError] = useState("");
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -66,7 +66,8 @@ const Login = () => {
         navigate("/register");
       }
     } catch (err) {
-      alert(err.response?.data?.message || "user not found");
+      setError(err.response?.data?.message || "user not found");
+      console.log(err, "login failed");
     }
   };
 
@@ -265,6 +266,8 @@ const Login = () => {
                 />
               </div>
             </div>
+
+            {error && <p className="text-red-700 font-semibold">{error}</p>}
 
             <button
               type="submit"

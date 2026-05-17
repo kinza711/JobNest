@@ -17,6 +17,8 @@ import { useEffect } from "react";
 const JobPostForm = () => {
   const { id } = useParams();
   const navigate = useNavigate();
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
   const [formData, setFormData] = useState({
     title: "",
     disc: "",
@@ -48,12 +50,13 @@ const JobPostForm = () => {
     try {
       if (id) {
         await api.put(`/update/${id}`, formData);
-        alert("Job Updated Successfully");
-        navigate("/jobmanagement");
+        setSuccess("Job Updated Successfully");
+        // navigate("/jobmanagement");
       } else {
         await api.post("/post", formData);
         //console.log("Job Posted:", res);
-        alert("Job Posted Successfully!");
+        setSuccess("Job Posted Successfully!");
+        navigate("/jobmanagement");
         setFormData({
           title: "",
           disc: "",
@@ -73,7 +76,8 @@ const JobPostForm = () => {
         });
       }
     } catch (err) {
-      alert("job not posted", err);
+      setError("job not posted", err);
+      console.log(err, "job not posted");
     }
   };
   // fetch job to edit
@@ -116,6 +120,11 @@ const JobPostForm = () => {
           </div>
         </div>
 
+        {error ? (
+          <p className="text-red-700 py-4 font-semibold">{error}</p>
+        ) : (
+          <p className="text-green-700 py-4 font-semibold">{success}</p>
+        )}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Left Column */}
           <div className="lg:col-span-2 space-y-6">

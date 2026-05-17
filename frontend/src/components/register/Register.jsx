@@ -14,7 +14,7 @@ import { useNavigate } from "react-router-dom";
 const Login = () => {
   const navigate = useNavigate();
   const [profileImageFile, setProfileImageFile] = useState(null);
-
+  const [error, setError] = useState("");
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -59,7 +59,8 @@ const Login = () => {
 
       navigate("/login");
     } catch (err) {
-      alert(err.response?.data?.message || "user not registed"); // show backend message
+      setError(err.response?.data?.message || "user not registed"); // show backend message
+      console.log(err, "register error");
     }
   };
 
@@ -268,7 +269,7 @@ const Login = () => {
                 />
               </div>
             </div>
-
+            {error && <p className="text-red-700 font-semibold">{error}</p>}
             <button
               type="submit"
               className="w-full py-4 rounded-full bg-brand-primary hover:bg-brand-primary/90 text-white font-bold text-lg shadow-xl shadow-primary/30 transition-all hover:scale-[1.02] active:scale-95 flex items-center justify-center gap-2"
