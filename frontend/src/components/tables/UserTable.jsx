@@ -6,6 +6,8 @@ import { AiOutlineLeft, AiOutlineRight } from "react-icons/ai";
 
 const UserTable = ({ type }) => {
   const [data, setData] = useState([]);
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
 
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 4;
@@ -49,120 +51,131 @@ const UserTable = ({ type }) => {
   const handleDelete = async (id) => {
     try {
       const res = await api.delete(`/delete/${id}`);
-      alert("user deleted succesfully");
+      //alert("user deleted succesfully");
+      setSuccess(res.data.message);
       // Remove the deleted user from state
       setData((prev) => prev.filter((user) => user._id !== id));
     } catch (err) {
-      alert("not delete", err);
+      //setError(err.response?.data?.message || err.message ||  "Something Wrong");
+      setError(err.response?.data?.message || "Something went wrong");
+      console.log("user not delete", err);
     }
   };
 
   return (
-    <div className="glass-panel rounded-2xl border border-slate-200 overflow-hidden shadow-xl shadow-slate-200/40">
-      <div className="px-8 py-5 border-b border-slate-200 flex items-center justify-between">
-        <h4 className="font-bold text-slate-800">
-          {/* {type === "jobseeker" ? "Job Seekers" : "HR Members"} */}
-          User Management
-        </h4>
-      </div>
+    <>
+      {error ? (
+        <p className="text-red-700 py-2 font-semibold">{error}</p>
+      ) : (
+        <p className="text-green-700  py-2 font-semibold">{success}</p>
+      )}
 
-      <div className="overflow-x-auto">
-        <table className="w-full text-left">
-          <thead>
-            <tr className="bg-slate-50/50">
-              <th className="px-8 py-4 text-xs font-bold text-slate-400 uppercase tracking-widest border-b border-slate-200">
-                Name
-              </th>
-              <th className="px-6 py-4 text-xs font-bold text-slate-400 uppercase tracking-widest border-b border-slate-200">
-                Email
-              </th>
-              <th className="px-6 py-4 text-xs font-bold text-slate-400 uppercase tracking-widest border-b border-slate-200">
-                Role
-              </th>
-              <th className="px-6 py-4 text-xs font-bold text-slate-400 uppercase tracking-widest border-b border-slate-200">
-                Phone
-              </th>
-              <th className="px-6 py-4 text-xs font-bold text-slate-400 uppercase tracking-widest border-b border-slate-200">
-                Location
-              </th>
-              <th className="px-8 py-4 text-xs font-bold text-slate-400 uppercase tracking-widest border-b border-slate-200 text-right">
-                Actions
-              </th>
-            </tr>
-          </thead>
+      <div className="glass-panel rounded-2xl border border-slate-200 overflow-hidden shadow-xl shadow-slate-200/40">
+        <div className="px-8 py-5 border-b border-slate-200 flex items-center justify-between">
+          <h4 className="font-bold text-slate-800">
+            {/* {type === "jobseeker" ? "Job Seekers" : "HR Members"} */}
+            User Management
+          </h4>
+        </div>
 
-          <tbody className="divide-y divide-slate-100">
-            {currentApplications.slice(0, 4).map((user, idx) => (
-              <tr
-                key={idx}
-                className="hover:bg-slate-50 transition-colors group"
-              >
-                <td className="px-8 py-4 capitalize">{user.name}</td>
-                <td className="px-6 py-4">{user.email}</td>
-                <td className="px-6 py-4">{user.role}</td>
-                <td className="px-6 py-4">{user.phone}</td>
-                <td className="px-6 py-4">{user.location}</td>
-                <td className="px-8 py-4 text-right">
-                  <div className="flex items-center justify-end gap-2">
-                    <button className="size-8 rounded-lg bg-white border border-slate-200 text-slate-400 hover:text-brand-secondary hover:border-brand-secondary transition-all flex items-center justify-center">
-                      <Link to={`/edituser/${user._id}`}>
-                        <MdModeEditOutline />
-                      </Link>
-                    </button>
-                    <button
-                      onClick={() => handleDelete(user._id)}
-                      className="size-8 rounded-lg bg-white border border-slate-200 text-slate-400 hover:text-red-500 hover:border-red-500 transition-all flex items-center justify-center"
-                    >
-                      <MdDelete />
-                    </button>
-                  </div>
-                </td>
+        <div className="overflow-x-auto">
+          <table className="w-full text-left">
+            <thead>
+              <tr className="bg-slate-50/50">
+                <th className="px-8 py-4 text-xs font-bold text-slate-400 uppercase tracking-widest border-b border-slate-200">
+                  Name
+                </th>
+                <th className="px-6 py-4 text-xs font-bold text-slate-400 uppercase tracking-widest border-b border-slate-200">
+                  Email
+                </th>
+                <th className="px-6 py-4 text-xs font-bold text-slate-400 uppercase tracking-widest border-b border-slate-200">
+                  Role
+                </th>
+                <th className="px-6 py-4 text-xs font-bold text-slate-400 uppercase tracking-widest border-b border-slate-200">
+                  Phone
+                </th>
+                <th className="px-6 py-4 text-xs font-bold text-slate-400 uppercase tracking-widest border-b border-slate-200">
+                  Location
+                </th>
+                <th className="px-8 py-4 text-xs font-bold text-slate-400 uppercase tracking-widest border-b border-slate-200 text-right">
+                  Actions
+                </th>
               </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+            </thead>
 
-      {/* Pagination */}
+            <tbody className="divide-y divide-slate-100">
+              {currentApplications.slice(0, 4).map((user, idx) => (
+                <tr
+                  key={idx}
+                  className="hover:bg-slate-50 transition-colors group"
+                >
+                  <td className="px-8 py-4 capitalize">{user.name}</td>
+                  <td className="px-6 py-4">{user.email}</td>
+                  <td className="px-6 py-4">{user.role}</td>
+                  <td className="px-6 py-4">{user.phone}</td>
+                  <td className="px-6 py-4">{user.location}</td>
+                  <td className="px-8 py-4 text-right">
+                    <div className="flex items-center justify-end gap-2">
+                      <button className="size-8 rounded-lg bg-white border border-slate-200 text-slate-400 hover:text-brand-secondary hover:border-brand-secondary transition-all flex items-center justify-center">
+                        <Link to={`/edituser/${user._id}`}>
+                          <MdModeEditOutline />
+                        </Link>
+                      </button>
+                      <button
+                        onClick={() => handleDelete(user._id)}
+                        className="size-8 rounded-lg bg-white border border-slate-200 text-slate-400 hover:text-red-500 hover:border-red-500 transition-all flex items-center justify-center"
+                      >
+                        <MdDelete />
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
 
-      <div className="px-6 py-4 flex items-center justify-between border-t border-brand-primary/10">
-        <p className="text-sm text-slate-500">
-          Showing Total{" "}
-          <span className="font-bold text-brand-primary ">{data.length}</span>{" "}
-          to applications
-        </p>
+        {/* Pagination */}
 
-        <div className="flex items-center gap-2">
-          <button
-            onClick={prevPage}
-            className="size-8 flex items-center justify-center rounded-lg border text-slate-400"
-          >
-            <AiOutlineLeft />
-          </button>
+        <div className="px-6 py-4 flex items-center justify-between border-t border-brand-primary/10">
+          <p className="text-sm text-slate-500">
+            Showing Total{" "}
+            <span className="font-bold text-brand-primary ">{data.length}</span>{" "}
+            to applications
+          </p>
 
-          {[...Array(totalPages)].map((_, i) => (
+          <div className="flex items-center gap-2">
             <button
-              key={i}
-              onClick={() => setCurrentPage(i + 1)}
-              className={`size-8 flex items-center justify-center rounded-lg text-xs font-bold ${
-                currentPage === i + 1
-                  ? "bg-brand-primary text-white"
-                  : "border text-slate-500"
-              }`}
+              onClick={prevPage}
+              className="size-8 flex items-center justify-center rounded-lg border text-slate-400"
             >
-              {i + 1}
+              <AiOutlineLeft />
             </button>
-          ))}
 
-          <button
-            onClick={nextPage}
-            className="size-8 flex items-center justify-center rounded-lg border text-slate-400"
-          >
-            <AiOutlineRight />
-          </button>
+            {[...Array(totalPages)].map((_, i) => (
+              <button
+                key={i}
+                onClick={() => setCurrentPage(i + 1)}
+                className={`size-8 flex items-center justify-center rounded-lg text-xs font-bold ${
+                  currentPage === i + 1
+                    ? "bg-brand-primary text-white"
+                    : "border text-slate-500"
+                }`}
+              >
+                {i + 1}
+              </button>
+            ))}
+
+            <button
+              onClick={nextPage}
+              className="size-8 flex items-center justify-center rounded-lg border text-slate-400"
+            >
+              <AiOutlineRight />
+            </button>
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

@@ -56,12 +56,12 @@ export const deleteUser = async (req, res) => {
     const deleteuser = await Users.findByIdAndDelete(id);
 
     res.status(200).json({
-      message: "user delered succesfully",
+      message: "User Deleted Succesfully",
       data: deleteuser,
     });
   } catch (err) {
     res.status(500).json({
-      message: "server error user not deleted",
+      message: "Server error User not deleted",
       error: err.message,
     });
   }
@@ -94,12 +94,12 @@ export const UpdateUsers = async (req, res) => {
     });
 
     res.status(200).json({
-      message: "Allusers updtaed successfully",
+      message: "User updtaed successfully",
       data: updateuser,
     });
   } catch (err) {
     res.status(500).json({
-      message: "server error users not updtaed",
+      message: "Server error User not updtaed",
       error: err.message,
     });
   }

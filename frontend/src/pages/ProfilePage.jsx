@@ -16,6 +16,8 @@ export default function ProfilePage({ children }) {
   const [profileImageFile, setProfileImageFile] = useState(null);
   const [preview, setPreview] = useState(null);
   const [formData, setFormData] = useState({});
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
 
   const user = JSON.parse(localStorage.getItem("user"));
   const role = user?.role;
@@ -79,10 +81,14 @@ export default function ProfilePage({ children }) {
       });
 
       setProfile(res.data.user);
-      alert("Profile updated successfully");
+      //alert("Profile updated successfully");
+      setSuccess(res.data.message);
     } catch (err) {
+      setError(
+        err.response?.data?.message || "Profile not Updated Something Wrong",
+      );
       console.error("Update Error:", err);
-      alert("Profile not updated");
+      //alert("Profile not updated");
     }
   };
 
@@ -128,6 +134,11 @@ export default function ProfilePage({ children }) {
 
         {/* Scrollable Content */}
         <div className="flex-1 overflow-y-auto px-6 pb-6">
+          {error ? (
+            <p className="font-semibold text-red-700">{error}</p>
+          ) : (
+            <p className="font-semibold text-green-700">{success}</p>
+          )}
           <div className="flex flex-col lg:flex-row gap-6">
             {/* Profile Card */}
             <div className="lg:w-1/3">

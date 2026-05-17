@@ -56,7 +56,7 @@ const JobPostForm = () => {
         await api.post("/post", formData);
         //console.log("Job Posted:", res);
         setSuccess("Job Posted Successfully!");
-        navigate("/jobmanagement");
+        //navigate("/jobmanagement");
         setFormData({
           title: "",
           disc: "",

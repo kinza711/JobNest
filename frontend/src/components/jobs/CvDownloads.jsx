@@ -8,7 +8,8 @@ import { Link } from "react-router-dom";
 const ApplicationDownloads = () => {
   const [applications, setApplications] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
   const itemsPerPage = 5;
 
   const indexOfLastItem = currentPage * itemsPerPage;
@@ -48,28 +49,33 @@ const ApplicationDownloads = () => {
 
   const handleDelete = async (appId) => {
     try {
-      await api.delete(`/app/${appId}`);
+      const res = await api.delete(`/app/${appId}`);
 
       setApplications((prev) => prev.filter((app) => app._id !== appId));
 
-      alert("Application deleted successfully");
+      //alert("Application deleted successfully");
+      setSuccess(res.data.message);
     } catch (err) {
+      setError(err.response?.data?.message || "Something wrong");
       console.error("Delete failed", err);
-      alert("Application delete failed");
+      //alert("Application delete failed");
     }
   };
 
   return (
-    <div className=" space-y-8">
+    <div className=" space-y-5">
       {/* Title */}
       <div>
-        <h2 className="text-xl sm:text-2xl font-bold text-slate-800">
-          Applications
-        </h2>
         <p className="text-sm text-slate-500">
           Manage all job applications submitted by candidates
         </p>
       </div>
+
+      {error ? (
+        <p className="font-semibold text-red-700">{error}</p>
+      ) : (
+        <p className="font-semibold text-green-700">{success}</p>
+      )}
 
       {/* Table */}
       <div className="glass-panel rounded-2xl shadow-xl shadow-brand-primary/5 overflow-hidden">

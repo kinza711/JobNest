@@ -1,5 +1,5 @@
 // code with correct input fileds
-import React from "react";
+import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 export default function ProfileInfo({
@@ -9,6 +9,7 @@ export default function ProfileInfo({
   handleChange,
 }) {
   const navigate = useNavigate();
+ 
   return (
     <div className="lg:col-span-8 space-y-8">
       {/* Personal Info */}
@@ -70,7 +71,7 @@ export default function ProfileInfo({
               Contact info
             </label>
             <input
-              type="number"
+              type="tel"
               name="phone"
               onChange={handleChange}
               value={formData?.phone}
@@ -110,6 +111,8 @@ export default function ProfileInfo({
           </div>
         </div>
       </div>
+
+    
 
       {/* Summary */}
       <div className="glass-card bg-[#f1f6f6] rounded-3xl p-8">

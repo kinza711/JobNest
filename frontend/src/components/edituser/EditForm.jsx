@@ -17,6 +17,8 @@ const EditUser = ({ profile }) => {
   const [users, setUsers] = useState(null);
   const [formData, setFormData] = useState({});
   const navigate = useNavigate();
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
 
   useEffect(() => {
     if (users) {
@@ -55,10 +57,12 @@ const EditUser = ({ profile }) => {
     try {
       const res = await api.put(`/userupdate/${id}`, formData);
       setUsers(res.data.data);
-      alert("user updated successfully");
+      //alert("user updated successfully");
+      setSuccess(res.data.message);
     } catch (err) {
       console.error("user record not found", err);
-      alert("user nott updated successfully");
+      //alert("user nott updated successfully");
+      setError(err.response.data.message);
     }
   };
 
@@ -185,6 +189,11 @@ const EditUser = ({ profile }) => {
                 </div>
               </div>
 
+              {error ? (
+                <p className="text-red-700 font-semibold">{error}</p>
+              ) : (
+                <p className="text-green-700 font-semibold">{success}</p>
+              )}
               {/* Buttons */}
               <div className="pt-6 mt-6 border-t border-slate-100 dark:border-slate-800 flex flex-wrap items-center justify-between gap-4">
                 <div className="flex items-center gap-2">
